@@ -2,27 +2,27 @@
   "zuteilung": [
     {
       "id": 1,
-      "name": "MB 1",
+      "name": "MB1",
       "raum": "Raum 1"
     },
     {
       "id": 2,
-      "name": "MB 2",
+      "name": "MB2",
       "raum": "Raum 2"
     },
     {
       "id": 3,
-      "name": "MB 3",
+      "name": "MB3",
       "raum": "Raum 3"
     },
     {
       "id": 4,
-      "name": "MB 4",
+      "name": "MB4",
       "raum": "Raum 4"
     },
     {
       "id": 5,
-      "name": "MB 5",
+      "name": "MB5",
       "raum": "Raum 5"
     }
   ]

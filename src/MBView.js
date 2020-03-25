@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
-import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
-import Overview from "./Overview";
-import MBView from "./MBView";
+import { BrowserRouter, Link, Route } from "react-router-dom";
 import "./App.css";
 import data from "./werputztwas";
 
-function App() {
+function MBView({ match }) {
   //TODO: funktioniert aktuell nicht mit State... gibt "undefined" zurück.
   /*  useEffect(() => {
     loadData();
@@ -21,16 +19,13 @@ function App() {
 
   const mb = data.zuteilung;
 
+  console.log(match);
+
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Switch>
-          <Route path="/" exact component={Overview} />
-          <Route path="/:name" component={MBView} />
-        </Switch>
-      </div>
-    </BrowserRouter>
+    <div>
+      <h1>Hello MB</h1>
+    </div>
   );
 }
 
-export default App;
+export default MBView;
