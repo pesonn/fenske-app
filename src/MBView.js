@@ -5,25 +5,17 @@ import "./App.css";
 import data from "./werputztwas";
 
 function MBView({ match }) {
-  //TODO: funktioniert aktuell nicht mit State... gibt "undefined" zurück.
-  /*  useEffect(() => {
-    loadData();
-  }, []);
-  const [zuteil, setZuteil] = useState({});
+  const mbname = match.params.name;
 
-  const loadData = () => {
-    setZuteil({ ordnung: data.zuteilung });
-  };
-  console.log(zuteil.find(item => item.id === 1));
- */
+  const mbraum = data.zuteilung.find(item => item.name === mbname).raum;
 
-  const mb = data.zuteilung;
-
-  console.log(match);
+  console.log(mbraum);
 
   return (
     <div>
-      <h1>Hello MB</h1>
+      <h1>Moin {mbname},</h1>
+      <h2>du putzt diese Woche...</h2>
+      <h1>den {mbraum}.... uuuund los!</h1>
     </div>
   );
 }
