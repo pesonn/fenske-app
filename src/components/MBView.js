@@ -68,6 +68,7 @@ function MBView() {
       <button onClick={changeGeputzt} className="button">
         Erledigt!!
       </button>
+      {mb.geputzt === true ? <h1>Für diese Woche bist du durch!</h1> : null}
     </div>
   );
 }
