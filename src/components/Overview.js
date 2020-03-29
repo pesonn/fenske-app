@@ -10,11 +10,16 @@ function Overview() {
     firebase
       .firestore()
       .collection("putzplan")
+      .orderBy("name", "asc")
       .onSnapshot(snapshot => {
         const dbdata = [];
         snapshot.forEach(doc => {
           const data = doc.data();
-          dbdata.push(data);
+          const dbid = doc.id;
+          dbdata.push({ ...data, dbid });
+
+          // for (let db = i; i <= db.length; i++) {}
+          console.log(dbdata);
         });
         // const getmbsdata = mbsname => {
         //   dbdata.find(item => item.name === mbname);
@@ -23,6 +28,15 @@ function Overview() {
       });
     console.log(mbs);
   }, []);
+
+  //TODO: Anzeige im Overview nach alphabeth sortieren
+  /*  useEffect(() => {
+    function sortMbs() {
+      const newMbs = mbs.sort((a, b) => a.name.localCompare(b.name));
+      setMBs(newMbs);
+    }
+    sortMbs();
+  }, [mbs]); */
 
   return (
     <div className="App">
@@ -41,7 +55,6 @@ function Overview() {
             </Link>
           </h1>
         ))}
-        {console.log(mbs)}
       </header>
     </div>
   );
