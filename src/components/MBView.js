@@ -3,6 +3,7 @@ import { useParams, Redirect } from "react-router-dom";
 import "../App.css";
 
 import firebase from "../firebase";
+import Emoji from "a11y-react-emoji";
 
 function MBView() {
   const { name } = useParams();
@@ -48,11 +49,24 @@ function MBView() {
     texteZuordnen();
   }, [mb]); //damit dieser Effect erst läuft, nachdem sich was an den Daten aus MB geändert hat
 
+  function changeGeputzt() {
+    firebase
+      .firestore()
+      .collection("putzplan")
+      .doc(mb.dbid)
+      .update({ geputzt: true });
+    console.log(mb.geputzt);
+  }
+
   return (
     <div className="App-header">
       <h1>Moin {typeof mb === "undefined" ? <Redirect to="/" /> : mb.name}</h1>
       <h2>Du putzt diese Woche...</h2>
       <h1>{text.raum}</h1>
+
+      <button onClick={changeGeputzt} className="button">
+        Erledigt!!
+      </button>
     </div>
   );
 }
