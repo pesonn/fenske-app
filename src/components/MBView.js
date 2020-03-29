@@ -36,11 +36,11 @@ function MBView() {
         const dbdata = [];
         snapshot.forEach(doc => {
           const data = doc.data();
-          dbdata.push(data);
+          const dbid = doc.id;
+          dbdata.push({ ...data, dbid });
         });
         setMBs(dbdata);
         setMB(dbdata.find(item => item.name === name));
-        console.log(mb);
       });
   }, []);
 
@@ -49,7 +49,7 @@ function MBView() {
   }, [mb]); //damit dieser Effect erst läuft, nachdem sich was an den Daten aus MB geändert hat
 
   return (
-    <div>
+    <div className="App-header">
       <h1>Moin {typeof mb === "undefined" ? <Redirect to="/" /> : mb.name}</h1>
       <h2>Du putzt diese Woche...</h2>
       <h1>{text.raum}</h1>
