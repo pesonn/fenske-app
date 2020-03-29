@@ -2,28 +2,28 @@
   "zuteilung": [
     {
       "id": 1,
-      "name": "MB1",
-      "raum": "Raum 1"
+      "name": "Yannick",
+      "raum": "Bad 1"
     },
     {
       "id": 2,
-      "name": "MB2",
-      "raum": "Raum 2"
+      "name": "Melina",
+      "raum": "Küche"
     },
     {
       "id": 3,
-      "name": "MB3",
-      "raum": "Raum 3"
+      "name": "Bastian",
+      "raum": "Bad 2"
     },
     {
       "id": 4,
-      "name": "MB4",
-      "raum": "Raum 4"
+      "name": "Lisa",
+      "raum": "Wohnen"
     },
     {
       "id": 5,
-      "name": "MB5",
-      "raum": "Raum 5"
+      "name": "Jan",
+      "raum": "Müll"
     }
   ]
 }
