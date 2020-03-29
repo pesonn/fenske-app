@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import "../App.css";
+import "../styles/MBView.css";
 
 import firebase from "../firebase";
 import Emoji from "a11y-react-emoji";
