@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import firebase from "../firebase";
+import Emoji from "a11y-react-emoji";
 
 function Overview() {
   const [mbs, setMBs] = useState([]);
@@ -35,7 +36,8 @@ function Overview() {
                 },
               }}
             >
-              {item.name}
+              {item.name}{" "}
+              {item.geputzt ? <Emoji symbol="✅" /> : <Emoji symbol="❌" />}
             </Link>
           </h1>
         ))}
