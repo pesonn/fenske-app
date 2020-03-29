@@ -58,17 +58,31 @@ function MBView() {
       .update({ geputzt: true });
     console.log(mb.geputzt);
   }
+  function changeBackGeputzt() {
+    firebase
+      .firestore()
+      .collection("putzplan")
+      .doc(mb.dbid)
+      .update({ geputzt: false });
+    console.log(mb.geputzt);
+  }
 
   return (
     <div className="App-header">
       <h1>Moin {typeof mb === "undefined" ? <Redirect to="/" /> : mb.name}</h1>
       <h2>Du putzt diese Woche...</h2>
       <h1>{text.raum}</h1>
-
-      <button onClick={changeGeputzt} className="button">
-        Erledigt!!
-      </button>
       {mb.geputzt === true ? <h1>Für diese Woche bist du durch!</h1> : null}
+
+      {mb.geputzt === false ? (
+        <button onClick={changeGeputzt} className="button">
+          Erledigt!!
+        </button>
+      ) : (
+        <button onClick={changeBackGeputzt} className="button--changeback">
+          Upsi doch nicht .. mach mal wieder zurück
+        </button>
+      )}
     </div>
   );
 }
