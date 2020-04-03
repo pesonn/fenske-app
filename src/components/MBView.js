@@ -3,7 +3,8 @@ import { useParams, Redirect } from "react-router-dom";
 import "../App.css";
 import "../styles/MBView.css";
 
-import firebase from "../firebase";
+import { getFirebaseCollection } from "../firebase";
+// import getFirebaseCollection from "../getFirebase";
 import Emoji from "a11y-react-emoji";
 
 function MBView() {
@@ -31,19 +32,16 @@ function MBView() {
   }
 
   useEffect(() => {
-    firebase
-      .firestore()
-      .collection("putzplan")
-      .onSnapshot(snapshot => {
-        const dbdata = [];
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const dbid = doc.id;
-          dbdata.push({ ...data, dbid });
-        });
-        setMBs(dbdata);
-        setMB(dbdata.find(item => item.name === name));
+    getFirebaseCollection("putzplan").onSnapshot((snapshot) => {
+      const dbdata = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const dbid = doc.id;
+        dbdata.push({ ...data, dbid });
       });
+      setMBs(dbdata);
+      setMB(dbdata.find((item) => item.name === name));
+    });
   }, []);
 
   useEffect(() => {
@@ -51,19 +49,11 @@ function MBView() {
   }, [mb]); //damit dieser Effect erst läuft, nachdem sich was an den Daten aus MB geändert hat
 
   function changeGeputzt() {
-    firebase
-      .firestore()
-      .collection("putzplan")
-      .doc(mb.dbid)
-      .update({ geputzt: true });
+    getFirebaseCollection("putzplan").doc(mb.dbid).update({ geputzt: true });
     console.log(mb.geputzt);
   }
   function changeBackGeputzt() {
-    firebase
-      .firestore()
-      .collection("putzplan")
-      .doc(mb.dbid)
-      .update({ geputzt: false });
+    getFirebaseCollection("putzplan").doc(mb.dbid).update({ geputzt: false });
     console.log(mb.geputzt);
   }
 
