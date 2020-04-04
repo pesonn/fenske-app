@@ -3,6 +3,7 @@ import { getFirebaseCollectionFrom } from "../firebase";
 
 export default function Admin() {
   const [mbs, setMBs] = useState([]);
+  const [rooms, setRooms] = useState([]);
   const [group1, setGroup1] = useState([]);
   const [group2, setGroup2] = useState([]);
 
@@ -13,30 +14,38 @@ export default function Admin() {
         const data = doc.data();
         const dbid = doc.id;
         dbdata.push({ ...data, dbid });
-        console.log(dbdata);
       });
       setMBs(dbdata);
     });
   }
-
-  // to clear rooms and geputzt-state in Database
-  function resetDatabase() {
-    mbs.forEach((mb) => {
-      getFirebaseCollectionFrom("putzplan")
-        .doc(mb.dbid)
-        .update({ geputzt: false, room: "" });
+  function getRoomsFromDatabase() {
+    getFirebaseCollectionFrom("rooms").onSnapshot((snapshot) => {
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        setRooms(data);
+      });
     });
   }
 
   useEffect(() => {
     getUsersFromDatabase();
+    getRoomsFromDatabase();
   }, []);
   useEffect(() => {
     setGroups(group1, group2);
   }, [mbs]);
 
-  const brooms = ["Bad 1", "Bad 2", 3, 4, 5];
-  const orooms = ["Küche", "Wohnen", "Müll"];
+  // to clear rooms and geputzt-state in Database
+  function resetDatabase() {
+    // Database
+    mbs.forEach((mb) => {
+      /* getFirebaseCollectionFrom("putzplan")
+        .doc(mb.dbid)
+        .update({ geputzt: false, room: "" }); */
+      mb.room = "";
+      mb.geputzt = false;
+    });
+  }
 
   function setGroups(groupname1, groupname2) {
     // Find evey MB with Groupname 1
@@ -63,21 +72,62 @@ export default function Admin() {
   }
 
   function setBathRoom(id, bathroomname) {
-    getFirebaseCollectionFrom("putzplan")
+    /* getFirebaseCollectionFrom("putzplan")
       .doc(id)
-      .update({ room: bathroomname });
+      .update({ room: bathroomname }); */
+    let mb = mbs.find((mb) => mb.dbid === id);
+    mb.room = bathroomname;
+    console.log(mbs);
   }
 
-  function setNewRooms() {
-    resetDatabase();
+  function setOtherRooms() {
+    let usedNumbers = [];
+    let forOtherRooms = [];
+    while (usedNumbers.length < rooms.otherrooms.length) {
+      var n = Math.floor(Math.random() * Math.floor(rooms.otherrooms.length));
+      if (usedNumbers.indexOf(n) === -1) usedNumbers.push(n);
+    }
+    console.log(usedNumbers);
+
+    mbs.forEach((mb) => {
+      if (mb.room === "") {
+        forOtherRooms.push(mb);
+      }
+    });
+
+    for (let i = 0; i < forOtherRooms.length; i++) {
+      /* getFirebaseCollectionFrom("putzplan")
+        .doc(forOtherRooms[usedNumbers[i]].dbid)
+        .update({ room: rooms.otherrooms[usedNumbers[i]] }); */
+      forOtherRooms[usedNumbers[i]].room = rooms.otherrooms[usedNumbers[i]];
+    }
+  }
+  function setBathRooms() {
     let IDfromgroup1 = findOneMbFromGroup(group1).dbid;
     let IDfromgroup2 = findOneMbFromGroup(group2).dbid;
-    console.log(IDfromgroup1);
-    console.log(IDfromgroup2);
 
     // Badezimmer zuteilen
-    setBathRoom(IDfromgroup1, "Bad 1");
-    setBathRoom(IDfromgroup2, "Bad 2");
+    setBathRoom(IDfromgroup1, rooms.bathrooms[0]);
+    setBathRoom(IDfromgroup2, rooms.bathrooms[1]);
+
+    // restliche Zimmer zuteilen
+  }
+
+  function setAllRooms() {
+    resetDatabase();
+    setBathRooms();
+    setOtherRooms();
+    console.log(mbs);
+    updateDatabase();
+  }
+
+  function updateDatabase() {
+    mbs.forEach((mb) => {
+      getFirebaseCollectionFrom("putzplan").doc(mb.dbid).update({
+        room: mb.room,
+        geputzt: mb.geputzt,
+      });
+    });
   }
 
   return (
@@ -85,7 +135,9 @@ export default function Admin() {
       <h1>Hello Admin</h1>
       <p></p>
       <button onClick={getUsersFromDatabase}>Los geht's!</button>
-      <button onClick={setNewRooms}>zeig mal her</button>
+      <button onClick={setBathRooms}>zeig mal her BÄDER</button>
+      <button onClick={setOtherRooms}>zeig mal her die anderen</button>
+      <button onClick={setAllRooms}>zeig mal her ALLE</button>
     </div>
   );
 }
