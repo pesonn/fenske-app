@@ -37,16 +37,13 @@ export default function Admin() {
 
   // to clear rooms and geputzt-state in Database
   function resetDatabase() {
-    // Database
     mbs.forEach((mb) => {
-      /* getFirebaseCollectionFrom("putzplan")
-        .doc(mb.dbid)
-        .update({ geputzt: false, room: "" }); */
       mb.room = "";
       mb.geputzt = false;
     });
   }
 
+  // MBs werden in Gruppen entsprchend der Badezimmeraufteilung aufgeteilt, Group 1 = Badezimmer 1, Group 2 = Badezimmer 2
   function setGroups(groupname1, groupname2) {
     // Find evey MB with Groupname 1
     for (let i = 0; i < mbs.length; i++) {
@@ -71,13 +68,18 @@ export default function Admin() {
     return mb;
   }
 
-  function setBathRoom(id, bathroomname) {
-    /* getFirebaseCollectionFrom("putzplan")
-      .doc(id)
-      .update({ room: bathroomname }); */
+  function setOneBathRoom(id, bathroomname) {
     let mb = mbs.find((mb) => mb.dbid === id);
     mb.room = bathroomname;
-    console.log(mbs);
+  }
+
+  function setBathRooms() {
+    // Datenbank IDs der MBs abrufen
+    let IDfromgroup1 = findOneMbFromGroup(group1).dbid;
+    let IDfromgroup2 = findOneMbFromGroup(group2).dbid;
+    // Badezimmer zuteilen
+    setOneBathRoom(IDfromgroup1, rooms.bathrooms[0]);
+    setOneBathRoom(IDfromgroup2, rooms.bathrooms[1]);
   }
 
   function setOtherRooms() {
@@ -87,38 +89,16 @@ export default function Admin() {
       var n = Math.floor(Math.random() * Math.floor(rooms.otherrooms.length));
       if (usedNumbers.indexOf(n) === -1) usedNumbers.push(n);
     }
-    console.log(usedNumbers);
-
+    // Alle aus MBs, die bisher kein Room zugeteilt bekommen haben werden in forOtherRooms gespeichert
     mbs.forEach((mb) => {
       if (mb.room === "") {
         forOtherRooms.push(mb);
       }
     });
-
+    // Da die Zahlen zufällig im Array gespeichert sind, erfolgt die Zuordnung nach Indexen
     for (let i = 0; i < forOtherRooms.length; i++) {
-      /* getFirebaseCollectionFrom("putzplan")
-        .doc(forOtherRooms[usedNumbers[i]].dbid)
-        .update({ room: rooms.otherrooms[usedNumbers[i]] }); */
       forOtherRooms[usedNumbers[i]].room = rooms.otherrooms[usedNumbers[i]];
     }
-  }
-  function setBathRooms() {
-    let IDfromgroup1 = findOneMbFromGroup(group1).dbid;
-    let IDfromgroup2 = findOneMbFromGroup(group2).dbid;
-
-    // Badezimmer zuteilen
-    setBathRoom(IDfromgroup1, rooms.bathrooms[0]);
-    setBathRoom(IDfromgroup2, rooms.bathrooms[1]);
-
-    // restliche Zimmer zuteilen
-  }
-
-  function setAllRooms() {
-    resetDatabase();
-    setBathRooms();
-    setOtherRooms();
-    console.log(mbs);
-    updateDatabase();
   }
 
   function updateDatabase() {
@@ -128,6 +108,17 @@ export default function Admin() {
         geputzt: mb.geputzt,
       });
     });
+  }
+
+  function setAllRooms() {
+    // room = "", geputzt = "false"
+    resetDatabase();
+    // Badezimmer zuordnen
+    setBathRooms();
+    // restliche Räume zuordnen
+    setOtherRooms();
+    // Daten aus mbs State in Datenbank hochladen
+    updateDatabase();
   }
 
   return (
