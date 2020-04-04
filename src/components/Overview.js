@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
-import { getFirebaseCollection } from "../firebase";
+import { getFirebaseCollectionFrom } from "../firebase";
 import Emoji from "a11y-react-emoji";
 
 function Overview() {
   const [mbs, setMBs] = useState([]);
 
   useEffect(() => {
-    getFirebaseCollection("putzplan")
+    getFirebaseCollectionFrom("putzplan")
       .orderBy("name", "asc") // sortiert anzeige alphabetisch
       .onSnapshot((snapshot) => {
         const dbdata = [];

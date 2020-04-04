@@ -3,7 +3,7 @@ import { useParams, Redirect } from "react-router-dom";
 import "../App.css";
 import "../styles/MBView.css";
 
-import { getFirebaseCollection } from "../firebase";
+import { getFirebaseCollectionFrom } from "../firebase";
 // import getFirebaseCollection from "../getFirebase";
 import Emoji from "a11y-react-emoji";
 
@@ -32,7 +32,7 @@ function MBView() {
   }
 
   useEffect(() => {
-    getFirebaseCollection("putzplan").onSnapshot((snapshot) => {
+    getFirebaseCollectionFrom("putzplan").onSnapshot((snapshot) => {
       const dbdata = [];
       snapshot.forEach((doc) => {
         const data = doc.data();
@@ -49,11 +49,15 @@ function MBView() {
   }, [mb]); //damit dieser Effect erst läuft, nachdem sich was an den Daten aus MB geändert hat
 
   function changeGeputzt() {
-    getFirebaseCollection("putzplan").doc(mb.dbid).update({ geputzt: true });
+    getFirebaseCollectionFrom("putzplan")
+      .doc(mb.dbid)
+      .update({ geputzt: true });
     console.log(mb.geputzt);
   }
   function changeBackGeputzt() {
-    getFirebaseCollection("putzplan").doc(mb.dbid).update({ geputzt: false });
+    getFirebaseCollectionFrom("putzplan")
+      .doc(mb.dbid)
+      .update({ geputzt: false });
     console.log(mb.geputzt);
   }
 
