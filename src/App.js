@@ -15,8 +15,8 @@ function App() {
         <Switch>
           <Route path="/" exact component={Overview} />
           <Route path="/Admin" exact component={Admin} />
-          <Route path="/:name" component={MBView} />
           <Route path="/Legals" exact component={Legals} />
+          <Route path="/:name" component={MBView} />
         </Switch>
       </div>
     </BrowserRouter>
