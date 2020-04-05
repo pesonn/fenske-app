@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Fenske's Putzplan",
+  "name": "Fenske putzt! - Die App für die WG im EG",
   "icons": [
     {
       "src": "favicon.ico",
