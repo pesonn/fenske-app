@@ -40,6 +40,9 @@ function Overview() {
           </h1>
         ))}
       </header>
+      <sub>
+        <Link to="/Legals">Legals</Link>
+      </sub>
     </div>
   );
 }
