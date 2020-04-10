@@ -207,10 +207,13 @@ function MBView() {
 
         {mb.geputzt === false ? (
           <button onClick={checkForWeeklyUpdate} className="button">
-            Erledigt!!
+            Erledigt!
           </button>
         ) : (
-          <button onClick={changeBackGeputzt} className="button--changeback">
+          <button
+            onClick={changeBackGeputzt}
+            className="button button--changeback"
+          >
             Upsi doch nicht .. mach mal wieder zurück
           </button>
         )}
