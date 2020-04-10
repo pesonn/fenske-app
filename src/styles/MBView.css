@@ -1,4 +1,24 @@
-.button {
+.mb_wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mb_wrapper .mbview {
+  margin-top: -15vh;
+}
+.mb_wrapper .mbview__title {
+  font-size: 4rem;
+  margin-bottom: 45px;
+}
+.mb_wrapper .mbview__description {
+  font-size: 2rem;
+  margin-bottom: 45px;
+}
+.mb_wrapper .mbview__room {
+  font-size: 4rem;
+  margin-bottom: 45px;
+}
+.mb_wrapper .mbview .button {
   margin-top: 50px;
   width: 350px;
   height: 60px;
@@ -8,8 +28,7 @@
   border-radius: 10px;
   background-color: #cecece;
 }
-
-.button--changeback {
+.mb_wrapper .mbview .button--changeback {
   position: absolute;
   bottom: 20px;
   right: 15px;

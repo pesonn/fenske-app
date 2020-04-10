@@ -1,0 +1,28 @@
+.ov_wrapper {
+  display: flex;
+
+  .nameslist {
+    height: 80vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    &__names {
+      width: 100%;
+      font-size: 7vh;
+
+      .emoji {
+        font-size: 5.5vh;
+        margin-left: 15px;
+      }
+    }
+  }
+}
+
+.legals {
+  position: absolute;
+  bottom: 15px;
+  right: 30px;
+  font-size: 0.8rem;
+}

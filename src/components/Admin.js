@@ -111,14 +111,17 @@ export default function Admin() {
   }
 
   function setAllRooms() {
-    // room = "", geputzt = "false"
+    /*  // room = "", geputzt = "false"
     resetDatabase();
     // Badezimmer zuordnen
     setBathRooms();
     // restliche Räume zuordnen
     setOtherRooms();
     // Daten aus mbs State in Datenbank hochladen
-    updateDatabase();
+    updateDatabase(); */
+
+    const today = new Date();
+    console.log(today.getDate());
   }
 
   return (

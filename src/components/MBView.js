@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
 import "../App.css";
+import "../styles/generals.css";
 import "../styles/MBView.css";
 
 import { getFirebaseCollectionFrom } from "../firebase";
@@ -195,21 +196,25 @@ function MBView() {
   }
 
   return (
-    <div className="App-header">
-      <h1>Moin {typeof mb === "undefined" ? <Redirect to="/" /> : mb.name}</h1>
-      <h2>Du putzt diese Woche...</h2>
-      <h1>{text.raum}</h1>
-      {mb.geputzt === true ? <h1>Für diese Woche bist du durch!</h1> : null}
+    <div className="background mb_wrapper">
+      <div className="mbview ">
+        <h1 className="mbview__title">
+          Moin {typeof mb === "undefined" ? <Redirect to="/" /> : mb.name}!
+        </h1>
+        <h2 className="mbview__description">Du putzt diese Woche...</h2>
+        <h1 className="mbview__room">{text.raum}</h1>
+        {mb.geputzt === true ? <h1>Für diese Woche bist du durch!</h1> : null}
 
-      {mb.geputzt === false ? (
-        <button onClick={checkForWeeklyUpdate} className="button">
-          Erledigt!!
-        </button>
-      ) : (
-        <button onClick={changeBackGeputzt} className="button--changeback">
-          Upsi doch nicht .. mach mal wieder zurück
-        </button>
-      )}
+        {mb.geputzt === false ? (
+          <button onClick={checkForWeeklyUpdate} className="button">
+            Erledigt!!
+          </button>
+        ) : (
+          <button onClick={changeBackGeputzt} className="button--changeback">
+            Upsi doch nicht .. mach mal wieder zurück
+          </button>
+        )}
+      </div>
     </div>
   );
 }

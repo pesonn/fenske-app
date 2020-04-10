@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
+import "../styles/generals.css";
+import "../styles/Overview.css";
+
 import { getFirebaseCollectionFrom } from "../firebase";
 import Emoji from "a11y-react-emoji";
 
@@ -22,10 +25,10 @@ function Overview() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="background ov_wrapper">
+      <div className="nameslist">
         {mbs.map((item) => (
-          <h1 key={item.id}>
+          <h1 key={item.id} className="nameslist__names">
             <Link
               to={{
                 pathname: `/${item.name || item.name.toLowerCase()}`,
@@ -35,12 +38,17 @@ function Overview() {
               }}
             >
               {item.name}{" "}
-              {item.geputzt ? <Emoji symbol="✅" /> : <Emoji symbol="❌" />}
+              {item.geputzt ? (
+                <Emoji symbol="✅" />
+              ) : (
+                <Emoji className="emoji" symbol="❌" />
+              )}
             </Link>
           </h1>
         ))}
-      </header>
-      <sub>
+      </div>
+
+      <sub className="legals">
         <Link to="/Legals">Legals</Link>
       </sub>
     </div>
