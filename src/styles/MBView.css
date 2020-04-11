@@ -11,8 +11,8 @@
   height: 100vh;
 }
 .giphy-embed.showgif img {
-  margin-top: 15vh;
-  width: 90vw;
+  margin-top: 8vh;
+  width: 95vw;
   height: auto;
   box-shadow: 0px 0px 250px black;
 }

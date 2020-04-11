@@ -64,7 +64,7 @@ function MBView() {
   useEffect(() => {
     getUsersFromDatabase();
     getRoomsFromDatabase();
-    getGif("vX9WcCiWwUF7G");
+    // getGif("vX9WcCiWwUF7G");
   }, []);
 
   useEffect(() => {
@@ -76,12 +76,20 @@ function MBView() {
     texteZuordnen();
   }, [mb]); //damit dieser Effect erst läuft, nachdem sich was an den Daten aus MB geändert hat
 
+  function showGif() {
+    const giphy = document.querySelector(".giphy-embed");
+    giphy.classList.toggle("showgif");
+  }
+
   function changeGeputzt() {
     // State muss immer zusammen mit der Datenbank aktualisiert werden
     mb.geputzt = true;
     getFirebaseCollectionFrom("putzplan").doc(mb.dbid).update({
       geputzt: mb.geputzt,
     });
+    getGif("TmT51OyQLFD7a");
+    showGif();
+    setTimeout(showGif, 4000);
   }
   function changeBackGeputzt() {
     // State muss immer zusammen mit der Datenbank aktualisiert werden
@@ -90,13 +98,9 @@ function MBView() {
       geputzt: mb.geputzt,
     });
 
-    function showGif() {
-      const giphy = document.querySelector(".giphy-embed");
-
-      giphy.classList.toggle("showgif");
-    }
+    getGif("vX9WcCiWwUF7G");
     showGif();
-    setTimeout(showGif, 3000);
+    setTimeout(showGif, 4000);
   }
 
   function getRoomsFromDatabase() {
