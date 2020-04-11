@@ -20,10 +20,23 @@ function MBView() {
   const [rooms, setRooms] = useState([]);
   const [group1, setGroup1] = useState([]);
   const [group2, setGroup2] = useState([]);
+  const [gifIDfromDB, setGifIDfromDB] = useState({});
   const [gif, setGif] = useState({
     data: {},
     images: {},
   });
+
+  function getGifIDsFromDatabase() {
+    getFirebaseCollectionFrom("gifs").onSnapshot((snapshot) => {
+      let dbdata = {};
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const dbid = doc.id;
+        dbdata = { ...data, dbid };
+      });
+      setGifIDfromDB(dbdata);
+    });
+  }
 
   async function getGif(id) {
     const gf = new GiphyFetch(process.env.REACT_APP_GIPHY_apiKey);
@@ -62,6 +75,7 @@ function MBView() {
   }
 
   useEffect(() => {
+    getGifIDsFromDatabase();
     getUsersFromDatabase();
     getRoomsFromDatabase();
     // getGif("vX9WcCiWwUF7G");
@@ -87,7 +101,7 @@ function MBView() {
     getFirebaseCollectionFrom("putzplan").doc(mb.dbid).update({
       geputzt: mb.geputzt,
     });
-    getGif("TmT51OyQLFD7a");
+    getGif(gifIDfromDB.erledigt);
     showGif();
     setTimeout(showGif, 4000);
   }
@@ -98,7 +112,7 @@ function MBView() {
       geputzt: mb.geputzt,
     });
 
-    getGif("vX9WcCiWwUF7G");
+    getGif(gifIDfromDB.shame);
     showGif();
     setTimeout(showGif, 4000);
   }
@@ -239,6 +253,7 @@ function MBView() {
             </button>
           )}
         </div>
+        {console.log(gifIDfromDB.erledigt)}
       </div>
     </div>
   );
