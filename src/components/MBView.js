@@ -5,6 +5,7 @@ import "../styles/generals.css";
 import "../styles/MBView.css";
 
 import { getFirebaseCollectionFrom } from "../firebase";
+import { GiphyFetch } from "@giphy/js-fetch-api";
 
 // import getFirebaseCollection from "../getFirebase";
 import Emoji from "a11y-react-emoji";
@@ -19,6 +20,16 @@ function MBView() {
   const [rooms, setRooms] = useState([]);
   const [group1, setGroup1] = useState([]);
   const [group2, setGroup2] = useState([]);
+  const [gif, setGif] = useState({
+    data: {},
+    images: {},
+  });
+
+  async function getGif(id) {
+    const gf = new GiphyFetch(process.env.REACT_APP_GIPHY_apiKey);
+    const result = await gf.gif(id);
+    setGif({ data: result.data, images: result.data.images.original });
+  }
 
   function texteZuordnen() {
     if (mb.room === "Bad 1" || mb.room === "Bad 2") {
@@ -53,7 +64,9 @@ function MBView() {
   useEffect(() => {
     getUsersFromDatabase();
     getRoomsFromDatabase();
+    getGif("vX9WcCiWwUF7G");
   }, []);
+
   useEffect(() => {
     setGroups(group1, group2);
     console.log(mbs);
@@ -64,24 +77,26 @@ function MBView() {
   }, [mb]); //damit dieser Effect erst läuft, nachdem sich was an den Daten aus MB geändert hat
 
   function changeGeputzt() {
-    /* getFirebaseCollectionFrom("putzplan")
-      .doc(mb.dbid)
-      .update({ geputzt: true }); */
+    // State muss immer zusammen mit der Datenbank aktualisiert werden
     mb.geputzt = true;
     getFirebaseCollectionFrom("putzplan").doc(mb.dbid).update({
       geputzt: mb.geputzt,
     });
-    //TODO: Muss auch erst MBS State aktualisiert werden und dann später das Datenbankupdate erfolgen
   }
   function changeBackGeputzt() {
-    /* getFirebaseCollectionFrom("putzplan")
-      .doc(mb.dbid)
-      .update({ geputzt: false }); */
+    // State muss immer zusammen mit der Datenbank aktualisiert werden
     mb.geputzt = false;
     getFirebaseCollectionFrom("putzplan").doc(mb.dbid).update({
       geputzt: mb.geputzt,
     });
-    //TODO: Muss auch erst MBS State aktualisiert werden und dann später das Datenbankupdate erfolgen
+
+    function showGif() {
+      const giphy = document.querySelector(".giphy-embed");
+
+      giphy.classList.toggle("showgif");
+    }
+    showGif();
+    setTimeout(showGif, 3000);
   }
 
   function getRoomsFromDatabase() {
@@ -194,27 +209,32 @@ function MBView() {
   }
 
   return (
-    <div className="background mb_wrapper">
-      <div className="mbview ">
-        <h1 className="mbview__title">
-          Moin {typeof mb === "undefined" ? <Redirect to="/" /> : mb.name}!
-        </h1>
-        <h2 className="mbview__description">Du putzt diese Woche...</h2>
-        <h1 className="mbview__room">{text.raum}</h1>
-        {mb.geputzt === true ? <h1>Für diese Woche bist du durch!</h1> : null}
+    <div className="background">
+      <div className="giphy-embed">
+        <img src={gif.images.url} alt={gif.data.title} />
+      </div>
+      <div className="mb_wrapper">
+        <div className="mbview ">
+          <h1 className="mbview__title">
+            Moin {typeof mb === "undefined" ? <Redirect to="/" /> : mb.name}!
+          </h1>
+          <h2 className="mbview__description">Du putzt diese Woche...</h2>
+          <h1 className="mbview__room">{text.raum}</h1>
+          {mb.geputzt === true ? <h1>Für diese Woche bist du durch!</h1> : null}
 
-        {mb.geputzt === false ? (
-          <button onClick={checkForWeeklyUpdate} className="button">
-            Erledigt!
-          </button>
-        ) : (
-          <button
-            onClick={changeBackGeputzt}
-            className="button button--changeback"
-          >
-            Upsi doch nicht .. mach mal wieder zurück
-          </button>
-        )}
+          {mb.geputzt === false ? (
+            <button onClick={checkForWeeklyUpdate} className="button">
+              Erledigt!
+            </button>
+          ) : (
+            <button
+              onClick={changeBackGeputzt}
+              className="button button--changeback"
+            >
+              Upsi doch nicht .. mach mal wieder zurück
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );

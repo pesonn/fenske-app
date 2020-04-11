@@ -1,10 +1,29 @@
+.giphy-embed {
+  display: none;
+}
+.giphy-embed.showgif {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+}
+.giphy-embed.showgif img {
+  margin-top: 15vh;
+  width: 90vw;
+  height: auto;
+  box-shadow: 0px 0px 250px black;
+}
+
 .mb_wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .mb_wrapper .mbview {
-  margin-top: -15vh;
+  margin-top: 15vh;
 }
 .mb_wrapper .mbview__title {
   font-size: 4rem;
