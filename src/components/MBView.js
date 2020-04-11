@@ -191,8 +191,6 @@ function MBView() {
         "Du hast als letztes geputzt... das ist nichts schlechtes! Immerhin hast du dafür gesorgt, dass die Verteilung für die nächste Woche zufällig neu entschieden wurde! Hab noch einen schönen restlichen Tag!",
       );
     }
-    console.log(everystatus);
-    console.log(mbs);
   }
 
   return (
