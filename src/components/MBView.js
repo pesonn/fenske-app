@@ -21,12 +21,16 @@ function MBView() {
   const [group1, setGroup1] = useState([]);
   const [group2, setGroup2] = useState([]);
   const [gifIDfromDB, setGifIDfromDB] = useState({});
-  const [gif, setGif] = useState({
+  const [gif1, setGif1] = useState({
+    data: {},
+    images: {},
+  });
+  const [gif2, setGif2] = useState({
     data: {},
     images: {},
   });
 
-  function getGifIDsFromDatabase() {
+  /*  function getGifIDsFromDatabase() {
     getFirebaseCollectionFrom("gifs").onSnapshot((snapshot) => {
       let dbdata = {};
       snapshot.forEach((doc) => {
@@ -34,14 +38,59 @@ function MBView() {
         const dbid = doc.id;
         dbdata = { ...data, dbid };
       });
-      setGifIDfromDB(dbdata);
     });
-  }
+  } */
 
-  async function getGif(id) {
+  /* async function getGif(id) {
     const gf = new GiphyFetch(process.env.REACT_APP_GIPHY_apiKey);
     const result = await gf.gif(id);
     setGif({ data: result.data, images: result.data.images.original });
+  } */
+  async function getGif1(id) {
+    let blabla = {};
+
+    // get GIF ID from Database
+    getFirebaseCollectionFrom("gifs").onSnapshot((snapshot) => {
+      const dbdata = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const dbid = doc.id;
+        dbdata.push({ ...data, dbid });
+      });
+      console.log(dbdata);
+      blabla = dbdata.find((item) => item.gifname === id);
+
+      fetch(
+        `https://api.giphy.com/v1/gifs/${blabla.gifid}?api_key=${process.env.REACT_APP_GIPHY_apiKey}`,
+      )
+        .then((response) => response.json())
+        .then((data) =>
+          setGif1({ data: data.data, images: data.data.images.original }),
+        );
+    });
+  }
+  async function getGif2(id) {
+    let blabla = {};
+
+    // get GIF ID from Database
+    getFirebaseCollectionFrom("gifs").onSnapshot((snapshot) => {
+      const dbdata = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const dbid = doc.id;
+        dbdata.push({ ...data, dbid });
+      });
+      console.log(dbdata);
+      blabla = dbdata.find((item) => item.gifname === id);
+
+      fetch(
+        `https://api.giphy.com/v1/gifs/${blabla.gifid}?api_key=${process.env.REACT_APP_GIPHY_apiKey}`,
+      )
+        .then((response) => response.json())
+        .then((data) =>
+          setGif2({ data: data.data, images: data.data.images.original }),
+        );
+    });
   }
 
   function texteZuordnen() {
@@ -75,9 +124,11 @@ function MBView() {
   }
 
   useEffect(() => {
-    getGifIDsFromDatabase();
+    // getGifIDsFromDatabase();
     getUsersFromDatabase();
     getRoomsFromDatabase();
+    getGif1("erledigt");
+    getGif2("shame");
     // getGif("vX9WcCiWwUF7G");
   }, []);
 
@@ -90,8 +141,8 @@ function MBView() {
     texteZuordnen();
   }, [mb]); //damit dieser Effect erst läuft, nachdem sich was an den Daten aus MB geändert hat
 
-  function showGif() {
-    const giphy = document.querySelector(".giphy-embed");
+  function showGif(gifnumber) {
+    const giphy = document.querySelector(gifnumber);
     giphy.classList.toggle("showgif");
   }
 
@@ -101,9 +152,9 @@ function MBView() {
     getFirebaseCollectionFrom("putzplan").doc(mb.dbid).update({
       geputzt: mb.geputzt,
     });
-    getGif(gifIDfromDB.erledigt);
-    showGif();
-    setTimeout(showGif, 4000);
+    // getGif(gifIDfromDB.erledigt);
+    showGif(".gif1");
+    setTimeout(() => showGif(".gif1"), 3000);
   }
   function changeBackGeputzt() {
     // State muss immer zusammen mit der Datenbank aktualisiert werden
@@ -112,9 +163,9 @@ function MBView() {
       geputzt: mb.geputzt,
     });
 
-    getGif(gifIDfromDB.shame);
-    showGif();
-    setTimeout(showGif, 4000);
+    // getGif(gifIDfromDB.shame);
+    showGif(".gif2");
+    setTimeout(() => showGif(".gif2"), 3000);
   }
 
   function getRoomsFromDatabase() {
@@ -229,7 +280,9 @@ function MBView() {
   return (
     <div className="background">
       <div className="giphy-embed">
-        <img src={gif.images.url} alt={gif.data.title} />
+        {console.log(gif1)}
+        <img className="gif1" src={gif1.images.url} alt={gif1.data.title} />
+        <img className="gif2" src={gif2.images.url} alt={gif2.data.title} />
       </div>
       <div className="mb_wrapper">
         <div className="mbview ">
@@ -253,7 +306,6 @@ function MBView() {
             </button>
           )}
         </div>
-        {console.log(gifIDfromDB.erledigt)}
       </div>
     </div>
   );
