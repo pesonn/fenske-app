@@ -1,7 +1,6 @@
 .giphy-embed {
   display: block;
   position: absolute;
-  z-index: 100;
   top: 0;
   width: 100vw;
   height: 100vh;
@@ -16,6 +15,7 @@
       object-fit: contain;
       &.showgif {
         display: block;
+        z-index: 100;
       }
     }
   }
