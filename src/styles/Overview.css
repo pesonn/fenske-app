@@ -1,16 +1,12 @@
 .ov_wrapper {
-  display: -webkit-box;
   display: flex;
 }
 .ov_wrapper .nameslist {
   height: 80vh;
-  margin-top: 10px;
-  display: -webkit-box;
+  margin-top: 3vh;
   display: flex;
   flex-wrap: wrap;
-  -webkit-box-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
   align-items: center;
 }
 .ov_wrapper .nameslist__names {
@@ -30,3 +26,5 @@
   right: 30px;
   font-size: 0.8rem;
 }
+
+/*# sourceMappingURL=Overview.css.map */
