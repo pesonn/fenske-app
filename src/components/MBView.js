@@ -21,11 +21,12 @@ function MBView() {
   const [group1, setGroup1] = useState([]);
   const [group2, setGroup2] = useState([]);
   const [gifIDfromDB, setGifIDfromDB] = useState({});
-  const [gif1, setGif1] = useState({
+  const [gif1, setGif1] = useState([]);
+  const [gif2, setGif2] = useState({
     data: {},
     images: {},
   });
-  const [gif2, setGif2] = useState({
+  const [showedGif, setShowedGif] = useState({
     data: {},
     images: {},
   });
@@ -46,8 +47,37 @@ function MBView() {
     const result = await gf.gif(id);
     setGif({ data: result.data, images: result.data.images.original });
   } */
-  async function getGif1(id) {
-    let blabla = {};
+  async function getGif1() {
+    // get GIF ID from Database
+    getFirebaseCollectionFrom("gifs").onSnapshot((snapshot) => {
+      const dbdata = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const dbid = doc.id;
+        dbdata.push({ ...data, dbid });
+      });
+      console.log(dbdata);
+      // let gifname = dbdata.find((item) => item.gifname === dbdata.)
+      const datafromdb = [];
+      dbdata.forEach((item) => {
+        fetch(
+          `https://api.giphy.com/v1/gifs/${item.gifid}?api_key=${process.env.REACT_APP_GIPHY_apiKey}`,
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            datafromdb.push({
+              data: data.data,
+              images: data.data.images.original,
+              gifname: item.gifname,
+            });
+            console.log(datafromdb);
+            setGif1(datafromdb);
+          });
+      });
+    });
+  }
+  /*  async function getGif2(id) {
+    let gifloader = {};
 
     // get GIF ID from Database
     getFirebaseCollectionFrom("gifs").onSnapshot((snapshot) => {
@@ -58,40 +88,17 @@ function MBView() {
         dbdata.push({ ...data, dbid });
       });
       console.log(dbdata);
-      blabla = dbdata.find((item) => item.gifname === id);
+      gifloader = dbdata.find((item) => item.gifname === id);
 
       fetch(
-        `https://api.giphy.com/v1/gifs/${blabla.gifid}?api_key=${process.env.REACT_APP_GIPHY_apiKey}`,
+        `https://api.giphy.com/v1/gifs/${gifloader.gifid}?api_key=${process.env.REACT_APP_GIPHY_apiKey}`,
       )
         .then((response) => response.json())
-        .then((data) =>
-          setGif1({ data: data.data, images: data.data.images.original }),
-        );
+        .then((data) => {
+          setGif2({ data: data.data, images: data.data.images.original });
+        });
     });
-  }
-  async function getGif2(id) {
-    let blabla = {};
-
-    // get GIF ID from Database
-    getFirebaseCollectionFrom("gifs").onSnapshot((snapshot) => {
-      const dbdata = [];
-      snapshot.forEach((doc) => {
-        const data = doc.data();
-        const dbid = doc.id;
-        dbdata.push({ ...data, dbid });
-      });
-      console.log(dbdata);
-      blabla = dbdata.find((item) => item.gifname === id);
-
-      fetch(
-        `https://api.giphy.com/v1/gifs/${blabla.gifid}?api_key=${process.env.REACT_APP_GIPHY_apiKey}`,
-      )
-        .then((response) => response.json())
-        .then((data) =>
-          setGif2({ data: data.data, images: data.data.images.original }),
-        );
-    });
-  }
+  } */
 
   function texteZuordnen() {
     if (mb.room === "Bad 1" || mb.room === "Bad 2") {
@@ -127,8 +134,9 @@ function MBView() {
     // getGifIDsFromDatabase();
     getUsersFromDatabase();
     getRoomsFromDatabase();
-    getGif1("erledigt");
-    getGif2("shame");
+    getGif1();
+    // getGif2("shame");
+
     // getGif("vX9WcCiWwUF7G");
   }, []);
 
@@ -141,8 +149,13 @@ function MBView() {
     texteZuordnen();
   }, [mb]); //damit dieser Effect erst läuft, nachdem sich was an den Daten aus MB geändert hat
 
-  function showGif(gifnumber) {
-    const giphy = document.querySelector(gifnumber);
+  function setCorrectGif(gifname) {
+    let correctgif = gif1.find((item) => item.gifname === gifname);
+    setShowedGif(correctgif);
+  }
+
+  function showGif() {
+    const giphy = document.querySelector(".giphy-embed");
     giphy.classList.toggle("showgif");
   }
 
@@ -153,8 +166,9 @@ function MBView() {
       geputzt: mb.geputzt,
     });
     // getGif(gifIDfromDB.erledigt);
-    showGif(".gif1");
-    setTimeout(() => showGif(".gif1"), 3000);
+    setCorrectGif("erledigt");
+    showGif();
+    setTimeout(showGif, 3000);
   }
   function changeBackGeputzt() {
     // State muss immer zusammen mit der Datenbank aktualisiert werden
@@ -164,8 +178,9 @@ function MBView() {
     });
 
     // getGif(gifIDfromDB.shame);
-    showGif(".gif2");
-    setTimeout(() => showGif(".gif2"), 3000);
+    setCorrectGif("shame");
+    showGif();
+    setTimeout(showGif, 3000);
   }
 
   function getRoomsFromDatabase() {
@@ -281,8 +296,11 @@ function MBView() {
     <div className="background">
       <div className="giphy-embed">
         {console.log(gif1)}
-        <img className="gif1" src={gif1.images.url} alt={gif1.data.title} />
-        <img className="gif2" src={gif2.images.url} alt={gif2.data.title} />
+        <img
+          className="gif"
+          src={showedGif.images.url}
+          alt={showedGif.data.title}
+        />
       </div>
       <div className="mb_wrapper">
         <div className="mbview ">
