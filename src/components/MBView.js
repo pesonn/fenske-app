@@ -320,7 +320,7 @@ function MBView() {
               onClick={changeBackGeputzt}
               className="button button--changeback"
             >
-              Upsi doch nicht .. mach mal wieder zurück
+              Upsi doch nicht ... mach mal wieder zurück
             </button>
           )}
         </div>
