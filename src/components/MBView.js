@@ -16,6 +16,7 @@ function MBView() {
   const [mb, setMB] = useState([]);
   const [text, setText] = useState({
     raum: "",
+    isPlasticWeek: false,
   });
   const [rooms, setRooms] = useState([]);
   const [group1, setGroup1] = useState([]);
@@ -99,12 +100,37 @@ function MBView() {
         });
     });
   } */
+  function checkForPlasticWeek() {
+    // got the code from: https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php
+    // eslint-disable-next-line no-extend-native
+    Date.prototype.getWeekNumber = function () {
+      var d = new Date(
+        Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()),
+      );
+      var dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+    };
+    let date = new Date();
+    let weekNumber = date.getWeekNumber();
+
+    if (weekNumber % 2 === 0) {
+      setText({ isPlasticWeek: true });
+    } else {
+      setText({ isPlasticWeek: false });
+    }
+  }
 
   function texteZuordnen() {
     if (mb.room === "Bad 1" || mb.room === "Bad 2") {
       setText({ raum: "das Bad!" });
     } else if (mb.room === "Müll") {
-      setText({ raum: "den Müll weg!" });
+      if (text.isPlasticWeek) {
+        setText({ raum: "den Müll weg! Denk an PLASTIK!" });
+      } else {
+        setText({ raum: "den Müll weg!" });
+      }
     } else if (mb.room === "Küche") {
       setText({ raum: "die Küche!" });
     } else if (mb.room === "Wohnen") {
@@ -128,6 +154,7 @@ function MBView() {
       // set unique MB for Component View
       setMB(dbdata.find((item) => item.name === name));
     });
+    checkForPlasticWeek();
   }
 
   useEffect(() => {
@@ -143,6 +170,7 @@ function MBView() {
   useEffect(() => {
     setGroups(group1, group2);
     console.log(mbs);
+    checkForPlasticWeek();
   }, [mbs]);
 
   useEffect(() => {
