@@ -52,15 +52,11 @@ function Overview() {
     width: 80%;
     max-width: 900px;
     min-width: 500px;
-    border: 2px solid #;
-    background-color: #2b2b2b;
-    box-shadow: 1px 5px 10px #3d3d3d;
     font-size: 6vh;
 
     & .emoji {
       font-size: 5vh;
       margin: 0 0 0 15px;
-      text-shadow: 0px 0px 0px rgba(255, 255, 255, 0);
     }
   `;
 
