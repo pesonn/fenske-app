@@ -9,7 +9,6 @@ import { GiphyFetch } from "@giphy/js-fetch-api";
 
 // import getFirebaseCollection from "../getFirebase";
 import Emoji from "a11y-react-emoji";
-import { useLayoutEffect } from "react";
 
 function MBView() {
   const { name } = useParams();
@@ -17,7 +16,6 @@ function MBView() {
   const [mb, setMB] = useState([]);
   const [text, setText] = useState({
     raum: "",
-    isPlasticWeek: false,
   });
   const [rooms, setRooms] = useState([]);
   const [group1, setGroup1] = useState([]);
@@ -93,7 +91,6 @@ function MBView() {
       thisweek: thisweeknumber,
       nextweek: nextweeknumber,
     };
-    console.log(weeknumberfrom);
     return weeknumberfrom;
   }
 
@@ -106,8 +103,6 @@ function MBView() {
         // die aktuelle Woche aus der Datenbank stimmt mit der tatsächlichen aktuellen Woche überein.
         if (getWeekNumber().thisweek % 2 === 0) {
           setText({ raum: "den Müll weg! Denk an PLASTIK!" });
-
-          console.log(orgas.data.weeknumber);
         } else {
           setText({ raum: "den Müll weg!" });
         }
@@ -119,9 +114,6 @@ function MBView() {
           setText({ raum: "den Müll weg!" });
         }
       } else {
-        console.log("Da stimmt was mit den Datumsen nicht!");
-        console.log(orgas);
-        console.log(orgas.data.weeknumber);
       }
     } else if (mb.room === "Küche") {
       setText({ raum: "die Küche!" });
@@ -166,7 +158,6 @@ function MBView() {
 
   useEffect(() => {
     texteZuordnen();
-    console.log(text);
   }, [mb, orgas]);
 
   function setCorrectGif(gifname) {
