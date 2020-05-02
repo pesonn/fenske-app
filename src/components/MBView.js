@@ -9,6 +9,7 @@ import { GiphyFetch } from "@giphy/js-fetch-api";
 
 // import getFirebaseCollection from "../getFirebase";
 import Emoji from "a11y-react-emoji";
+import { useLayoutEffect } from "react";
 
 function MBView() {
   const { name } = useParams();
@@ -31,23 +32,8 @@ function MBView() {
     data: {},
     images: {},
   });
+  const [orgas, setOrgas] = useState({ data: {}, dbid: null });
 
-  /*  function getGifIDsFromDatabase() {
-    getFirebaseCollectionFrom("gifs").onSnapshot((snapshot) => {
-      let dbdata = {};
-      snapshot.forEach((doc) => {
-        const data = doc.data();
-        const dbid = doc.id;
-        dbdata = { ...data, dbid };
-      });
-    });
-  } */
-
-  /* async function getGif(id) {
-    const gf = new GiphyFetch(process.env.REACT_APP_GIPHY_apiKey);
-    const result = await gf.gif(id);
-    setGif({ data: result.data, images: result.data.images.original });
-  } */
   async function getGif1() {
     // get GIF ID from Database
     getFirebaseCollectionFrom("gifs").onSnapshot((snapshot) => {
@@ -57,7 +43,7 @@ function MBView() {
         const dbid = doc.id;
         dbdata.push({ ...data, dbid });
       });
-      console.log(dbdata);
+      // console.log(dbdata);
       // let gifname = dbdata.find((item) => item.gifname === dbdata.)
       const datafromdb = [];
       dbdata.forEach((item) => {
@@ -71,65 +57,71 @@ function MBView() {
               images: data.data.images.original,
               gifname: item.gifname,
             });
-            console.log(datafromdb);
+            // console.log(datafromdb);
             setGif1(datafromdb);
           });
       });
     });
   }
-  /*  async function getGif2(id) {
-    let gifloader = {};
-
-    // get GIF ID from Database
-    getFirebaseCollectionFrom("gifs").onSnapshot((snapshot) => {
-      const dbdata = [];
+  function getOrgaStuffFromDatabase() {
+    getFirebaseCollectionFrom("administration").onSnapshot((snapshot) => {
       snapshot.forEach((doc) => {
         const data = doc.data();
         const dbid = doc.id;
-        dbdata.push({ ...data, dbid });
+        setOrgas({ data: data, dbid: dbid });
       });
-      console.log(dbdata);
-      gifloader = dbdata.find((item) => item.gifname === id);
-
-      fetch(
-        `https://api.giphy.com/v1/gifs/${gifloader.gifid}?api_key=${process.env.REACT_APP_GIPHY_apiKey}`,
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setGif2({ data: data.data, images: data.data.images.original });
-        });
     });
-  } */
-  function checkForPlasticWeek() {
+  }
+
+  function getWeekNumber() {
     // got the code from: https://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php
     // eslint-disable-next-line no-extend-native
-    Date.prototype.getWeekNumber = function () {
+    Date.prototype.getWeekNumber = function (days) {
       var d = new Date(
         Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()),
       );
       var dayNum = d.getUTCDay() || 7;
-      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      d.setUTCDate(d.getUTCDate() + 3 - dayNum + days);
       var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
       return Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
     };
     let date = new Date();
-    let weekNumber = date.getWeekNumber();
+    let thisweeknumber = date.getWeekNumber(1);
+    let nextweeknumber = date.getWeekNumber(7);
 
-    if (weekNumber % 2 === 0) {
-      setText({ isPlasticWeek: true });
-    } else {
-      setText({ isPlasticWeek: false });
-    }
+    let weeknumberfrom = {
+      thisweek: thisweeknumber,
+      nextweek: nextweeknumber,
+    };
+    console.log(weeknumberfrom);
+    return weeknumberfrom;
   }
 
   function texteZuordnen() {
     if (mb.room === "Bad 1" || mb.room === "Bad 2") {
       setText({ raum: "das Bad!" });
     } else if (mb.room === "Müll") {
-      if (text.isPlasticWeek) {
-        setText({ raum: "den Müll weg! Denk an PLASTIK!" });
+      // Hier wird geprüft, ob die aktuelle Woche mit der aktuellen Woche übereinstimmt.
+      if (getWeekNumber().thisweek === orgas.data.weeknumber) {
+        // die aktuelle Woche aus der Datenbank stimmt mit der tatsächlichen aktuellen Woche überein.
+        if (getWeekNumber().thisweek % 2 === 0) {
+          setText({ raum: "den Müll weg! Denk an PLASTIK!" });
+
+          console.log(orgas.data.weeknumber);
+        } else {
+          setText({ raum: "den Müll weg!" });
+        }
+      } else if (getWeekNumber().nextweek === orgas.data.weeknumber) {
+        // Wenn alle aufgaben einer Woche erledigt wurden, wird bereits auf die Wochenummer der nächsten Woche geachtet.
+        if (getWeekNumber().nextweek % 2 === 0) {
+          setText({ raum: "den Müll weg! Denk an PLASTIK!" });
+        } else {
+          setText({ raum: "den Müll weg!" });
+        }
       } else {
-        setText({ raum: "den Müll weg!" });
+        console.log("Da stimmt was mit den Datumsen nicht!");
+        console.log(orgas);
+        console.log(orgas.data.weeknumber);
       }
     } else if (mb.room === "Küche") {
       setText({ raum: "die Küche!" });
@@ -154,14 +146,15 @@ function MBView() {
       // set unique MB for Component View
       setMB(dbdata.find((item) => item.name === name));
     });
-    checkForPlasticWeek();
   }
 
   useEffect(() => {
     // getGifIDsFromDatabase();
     getUsersFromDatabase();
     getRoomsFromDatabase();
+    getOrgaStuffFromDatabase();
     getGif1();
+
     // getGif2("shame");
 
     // getGif("vX9WcCiWwUF7G");
@@ -169,13 +162,12 @@ function MBView() {
 
   useEffect(() => {
     setGroups(group1, group2);
-    console.log(mbs);
-    checkForPlasticWeek();
   }, [mbs]);
 
   useEffect(() => {
     texteZuordnen();
-  }, [mb]); //damit dieser Effect erst läuft, nachdem sich was an den Daten aus MB geändert hat
+    console.log(text);
+  }, [mb, orgas]);
 
   function setCorrectGif(gifname) {
     let correctgif = gif1.find((item) => item.gifname === gifname);
@@ -314,6 +306,11 @@ function MBView() {
           geputzt: false,
         });
       });
+
+      getFirebaseCollectionFrom("administration").doc(orgas.dbid).update({
+        weeknumber: getWeekNumber().nextweek,
+      });
+
       alert(
         "Du hast als letztes geputzt... das ist nichts schlechtes! Immerhin hast du dafür gesorgt, dass die Verteilung für die nächste Woche zufällig neu entschieden wurde! Hab noch einen schönen restlichen Tag!",
       );
@@ -323,7 +320,6 @@ function MBView() {
   return (
     <div className="background">
       <div className="giphy-embed">
-        {console.log(gif1)}
         <img
           className="gif"
           src={showedGif.images.url}
