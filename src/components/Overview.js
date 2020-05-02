@@ -38,7 +38,7 @@ function Overview() {
   `;
 
   const ListOfNames = styled.section`
-    height: 80vh;
+    height: 60vh;
     margin: 0 auto;
     margin-top: 3vh;
     display: flex;
@@ -51,7 +51,7 @@ function Overview() {
     margin: 0 10% 0 10%;
     width: 80%;
     max-width: 900px;
-    min-width: 500px;
+    min-width: 300px;
     font-size: 6vh;
 
     & .emoji {
