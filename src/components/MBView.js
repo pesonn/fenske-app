@@ -299,6 +299,7 @@ function MBView() {
       });
 
       getFirebaseCollectionFrom("administration").doc(orgas.dbid).update({
+        lastupdate: new Date(),
         weeknumber: getWeekNumber().nextweek,
       });
 
