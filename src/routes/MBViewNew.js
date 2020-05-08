@@ -6,10 +6,16 @@ import { getFirebaseCollectionFrom } from "../firebase";
 import "../App.css";
 import "../styles/generals.css";
 import "../styles/MBView.css";
+import DisplayTask from "../components/DisplayTask";
 
 export default function MBViewNew(props) {
   const { name } = useParams();
   const [mb, setMB] = useState([]);
+  const [orgas, setOrgas] = useState({ data: {}, dbid: null });
+
+  /* TODO: Data should be fetched in Overview.js
+   setMB(props.mbs.find((item) => item.name === name));
+  */
 
   function getUsersFromDatabase() {
     getFirebaseCollectionFrom("putzplan").onSnapshot((snapshot) => {
@@ -26,15 +32,31 @@ export default function MBViewNew(props) {
     });
   }
 
+  //TODO: Data should be fetched in Overview.js
+  function getOrgaStuffFromDatabase() {
+    getFirebaseCollectionFrom("administration").onSnapshot((snapshot) => {
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const dbid = doc.id;
+        setOrgas({ data: data, dbid: dbid });
+      });
+    });
+  }
+
   useEffect(() => {
     getUsersFromDatabase();
-    console.log();
+    getOrgaStuffFromDatabase();
   }, []);
 
   return (
     <div className="background">
       {console.log(mb)}
       <WelcomeName mb={mb} />
+      <div className="mb_wrapper">
+        <div className="mbview ">
+          <DisplayTask mb={mb} orgas={orgas} />
+        </div>
+      </div>
     </div>
   );
 }
