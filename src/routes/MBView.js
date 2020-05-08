@@ -4,16 +4,15 @@ import "../App.css";
 import "../styles/generals.css";
 import "../styles/MBView.css";
 
-import { getFirebaseCollectionFrom } from "../firebase";
+// import { getFirebaseCollectionFrom } from "../firebase";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 
-// import getFirebaseCollection from "../getFirebase";
 import Emoji from "a11y-react-emoji";
 
 function MBView() {
   const { name } = useParams();
-  const [mbs, setMBs] = useState([]);
-  const [mb, setMB] = useState([]);
+  // const [mbs, setMBs] = useState([]);
+  // const [mb, setMB] = useState([]);
   const [text, setText] = useState({
     raum: "",
   });
@@ -126,7 +125,7 @@ function MBView() {
     }
   }
 
-  function getUsersFromDatabase() {
+  /* function getUsersFromDatabase() {
     getFirebaseCollectionFrom("putzplan").onSnapshot((snapshot) => {
       const dbdata = [];
       snapshot.forEach((doc) => {
@@ -138,7 +137,7 @@ function MBView() {
       // set unique MB for Component View
       setMB(dbdata.find((item) => item.name === name));
     });
-  }
+  } */
 
   useEffect(() => {
     // getGifIDsFromDatabase();
@@ -319,10 +318,10 @@ function MBView() {
         />
       </div>
       <div className="mb_wrapper">
-        <div className="mbview ">
+       {/*  <div className="mbview ">
           <h1 className="mbview__title">
             Moin {typeof mb === "undefined" ? <Redirect to="/" /> : mb.name}!
-          </h1>
+          </h1> */}
           <h2 className="mbview__description">Du putzt diese Woche...</h2>
           <h1 className="mbview__room">{text.raum}</h1>
           {mb.geputzt === true ? <h1>Für diese Woche bist du durch!</h1> : null}

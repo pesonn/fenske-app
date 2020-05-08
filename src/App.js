@@ -1,10 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Overview from "./components/Overview";
-import MBView from "./components/MBView";
-import Legals from "./components/Legals";
-import Admin from "./components/Admin";
-import NoMatch from "./components/NoMatch";
+import Overview from "./routes/Overview";
+// import MBView from "./routes/MBView";
+import MBViewNew from "./routes/MBViewNew";
+import Legals from "./routes/Legals";
+// import Admin from "./routes/Admin";
+import NoMatch from "./routes/NoMatch";
 import "./App.css";
 
 //TODO: Seite für falschgeschriebene URL
@@ -14,9 +15,9 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/" exact component={Overview} />
-          <Route path="/Admin" exact component={Admin} />
+          {/* <Route path="/Admin" exact component={Admin} /> */}
           <Route path="/Legals" exact component={Legals} />
-          <Route path="/:name" component={MBView} />
+          <Route path="/:name" component={MBViewNew} />
         </Switch>
       </div>
     </BrowserRouter>
