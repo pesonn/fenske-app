@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import WelcomeName from "../components/WelcomeName";
 import { getFirebaseCollectionFrom } from "../firebase";
+import WelcomeName from "../components/WelcomeName";
+import DisplayTask from "../components/DisplayTask";
+import CompleteTask from "../components/CompleteTask";
 
 import "../App.css";
 import "../styles/generals.css";
 import "../styles/MBView.css";
-import DisplayTask from "../components/DisplayTask";
 
-export default function MBViewNew(props) {
+export default function MBViewNew() {
   const { name } = useParams();
   const [mb, setMB] = useState([]);
+  const [mbs, setMBs] = useState([]);
   const [orgas, setOrgas] = useState({ data: {}, dbid: null });
-
-  /* TODO: Data should be fetched in Overview.js
-   setMB(props.mbs.find((item) => item.name === name));
-  */
 
   function getUsersFromDatabase() {
     getFirebaseCollectionFrom("putzplan").onSnapshot((snapshot) => {
@@ -25,7 +23,7 @@ export default function MBViewNew(props) {
         const dbid = doc.id;
         dbdata.push({ ...data, dbid });
       });
-      // setMBs(dbdata); Brauche ich glaube ich nicht!
+      setMBs(dbdata);
 
       // set unique MB for Component View
       setMB(dbdata.find((item) => item.name === name));
@@ -55,6 +53,7 @@ export default function MBViewNew(props) {
       <div className="mb_wrapper">
         <div className="mbview ">
           <DisplayTask mb={mb} orgas={orgas} />
+          <CompleteTask mbgeputzt={mb.geputzt} orgas={orgas} />
         </div>
       </div>
     </div>

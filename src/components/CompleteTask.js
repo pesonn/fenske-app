@@ -4,7 +4,20 @@ import { WeekNumber } from "./WeekNumber";
 
 export default function CompleteTask(props) {
   const [rooms, setRooms] = useState([]);
-  let mbgeputzt;
+  const [mb, setMB] = useState([]);
+  const [mbs, setMBs] = useState([]);
+
+  function getUsersFromDatabase() {
+    getFirebaseCollectionFrom("putzplan").onSnapshot((snapshot) => {
+      const dbdata = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const dbid = doc.id;
+        dbdata.push({ ...data, dbid });
+      });
+      setMBs(dbdata);
+    });
+  }
 
   function getRoomsFromDatabase() {
     getFirebaseCollectionFrom("rooms").onSnapshot((snapshot) => {
@@ -16,12 +29,15 @@ export default function CompleteTask(props) {
   }
 
   useEffect(() => {
+    getUsersFromDatabase();
     getRoomsFromDatabase();
   }, []);
 
   function toggleGeputzt() {
-    if (props.mb.geputzt) {
-      mbgeputzt = false;
+    if (props.mbgeputzt) {
+      getFirebaseCollectionFrom("putzplan").doc(props.mb.dbid).update({
+        geputzt: false,
+      });
 
       /* TODO: Muss noch integriert werden! -> eigene component für GIF die von 
       hier ausgelöst wird! Dann geht's auch wieder im turnery 
@@ -29,34 +45,30 @@ export default function CompleteTask(props) {
       showGif();
       setTimeout(showGif, 3000); */
     } else {
-      mbgeputzt = true;
+      getFirebaseCollectionFrom("putzplan").doc(props.mb.dbid).update({
+        geputzt: true,
+      });
     }
     /* 
       setCorrectGif("shame");
       showGif();
       setTimeout(showGif, 3000); */
-
-    getFirebaseCollectionFrom("putzplan").doc(props.mb.dbid).update({
-      geputzt: mbgeputzt,
-    });
   }
 
   function checkForWeeklyUpdate() {
-    toggleGeputzt();
-
-    /* TODO: Durch den toggleGeputzt wird die Datenbank aktualisiert, dies
-    wird aber nicht über die props durchgereicht. Wie kann der Status hier 
-    intern geführt werden? */
-    let mbs = props.mbs; //funktioniert nicht!
-
+    // Um zu prüfen, ob jeder seine Aufgabe abgehakt hat
+    // Der aktuelle MB wird nicht geprüft, da dieser ja auf abhaken geklickt hat
     let everystatus = [];
-    mbs.forEach((mb) => {
+    const mbswithoutmb = props.mbs.filter(
+      (item) => item.name !== props.mb.name,
+    );
+    mbswithoutmb.forEach((mb) => {
       if (mb.geputzt === true) {
         everystatus.push(mb.geputzt);
       }
     });
 
-    if (everystatus.length === mbs.length) {
+    if (everystatus.length === mbswithoutmb.length) {
       // reset local mbs to room = "" and geputzt = false
       const resetMbs = () => {
         mbs.forEach((mb) => {
@@ -139,28 +151,30 @@ export default function CompleteTask(props) {
       setOtherRooms();
 
       // Daten aus mbs State in Datenbank hochladen
-      mbs.forEach((mb) => {
-        getFirebaseCollectionFrom("putzplan").doc(mb.dbid).update({
-          room: mb.room,
+      mbs.forEach((item) => {
+        getFirebaseCollectionFrom("putzplan").doc(item.dbid).update({
+          room: item.room,
           geputzt: false,
         });
       });
+
+      getFirebaseCollectionFrom("administration").doc(props.orgas.dbid).update({
+        lastupdate: new Date(),
+        weeknumber: WeekNumber().nextweek,
+      });
+
+      alert(
+        "Du hast als letztes geputzt... das ist nichts schlechtes! Immerhin hast du dafür gesorgt, dass die Verteilung für die nächste Woche zufällig neu entschieden wurde! Hab noch einen schönen restlichen Tag!",
+      );
+    } else {
+      toggleGeputzt();
     }
-
-    getFirebaseCollectionFrom("administration").doc(props.orgas.dbid).update({
-      lastupdate: new Date(),
-      weeknumber: WeekNumber().nextweek,
-    });
-
-    alert(
-      "Du hast als letztes geputzt... das ist nichts schlechtes! Immerhin hast du dafür gesorgt, dass die Verteilung für die nächste Woche zufällig neu entschieden wurde! Hab noch einen schönen restlichen Tag!",
-    );
   }
 
   return (
     <div>
-      {props.mb.geputzt && <h1>Für diese Woche bist du durch!</h1>}
-      {props.mb.geputzt === false ? (
+      {props.mbgeputzt && <h1>Für diese Woche bist du durch!</h1>}
+      {props.mbgeputzt === false ? (
         <button onClick={checkForWeeklyUpdate} className="button">
           Erledigt!
         </button>
