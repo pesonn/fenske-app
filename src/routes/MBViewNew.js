@@ -13,6 +13,7 @@ export default function MBViewNew() {
   const { name } = useParams();
   const [mb, setMB] = useState([]);
   const [mbs, setMBs] = useState([]);
+
   const [orgas, setOrgas] = useState({ data: {}, dbid: null });
 
   function getUsersFromDatabase() {
@@ -53,7 +54,7 @@ export default function MBViewNew() {
       <div className="mb_wrapper">
         <div className="mbview ">
           <DisplayTask mb={mb} orgas={orgas} />
-          <CompleteTask mbgeputzt={mb.geputzt} orgas={orgas} />
+          <CompleteTask mb={mb} mbs={mbs} orgas={orgas} />
         </div>
       </div>
     </div>

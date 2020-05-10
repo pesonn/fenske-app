@@ -4,7 +4,6 @@ import { WeekNumber } from "./WeekNumber";
 
 export default function CompleteTask(props) {
   const [rooms, setRooms] = useState([]);
-  const [mb, setMB] = useState([]);
   const [mbs, setMBs] = useState([]);
 
   function getUsersFromDatabase() {
@@ -34,7 +33,7 @@ export default function CompleteTask(props) {
   }, []);
 
   function toggleGeputzt() {
-    if (props.mbgeputzt) {
+    if (props.mb.geputzt) {
       getFirebaseCollectionFrom("putzplan").doc(props.mb.dbid).update({
         geputzt: false,
       });
@@ -56,6 +55,8 @@ export default function CompleteTask(props) {
   }
 
   function checkForWeeklyUpdate() {
+    //TODO: Gibt es hierfür eine Möglichkeit das aufgrundlage der props zu machen oder müssen die Daten in dieser component im state gespeichert werden?
+
     // Um zu prüfen, ob jeder seine Aufgabe abgehakt hat
     // Der aktuelle MB wird nicht geprüft, da dieser ja auf abhaken geklickt hat
     let everystatus = [];
@@ -71,7 +72,7 @@ export default function CompleteTask(props) {
     if (everystatus.length === mbswithoutmb.length) {
       // reset local mbs to room = "" and geputzt = false
       const resetMbs = () => {
-        mbs.forEach((mb) => {
+        props.mbs.forEach((mb) => {
           mb.room = "";
           mb.geputzt = false;
         });
@@ -147,7 +148,7 @@ export default function CompleteTask(props) {
           forOtherRooms[usedNumbers[i]].room = rooms.otherrooms[usedNumbers[i]];
         }
       };
-      console.log(mbs);
+
       setOtherRooms();
 
       // Daten aus mbs State in Datenbank hochladen
@@ -173,8 +174,8 @@ export default function CompleteTask(props) {
 
   return (
     <div>
-      {props.mbgeputzt && <h1>Für diese Woche bist du durch!</h1>}
-      {props.mbgeputzt === false ? (
+      {props.mb.geputzt && <h1>Für diese Woche bist du durch!</h1>}
+      {props.mb.geputzt === false ? (
         <button onClick={checkForWeeklyUpdate} className="button">
           Erledigt!
         </button>
