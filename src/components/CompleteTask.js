@@ -32,26 +32,22 @@ export default function CompleteTask(props) {
     getRoomsFromDatabase();
   }, []);
 
+  useEffect(() => {
+    console.log(mbs);
+  }, [mbs]);
+
   function toggleGeputzt() {
     if (props.mb.geputzt) {
       getFirebaseCollectionFrom("putzplan").doc(props.mb.dbid).update({
         geputzt: false,
       });
-
-      /* TODO: Muss noch integriert werden! -> eigene component für GIF die von 
-      hier ausgelöst wird! Dann geht's auch wieder im turnery 
-      setCorrectGif("erledigt");
-      showGif();
-      setTimeout(showGif, 3000); */
+      props.toggleGif("shame");
     } else {
       getFirebaseCollectionFrom("putzplan").doc(props.mb.dbid).update({
         geputzt: true,
       });
+      props.toggleGif("erledigt");
     }
-    /* 
-      setCorrectGif("shame");
-      showGif();
-      setTimeout(showGif, 3000); */
   }
 
   function checkForWeeklyUpdate() {
@@ -70,6 +66,7 @@ export default function CompleteTask(props) {
     });
 
     if (everystatus.length === mbswithoutmb.length) {
+      toggleGeputzt();
       // reset local mbs to room = "" and geputzt = false
       const resetMbs = () => {
         props.mbs.forEach((mb) => {
@@ -172,6 +169,160 @@ export default function CompleteTask(props) {
     }
   }
 
+  //DEBUGGING
+  const setOtherRooms = () => {
+    let newstate = [];
+    mbs.forEach((mb) => {
+      mb.room = "";
+    });
+
+    let usedNumbers = [];
+    let forOtherRooms = [];
+    while (usedNumbers.length < rooms.otherrooms.length) {
+      var n = Math.floor(Math.random() * Math.floor(rooms.otherrooms.length));
+      if (usedNumbers.indexOf(n) === -1) usedNumbers.push(n);
+    }
+    // Alle aus MBs, die bisher kein Room zugeteilt bekommen haben werden in forOtherRooms gespeichert
+    mbs.forEach((mb) => {
+      if (mb.room === "") {
+        forOtherRooms.push(mb);
+      }
+    });
+    // Da die Zahlen zufällig im Array gespeichert sind, erfolgt die Zuordnung nach Indexen
+    for (let i = 0; i < 3; i++) {
+      forOtherRooms[usedNumbers[i]].room = rooms.otherrooms[i];
+      // console.log(rooms.otherrooms[usedNumbers[i]]);
+    }
+
+    setMBs(forOtherRooms);
+
+    /* console.log(usedNumbers);
+    console.log(rooms.otherrooms); */
+    console.log(forOtherRooms);
+  };
+
+  function DEBUGcheckForWeeklyUpdate() {
+    let newMBs = mbs;
+    // reset local mbs to room = "" and geputzt = false
+    const resetMbs = () => {
+      return mbs.map((item) => ({
+        ...item,
+        room: "",
+        geputzt: false,
+      }));
+    };
+    newMBs = resetMbs();
+
+    console.log(resetMbs());
+
+    // Badezimmer zuordnen
+    const setBathRooms = () => {
+      let usedNumbers = [];
+      while (usedNumbers.length < rooms.bathrooms.length) {
+        var n = Math.floor(Math.random() * Math.floor(rooms.bathrooms.length));
+        if (usedNumbers.indexOf(n) === -1) {
+          usedNumbers.push(n);
+        }
+      }
+      const setOneBathRoom = (group, bathroomname) => {
+        console.log(newMBs.find((item) => item.group === group));
+        newMBs.find((item) => item.group === group).room = bathroomname;
+      };
+      setOneBathRoom("b1", rooms.bathrooms[usedNumbers[0]]);
+      setOneBathRoom("b2", rooms.bathrooms[usedNumbers[1]]);
+
+      /*  let group1 = [];
+      let group2 = [];
+      // MBs werden in Gruppen entsprchend der Badezimmeraufteilung aufgeteilt, Group 1 = Badezimmer 1, Group 2 = Badezimmer 2
+      const setGroups = (groupname1, groupname2) => {
+        // Find evey MB with Groupname 1
+        for (let i = 0; i < newMBs.length; i++) {
+          if (newMBs[i].group === "b1") {
+            groupname1.push(newMBs[i]);
+          }
+        }
+        // Find every MB with Groupname 2
+        for (let i = 0; i < newMBs.length; i++) {
+          if (newMBs[i].group === "b2") {
+            groupname2.push(newMBs[i]);
+          }
+        }
+      };
+
+      setGroups(group1, group2);
+
+      // Mittels Zufall wird ein MB aus jeder Gruppe herausgesucht
+      const findOneMbFromGroup = (groupname) => {
+        // Find only 1 mb
+        let randomNumber = (maxNumber) =>
+          Math.floor(Math.random() * Math.floor(maxNumber));
+        let numberGroup = randomNumber(groupname.length);
+        let mb = groupname[numberGroup];
+        return mb;
+      };
+
+      // Datenbank IDs der MBs abrufen, da diese später für den Rückschrieb in die Datenbank benötigt werden.
+      let IDfromgroup1 = findOneMbFromGroup(group1).dbid;
+      let IDfromgroup2 = findOneMbFromGroup(group2).dbid;
+
+      // Badezimmer zuteilen
+
+      // to clear variables for next run
+      group1 = [];
+      group2 = []; */
+    };
+    setBathRooms();
+
+    // restliche Räume zuordnen
+    const setOtherRooms = () => {
+      let forOtherRooms = [];
+      let usedNumbers = [];
+      while (usedNumbers.length < rooms.otherrooms.length) {
+        var n = Math.floor(Math.random() * Math.floor(rooms.otherrooms.length));
+        if (usedNumbers.indexOf(n) === -1) {
+          usedNumbers.push(n);
+        }
+      }
+      // Alle aus MBs, die bisher kein Room zugeteilt bekommen haben werden in forOtherRooms gespeichert
+      newMBs.forEach((mb) => (mb.room === "" ? forOtherRooms.push(mb) : null));
+      // Da die Zahlen zufällig im Array gespeichert sind, erfolgt die Zuordnung nach Indexen
+      console.log(forOtherRooms);
+      for (let i = 0; i < forOtherRooms.length; i++) {
+        forOtherRooms[usedNumbers[i]].room = rooms.otherrooms[i];
+      }
+
+      /*  let a = newMBs
+        .find((item1) => item1.room === "")
+        .map((item2) => {
+          // let newmb = forOtherRooms.find((i) => i.dbid === item.dbid);
+
+          return { ...item2, room: newmb.room };
+        });
+
+      console.log(a); 
+    };
+
+    
+    console.log("Nach other Rooms");
+    console.log(newMBs);
+
+    // Daten aus mbs State in Datenbank hochladen
+    /*  newMBs.forEach((item) => {
+        getFirebaseCollectionFrom("putzplan").doc(item.dbid).update({
+          room: item.room,
+          geputzt: false,
+        });
+      });
+
+      getFirebaseCollectionFrom("administration").doc(props.orgas.dbid).update({
+        lastupdate: new Date(),
+        weeknumber: WeekNumber().nextweek,
+      });*/
+    };
+    setOtherRooms();
+    console.log(newMBs);
+  }
+
   return (
     <div>
       {props.mb.geputzt && <h1>Für diese Woche bist du durch!</h1>}
@@ -184,6 +335,12 @@ export default function CompleteTask(props) {
           Upsi doch nicht ... mach mal wieder zurück
         </button>
       )}
+      <button
+        onClick={DEBUGcheckForWeeklyUpdate}
+        className="button button--changeback"
+      >
+        TEST
+      </button>
     </div>
   );
 }
