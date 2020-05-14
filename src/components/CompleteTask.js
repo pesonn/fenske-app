@@ -58,9 +58,6 @@ export default function CompleteTask(props) {
       }
     });
 
-    console.log(everystatus);
-    console.log(mbswithoutmb);
-
     if (everystatus.length === mbswithoutmb.length) {
       // toggleGeputzt();
       // reset local mbs to room = "" and geputzt = false
@@ -140,21 +137,18 @@ export default function CompleteTask(props) {
         lastupdate: new Date(),
         weeknumber: WeekNumber().nextweek,
       });
-      console.log(newMBs);
-    } else {
-      // toggleGeputzt();
-      console.log("klappt nicht!!!!");
     }
   }
 
   const checkForDouble = () => {
-    mbs.forEach((mb) => {
-      if (mb.room === newMBs.find((item) => item.name === mb.name).room) {
-        checkForWeeklyUpdate();
-      } else {
-        console.log("nix");
-      }
-    });
+    toggleGeputzt();
+    if (
+      mbs.every(
+        (mb) => mb.room === newMBs.find((item) => item.name === mb.name).room,
+      )
+    ) {
+      checkForWeeklyUpdate();
+    }
   };
 
   return (
