@@ -51,19 +51,21 @@ export default function CompleteTask(props) {
     // Um zu prüfen, ob jeder seine Aufgabe abgehakt hat
     // Der aktuelle MB wird nicht geprüft, da dieser ja auf abhaken geklickt hat
     let everystatus = [];
-    const mbswithoutmb = props.mbs.filter(
-      (item) => item.name !== props.mb.name,
-    );
+    const mbswithoutmb = mbs.filter((item) => item.name !== props.mb.name);
     mbswithoutmb.forEach((mb) => {
       if (mb.geputzt === true) {
         everystatus.push(mb.geputzt);
       }
     });
 
+    console.log(everystatus);
+    console.log(mbswithoutmb);
+
     if (everystatus.length === mbswithoutmb.length) {
-      toggleGeputzt();
+      // toggleGeputzt();
       // reset local mbs to room = "" and geputzt = false
       const resetMbs = () => {
+        console.log("reset ist gelaufen");
         return mbs.map((item) => ({
           ...item,
           room: "",
@@ -91,7 +93,9 @@ export default function CompleteTask(props) {
           newMBs.find(
             (item) => bathgroup[randomindex].name === item.name,
           ).room = bathroomname;
+          console.log("oneBathroom ist gelaufen");
         };
+        console.log("setBathroom ist gelaufen");
 
         setOneBathRoom("b1", rooms.bathrooms[0]);
         setOneBathRoom("b2", rooms.bathrooms[1]);
@@ -118,27 +122,28 @@ export default function CompleteTask(props) {
         for (let i = 0; i < forOtherRooms.length; i++) {
           forOtherRooms[usedNumbers[i]].room = rooms.otherrooms[i];
         }
+        console.log("otherrooms ist gelaufen");
       };
       setOtherRooms();
 
       // Daten aus newMBs in Datenbank hochladen
       newMBs.forEach((item) => {
+        console.log(item);
         getFirebaseCollectionFrom("putzplan").doc(item.dbid).update({
           room: item.room,
           geputzt: false,
         });
+        console.log("db upload ist gelaufen");
       });
 
       getFirebaseCollectionFrom("administration").doc(props.orgas.dbid).update({
         lastupdate: new Date(),
         weeknumber: WeekNumber().nextweek,
       });
-
-      alert(
-        "Du hast als letztes geputzt... das ist nichts schlechtes! Immerhin hast du dafür gesorgt, dass die Verteilung für die nächste Woche zufällig neu entschieden wurde! Hab noch einen schönen restlichen Tag!",
-      );
+      console.log(newMBs);
     } else {
-      toggleGeputzt();
+      // toggleGeputzt();
+      console.log("klappt nicht!!!!");
     }
   }
 
