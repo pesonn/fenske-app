@@ -38,12 +38,12 @@ export default function CompleteTask(props) {
       getFirebaseCollectionFrom("putzplan").doc(props.mb.dbid).update({
         geputzt: false,
       });
-      props.toggleGif("shame");
+      props.startGif("shame");
     } else {
       getFirebaseCollectionFrom("putzplan").doc(props.mb.dbid).update({
         geputzt: true,
       });
-      props.toggleGif("erledigt");
+      props.startGif("erledigt");
     }
   }
 
