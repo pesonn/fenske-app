@@ -58,14 +58,10 @@ export default function CompleteTask(props) {
       }
     });
 
-    console.log(everystatus);
-    console.log(mbswithoutmb);
-
     if (everystatus.length === mbswithoutmb.length) {
       // toggleGeputzt();
       // reset local mbs to room = "" and geputzt = false
       const resetMbs = () => {
-        console.log("reset ist gelaufen");
         return mbs.map((item) => ({
           ...item,
           room: "",
@@ -93,9 +89,7 @@ export default function CompleteTask(props) {
           newMBs.find(
             (item) => bathgroup[randomindex].name === item.name,
           ).room = bathroomname;
-          console.log("oneBathroom ist gelaufen");
         };
-        console.log("setBathroom ist gelaufen");
 
         setOneBathRoom("b1", rooms.bathrooms[0]);
         setOneBathRoom("b2", rooms.bathrooms[1]);
@@ -122,39 +116,33 @@ export default function CompleteTask(props) {
         for (let i = 0; i < forOtherRooms.length; i++) {
           forOtherRooms[usedNumbers[i]].room = rooms.otherrooms[i];
         }
-        console.log("otherrooms ist gelaufen");
       };
       setOtherRooms();
 
       // Daten aus newMBs in Datenbank hochladen
       newMBs.forEach((item) => {
-        console.log(item);
         getFirebaseCollectionFrom("putzplan").doc(item.dbid).update({
           room: item.room,
           geputzt: false,
         });
-        console.log("db upload ist gelaufen");
       });
 
       getFirebaseCollectionFrom("administration").doc(props.orgas.dbid).update({
         lastupdate: new Date(),
         weeknumber: WeekNumber().nextweek,
       });
-      console.log(newMBs);
-    } else {
-      // toggleGeputzt();
-      console.log("klappt nicht!!!!");
     }
   }
-
+  // Damit keiner den selben Raum der letzten Woche wieder zugeteilt bekommt, wird der wert aus der Datenbank mit dem neugenerierten Wert solange verglichen, bis alle einen neuen Raum haben.
   const checkForDouble = () => {
-    mbs.forEach((mb) => {
-      if (mb.room === newMBs.find((item) => item.name === mb.name).room) {
-        checkForWeeklyUpdate();
-      } else {
-        console.log("nix");
-      }
-    });
+    toggleGeputzt();
+    if (
+      mbs.every(
+        (mb) => mb.room === newMBs.find((item) => item.name === mb.name).room,
+      )
+    ) {
+      checkForWeeklyUpdate();
+    }
   };
 
   return (
@@ -169,9 +157,6 @@ export default function CompleteTask(props) {
           Upsi doch nicht ... mach mal wieder zurück
         </button>
       )}
-      {/* <button onClick={checkForDouble} className="button button--changeback">
-        TEST
-      </button> */}
     </div>
   );
 }
