@@ -4,7 +4,6 @@ import { Redirect } from "react-router-dom";
 export default function WelcomeName(props) {
   return (
     <div className="mb_wrapper">
-      {console.log(props.mb)}
       <div className="mbview ">
         <h1 className="mbview__title">
           Moin{" "}
