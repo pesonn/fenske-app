@@ -6,9 +6,9 @@ import DisplayTask from "../components/DisplayTask";
 import CompleteTask from "../components/CompleteTask";
 import ShowGifOverlay from "../components/showGifOverlay";
 
-import "../App.css";
+/* import "../App.css";
 import "../styles/generals.css";
-import "../styles/MBView.css";
+import "../styles/MBView.css"; */
 
 export default function MBViewNew() {
   const { name } = useParams();
@@ -81,13 +81,14 @@ export default function MBViewNew() {
   function toggleGif() {
     displayGif ? setDisplayGif(false) : setDisplayGif(true);
   }
+
   function selectGif(name) {
     setShowGif(gifs.find((item) => item.gifname === name));
     toggleGif();
   }
 
   return (
-    <div>
+    <div className="mbview">
       <WelcomeName mb={mb} />
       <ShowGifOverlay
         displaygif={displayGif}
@@ -95,12 +96,8 @@ export default function MBViewNew() {
         toggleGif={toggleGif}
         className="giphy-embed"
       />
-      <div className="mb_wrapper">
-        <div className="mbview ">
-          <DisplayTask mb={mb} orgas={orgas} />
-          <CompleteTask mb={mb} orgas={orgas} startGif={selectGif} />
-        </div>
-      </div>
+      <DisplayTask mb={mb} orgas={orgas} />
+      <CompleteTask mb={mb} orgas={orgas} startGif={selectGif} />
     </div>
   );
 }
