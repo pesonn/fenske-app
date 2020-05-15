@@ -26,9 +26,21 @@ function Overview() {
       });
   }, []);
 
-  const OverviewWrapper = styled.div`
+  const OverviewList = styled.div`
     display: flex;
+    width: 100vw;
   `;
+
+  const ListOfNames = styled.section`
+    height: 60vh;
+    margin: 0 auto;
+    margin-top: 3vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  `;
+
   const LegalsLink = styled.sub`
     position: absolute;
     bottom: 15px;
@@ -38,11 +50,13 @@ function Overview() {
 
   return (
     <div className="overview">
-      <OverviewWrapper>
-        {mbs.map((item) => (
-          <OverviewName item={item} />
-        ))}
-      </OverviewWrapper>
+      <OverviewList>
+        <ListOfNames className="listofnames">
+          {mbs.map((item) => (
+            <OverviewName item={item} />
+          ))}
+        </ListOfNames>
+      </OverviewList>
       <LegalsLink>
         <Link to="/Legals">Legals</Link>
       </LegalsLink>
