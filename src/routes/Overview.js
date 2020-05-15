@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import OverviewName from "../components/OverviewName";
 import "../App.css";
 import "../index.css";
 // import "../styles/generals.css";
@@ -47,19 +48,6 @@ function Overview() {
     align-items: center;
   `;
 
-  const Name = styled.h1`
-    margin: 0 10% 0 10%;
-    width: 80%;
-    max-width: 900px;
-    min-width: 300px;
-    font-size: 6vh;
-
-    & .emoji {
-      font-size: 5vh;
-      margin: 0 0 0 15px;
-    }
-  `;
-
   const Legals = styled.sub`
     position: absolute;
     bottom: 15px;
@@ -72,23 +60,7 @@ function Overview() {
       <OverviewWrapper>
         <ListOfNames>
           {mbs.map((item) => (
-            <Name key={item.id}>
-              <Link
-                to={{
-                  pathname: `/${item.name || item.name.toLowerCase()}`,
-                  state: {
-                    data: "test",
-                  },
-                }}
-              >
-                {item.name}{" "}
-                {item.geputzt ? (
-                  <Emoji className="emoji" symbol="✅" />
-                ) : (
-                  <Emoji className="emoji" symbol="❌" />
-                )}
-              </Link>
-            </Name>
+            <OverviewName item={item} />
           ))}
         </ListOfNames>
       </OverviewWrapper>
