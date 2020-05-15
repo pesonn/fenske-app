@@ -49,9 +49,9 @@ function Overview() {
   `;
 
   return (
-    <div className="overview">
+    <div>
       <OverviewList>
-        <ListOfNames className="listofnames">
+        <ListOfNames>
           {mbs.map((item) => (
             <OverviewName item={item} />
           ))}
