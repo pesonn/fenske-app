@@ -27,13 +27,6 @@ function Overview() {
       });
   }, []);
 
-  const Background = styled.div`
-    height: 100vh;
-    width: 100vw;
-    background: #00f8ff;
-    background: linear-gradient(47deg, #00f8ff 0%, #00f8ff 23%, #990098 100%);
-  `;
-
   const OverviewWrapper = styled.div`
     display: flex;
   `;
@@ -56,7 +49,7 @@ function Overview() {
   `;
 
   return (
-    <Background>
+    <div className="overview">
       <OverviewWrapper>
         <ListOfNames>
           {mbs.map((item) => (
@@ -67,7 +60,7 @@ function Overview() {
       <Legals>
         <Link to="/Legals">Legals</Link>
       </Legals>
-    </Background>
+    </div>
   );
 }
 

@@ -87,7 +87,7 @@ export default function MBViewNew() {
   }
 
   return (
-    <div className="background">
+    <div>
       <WelcomeName mb={mb} />
       <ShowGifOverlay
         displaygif={displayGif}

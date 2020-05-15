@@ -8,19 +8,28 @@ import Legals from "./routes/Legals";
 import NoMatch from "./routes/NoMatch";
 import "./App.css";
 
+import styled from "styled-components";
+
+const Background = styled.div`
+  height: 100vh;
+  width: 100vw;
+  background: #00f8ff;
+  background: linear-gradient(47deg, #00f8ff 0%, #00f8ff 23%, #990098 100%);
+`;
+
 //TODO: Seite für falschgeschriebene URL
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
+    <Background className="App">
+      <BrowserRouter>
         <Switch>
           <Route path="/" exact component={Overview} />
           {/* <Route path="/Admin" exact component={Admin} /> */}
           <Route path="/Legals" exact component={Legals} />
           <Route path="/:name" component={MBView} />
         </Switch>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Background>
   );
 }
 
