@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import OverviewName from "../components/OverviewName";
-import "../App.css";
-import "../index.css";
+// import "../App.css";
+// import "../index.css";
 // import "../styles/generals.css";
 // import "../styles/Overview.css";
 
 import { getFirebaseCollectionFrom } from "../firebase";
-import Emoji from "a11y-react-emoji";
 import styled from "styled-components";
 
 function Overview() {
@@ -30,18 +29,7 @@ function Overview() {
   const OverviewWrapper = styled.div`
     display: flex;
   `;
-
-  const ListOfNames = styled.section`
-    height: 60vh;
-    margin: 0 auto;
-    margin-top: 3vh;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  `;
-
-  const Legals = styled.sub`
+  const LegalsLink = styled.sub`
     position: absolute;
     bottom: 15px;
     right: 30px;
@@ -51,15 +39,13 @@ function Overview() {
   return (
     <div className="overview">
       <OverviewWrapper>
-        <ListOfNames>
-          {mbs.map((item) => (
-            <OverviewName item={item} />
-          ))}
-        </ListOfNames>
+        {mbs.map((item) => (
+          <OverviewName item={item} />
+        ))}
       </OverviewWrapper>
-      <Legals>
+      <LegalsLink>
         <Link to="/Legals">Legals</Link>
-      </Legals>
+      </LegalsLink>
     </div>
   );
 }
