@@ -11,7 +11,7 @@ export default function OverviewName(props) {
     text-align: left;
     ${"" /* max-width: 900px;
     min-width: 300px; */} & a {
-      font-family: ${(props) => props.theme.main.fontFamily};
+      font-family: ${(props) => props.theme.main.fontFamily.headline};
       font-size: ${(props) => props.theme.main.fontSizes.headline};
       color: ${(props) => props.theme.main.colors.black};
     }
