@@ -31,8 +31,8 @@ const theme = {
 
     fontSizes: {
       headline: "4.5vh",
-      subline: "18px",
-      paragraph: "14px",
+      subline: "1.8vh",
+      paragraph: "1.4vh",
     },
   },
   putzt: {
