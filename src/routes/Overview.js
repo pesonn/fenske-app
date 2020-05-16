@@ -35,12 +35,13 @@ function Overview() {
     display: flex;
     flex-wrap: wrap;
     width: 70vw;
-    margin-left: 15vw;
+    margin-left: 10vw;
     padding: 5vh 0 0 0;
+    min-height: 350px;
   `;
 
   const ListOfNames = styled.section`
-    height: 60vh;
+    height: 50vh;
     margin-top: 3vh;
     display: flex;
     flex-wrap: wrap;

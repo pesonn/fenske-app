@@ -5,12 +5,13 @@ export default function AppTitle(props) {
   const AppWrapper = styled.div`
     width: 100%;
     text-align: left;
-    margin-bottom: 50px;
+    margin-bottom: 8vh;
   `;
 
   const AppName = styled.h1`
     font-family: ${(props) => props.theme.main.fontFamily.headline};
     font-size: ${(props) => props.theme.main.fontSizes.headline};
+
     color: ${(props) => props.theme.putzt.colors.headline};
     width: 100%;
     margin-left: -3px;
