@@ -13,8 +13,7 @@ import styled from "styled-components";
 const Background = styled.div`
   height: 100vh;
   width: 100vw;
-  background: #00f8ff;
-  background: linear-gradient(47deg, #00f8ff 0%, #00f8ff 23%, #990098 100%);
+  background: #e5e5e5;
 `;
 
 //TODO: Seite für falschgeschriebene URL
