@@ -9,8 +9,11 @@ export default function OverviewName(props) {
     width: 80%;
     max-width: 900px;
     min-width: 300px;
-    font-size: 6vh;
-
+    & a {
+      font-family: ${(props) => props.theme.main.fontFamily};
+      font-size: ${(props) => props.theme.main.fontSizes.headline};
+      color: ${(props) => props.theme.main.colors.black};
+    }
     & .emoji {
       font-size: 5vh;
       margin: 0 0 0 15px;
