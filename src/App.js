@@ -28,7 +28,6 @@ const theme = {
       subline: "SourceSansSemi",
       paragraph: "SourceSansReg",
     },
-    //TODO: #3 Import this font
 
     fontSizes: {
       headline: "4.0rem",
