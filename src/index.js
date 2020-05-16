@@ -3,9 +3,11 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { GlobalFonts } from "./fonts/GlobalFonts";
 
 ReactDOM.render(
   <React.StrictMode>
+    <GlobalFonts />
     <App />
   </React.StrictMode>,
   document.getElementById("root"),

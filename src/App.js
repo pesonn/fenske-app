@@ -8,7 +8,7 @@ import Legals from "./routes/Legals";
 import NoMatch from "./routes/NoMatch";
 import "./App.css";
 
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
 
 const Background = styled.div`
   height: 100vh;
@@ -16,19 +16,63 @@ const Background = styled.div`
   background: #e5e5e5;
 `;
 
+const theme = {
+  main: {
+    colors: {
+      text: "#737272",
+      black: "#2C2C2C",
+      white: "#F8F8F8",
+    },
+    fontFamily: {
+      headline: "SourceSansBold",
+      subline: "SourceSansSemi",
+      paragraph: "SourceSansReg",
+    },
+    //TODO: #3 Import this font
+
+    fontSizes: {
+      headline: "4.0rem",
+      subline: "18px",
+      paragraph: "14px",
+    },
+  },
+  putzt: {
+    colors: {
+      headline: "#314F9B",
+      button: "#526CAC",
+    },
+    indicator: {
+      incomplete: "#FF9081",
+      done: "#5AF141",
+    },
+    icon: {
+      description: {
+        fontColor: "rgba(203, 203, 203, 0.98)",
+        filter: "blur(0.5px)",
+      },
+      colors: {
+        incomplete: "#F2EDED",
+        done: "#EEF2ED",
+      },
+    },
+  },
+};
+
 //TODO: Seite für falschgeschriebene URL
 function App() {
   return (
-    <Background className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={Overview} />
-          {/* <Route path="/Admin" exact component={Admin} /> */}
-          <Route path="/Legals" exact component={Legals} />
-          <Route path="/:name" component={MBView} />
-        </Switch>
-      </BrowserRouter>
-    </Background>
+    <ThemeProvider theme={theme}>
+      <Background className="App">
+        <BrowserRouter>
+          <Switch>
+            <Route path="/" exact component={Overview} />
+            {/* <Route path="/Admin" exact component={Admin} /> */}
+            <Route path="/:name" component={MBView} />
+            <Route path="/Legals" exact component={Legals} />
+          </Switch>
+        </BrowserRouter>
+      </Background>
+    </ThemeProvider>
   );
 }
 
