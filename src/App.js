@@ -30,7 +30,7 @@ const theme = {
     },
 
     fontSizes: {
-      headline: "4.0rem",
+      headline: "4.5vh",
       subline: "18px",
       paragraph: "14px",
     },

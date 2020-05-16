@@ -8,9 +8,14 @@ import OverviewName from "../components/OverviewName";
 
 import { getFirebaseCollectionFrom } from "../firebase";
 import styled from "styled-components";
+import AppTitle from "../components/AppTitle";
 
 function Overview() {
   const [mbs, setMBs] = useState([]);
+  const [appDetails, setAppDetails] = useState({
+    name: "Fenske putzt!",
+    description: "Das ist euer Putzplan für diese Woche:",
+  });
 
   useEffect(() => {
     getFirebaseCollectionFrom("putzplan")
@@ -28,17 +33,17 @@ function Overview() {
 
   const OverviewList = styled.div`
     display: flex;
-    width: 100vw;
+    flex-wrap: wrap;
+    width: 70vw;
+    margin-left: 15vw;
+    padding: 5vh 0 0 0;
   `;
 
   const ListOfNames = styled.section`
     height: 60vh;
-    margin: 0 auto;
     margin-top: 3vh;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
   `;
 
   const LegalsLink = styled.sub`
@@ -49,8 +54,9 @@ function Overview() {
   `;
 
   return (
-    <div>
+    <>
       <OverviewList>
+        <AppTitle appdetails={appDetails} />
         <ListOfNames>
           {mbs.map((item) => (
             <OverviewName item={item} />
@@ -60,7 +66,7 @@ function Overview() {
       <LegalsLink>
         <Link to="/Legals">Legals</Link>
       </LegalsLink>
-    </div>
+    </>
   );
 }
 
