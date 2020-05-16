@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getFirebaseCollectionFrom } from "../firebase";
+import styled from "styled-components";
 import WelcomeName from "../components/WelcomeName";
 import DisplayTask from "../components/DisplayTask";
 import CompleteTask from "../components/CompleteTask";
-import ShowGifOverlay from "../components/showGifOverlay";
+import ShowGifOverlay from "../components/ShowGifOverlay";
 
 /* import "../App.css";
 import "../styles/generals.css";
@@ -65,7 +66,6 @@ export default function MBViewNew() {
               images: data.data.images.original,
               gifname: item.gifname,
             });
-            // console.log(datafromdb);
             setGifs(datafromdb);
           });
       });
@@ -87,8 +87,16 @@ export default function MBViewNew() {
     toggleGif();
   }
 
+  const MBViewWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 18vh;
+  `;
+
   return (
-    <div className="mbview">
+    <MBViewWrapper className="wrapper">
       <WelcomeName mb={mb} />
       <ShowGifOverlay
         displaygif={displayGif}
@@ -98,6 +106,6 @@ export default function MBViewNew() {
       />
       <DisplayTask mb={mb} orgas={orgas} />
       <CompleteTask mb={mb} orgas={orgas} startGif={selectGif} />
-    </div>
+    </MBViewWrapper>
   );
 }
