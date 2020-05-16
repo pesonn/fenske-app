@@ -11,7 +11,8 @@ import "./App.css";
 import styled, { ThemeProvider } from "styled-components";
 
 const Background = styled.div`
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   width: 100vw;
   background: #e5e5e5;
 `;
@@ -30,7 +31,7 @@ const theme = {
     },
 
     fontSizes: {
-      headline: "4.5vh",
+      headline: "3.7vh",
       subline: "1.8vh",
       paragraph: "1.4vh",
     },
