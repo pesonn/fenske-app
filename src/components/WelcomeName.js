@@ -8,7 +8,7 @@ export default function WelcomeName(props) {
     flex-flow: column wrap;
     justify-content: center;
     align-items: center;
-    margin-top: 15vh;
+    margin-top: 10vh;
   `;
   const WelcomeMB = styled.h1`
     font-family: ${(props) => props.theme.main.fontFamily.headline};

@@ -87,7 +87,7 @@ export default function MBViewNew() {
   }
 
   const MBViewWrapper = styled.div`
-    height: 73vh;
+    height: 75vh;
     min-height: 350px;
     ${"" /* padding-top: 9vh; */}
     display: flex;

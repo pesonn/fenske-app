@@ -49,7 +49,7 @@ export default function DisplayTask(props) {
     height: 36vh;
     background-color: ${(props) => props.theme.putzt.icon.colors.background};
     border-radius: 50%;
-    margin-top: 4vh;
+    margin-top: 8vh;
     box-shadow: -4px -3px 7px rgba(255, 255, 255, 0.55),
       2px 3px 7px rgba(88, 88, 88, 0.25);
   `;
