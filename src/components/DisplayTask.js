@@ -54,7 +54,7 @@ export default function DisplayTask(props) {
   `;
 
   const StyledIcon = css`
-    width: 14vh;
+    width: 18vh;
     color: ${(props) => props.theme.putzt.colors.headline};
     ${"" /* TODO: #7 Create Shadow for SVGs */}
     ${"" /* box-shadow: 6px 4px 13px rgba(0, 0, 0, 0.3); */}
