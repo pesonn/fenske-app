@@ -5,6 +5,7 @@ import { ReactComponent as DishIcon } from "../svg-icons/Dish.svg";
 import { ReactComponent as DustIcon } from "../svg-icons/Dust.svg";
 import { ReactComponent as GarbageIcon } from "../svg-icons/Garbage.svg";
 import { ReactComponent as ToiletIcon } from "../svg-icons/Toilet.svg";
+import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
 
 export default function DisplayTask(props) {
   let roomtext = "";
@@ -73,6 +74,10 @@ export default function DisplayTask(props) {
   const StyledToiletIcon = styled(ToiletIcon)`
     ${StyledIcon}
   `;
+  const StyledCheckedIcon = styled(CheckedIcon)`
+    ${StyledIcon}
+    width: 20vh;
+  `;
 
   const RoomDescription = styled.h6`
     margin-top: 20px;
@@ -82,26 +87,30 @@ export default function DisplayTask(props) {
   `;
 
   const setSVG = (room) => {
-    switch (room) {
-      case "Küche":
-        return <StyledDishIcon></StyledDishIcon>;
-      case "Müll":
-        return <StyledGarbageIcon></StyledGarbageIcon>;
-      case "Wohnen":
-        return <StyledDustIcon></StyledDustIcon>;
-      case "Bad 1":
-        return <StyledToiletIcon></StyledToiletIcon>;
-      case "Bad 2":
-        return <StyledToiletIcon></StyledToiletIcon>;
-      default:
-        return console.log("help");
+    if (props.mb.geputzt) {
+      return <StyledCheckedIcon></StyledCheckedIcon>;
+    } else {
+      switch (room) {
+        case "Küche":
+          return <StyledDishIcon></StyledDishIcon>;
+        case "Müll":
+          return <StyledGarbageIcon></StyledGarbageIcon>;
+        case "Wohnen":
+          return <StyledDustIcon></StyledDustIcon>;
+        case "Bad 1":
+          return <StyledToiletIcon></StyledToiletIcon>;
+        case "Bad 2":
+          return <StyledToiletIcon></StyledToiletIcon>;
+        default:
+          return console.log("Hier ist ein Fehler.");
+      }
     }
   };
 
   return (
     <Circle>
       {setSVG(props.mb.room)}
-      <RoomDescription>{roomtext}</RoomDescription>
+      {!props.mb.geputzt && <RoomDescription>{roomtext}</RoomDescription>}
     </Circle>
   );
 }
