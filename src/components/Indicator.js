@@ -9,8 +9,8 @@ export default function Indicator(props) {
       mb.geputzt
         ? props.theme.putzt.indicator.done
         : props.theme.putzt.indicator.incomplete};
-    width: 13vh;
-    height: 5vh;
+    width: 15vh;
+    height: 5.5vh;
     border: 0;
     box-shadow: 0px 1px 10px
       ${(props) =>
@@ -20,7 +20,7 @@ export default function Indicator(props) {
     border-radius: 20px;
     color: ${(props) => props.theme.main.colors.white};
     font-family: ${(props) => props.theme.main.fontFamily.subline};
-    font-size: 2.1vh;
+    font-size: 2.5vh;
   `;
 
   const switchRoomNames = (room) => {
