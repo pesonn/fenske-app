@@ -9,21 +9,24 @@ import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
 
 export default function DisplayTask(props) {
   let roomtext = "";
+  let roomtext2 = "";
   if (props.mb.room === "Bad 1" || props.mb.room === "Bad 2") {
-    roomtext = "das Bad!";
+    roomtext = "Badezimmer";
   } else if (props.mb.room === "Müll") {
     // Hier wird geprüft, ob die aktuelle Woche mit der aktuellen Woche übereinstimmt.
     if (WeekNumber().thisweek === props.orgas.data.weeknumber) {
       // die aktuelle Woche aus der Datenbank stimmt mit der tatsächlichen aktuellen Woche überein.
       if (WeekNumber().thisweek % 2 === 0) {
-        roomtext = "den Müll weg! Denk an PLASTIK!";
+        roomtext = "Müll wegbringen";
+        roomtext2 = "Denk an PLASTIK!";
       } else {
-        roomtext = "den Müll weg!";
+        roomtext = "Müll wegbringen";
       }
     } else if (WeekNumber().nextweek === props.orgas.data.weeknumber) {
       // Wenn alle aufgaben einer Woche erledigt wurden, wird bereits auf die Wochenummer der nächsten Woche geachtet.
       if (WeekNumber().nextweek % 2 === 0) {
-        roomtext = "den Müll weg! Denk an PLASTIK!";
+        roomtext = "Müll wegbringen";
+        roomtext2 = "Denk an PLASTIK!";
       } else {
         roomtext = "Müll wegbringen";
       }
@@ -31,7 +34,7 @@ export default function DisplayTask(props) {
       console.error("Hier stimmt was mit der Wochennummer nicht!");
     }
   } else if (props.mb.room === "Küche") {
-    roomtext = "Die Küche!";
+    roomtext = "Küche";
   } else if (props.mb.room === "Wohnen") {
     roomtext = "Wohnbereich";
   } else {
@@ -111,6 +114,7 @@ export default function DisplayTask(props) {
     <Circle>
       {setSVG(props.mb.room)}
       {!props.mb.geputzt && <RoomDescription>{roomtext}</RoomDescription>}
+      {!props.mb.geputzt && <RoomDescription>{roomtext2}</RoomDescription>}
     </Circle>
   );
 }
