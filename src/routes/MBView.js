@@ -32,7 +32,6 @@ export default function MBViewNew() {
     });
   }
 
-  //TODO: Data should be fetched in Overview.js
   function getOrgaStuffFromDatabase() {
     getFirebaseCollectionFrom("administration").onSnapshot((snapshot) => {
       snapshot.forEach((doc) => {
@@ -88,24 +87,28 @@ export default function MBViewNew() {
   }
 
   const MBViewWrapper = styled.div`
+    height: 73vh;
+    min-height: 350px;
+    ${"" /* padding-top: 9vh; */}
     display: flex;
-    justify-content: center;
+    flex-flow: column wrap;
+    justify-content: space-around;
     align-items: center;
-
-    padding-top: 18vh;
   `;
 
   return (
-    <MBViewWrapper className="wrapper">
-      <WelcomeName mb={mb} />
-      <ShowGifOverlay
+    <>
+      {/* <ShowGifOverlay
         displaygif={displayGif}
         showGif={showGif}
         toggleGif={toggleGif}
         className="giphy-embed"
-      />
-      <DisplayTask mb={mb} orgas={orgas} />
-      <CompleteTask mb={mb} orgas={orgas} startGif={selectGif} />
-    </MBViewWrapper>
+      /> */}
+      <MBViewWrapper className="wrapper">
+        <DisplayTask mb={mb} orgas={orgas} />
+        <WelcomeName mb={mb} />
+        <CompleteTask mb={mb} orgas={orgas} startGif={selectGif} />
+      </MBViewWrapper>
+    </>
   );
 }

@@ -6,7 +6,7 @@ import MBView from "./routes/MBView";
 import Legals from "./routes/Legals";
 // import Admin from "./routes/Admin";
 import NoMatch from "./routes/NoMatch";
-import "./App.css";
+// import "./App.css";
 
 import styled, { ThemeProvider } from "styled-components";
 
@@ -26,13 +26,14 @@ const theme = {
     fontSizes: {
       headline: "3.7vh",
       subline: "1.8vh",
-      paragraph: "1.4vh",
+      paragraph: "1.5vh",
     },
   },
   putzt: {
     colors: {
       headline: "#314F9B",
       button: "#526CAC",
+      buttonShadow: "rgba(82, 108, 172, 0.67);",
     },
     indicator: {
       incomplete: "#FF9081",
@@ -44,6 +45,7 @@ const theme = {
         filter: "blur(0.5px)",
       },
       colors: {
+        background: "#F0F0F0",
         incomplete: "#F2EDED",
         done: "#EEF2ED",
       },

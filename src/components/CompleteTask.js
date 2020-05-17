@@ -158,8 +158,7 @@ export default function CompleteTask(props) {
   `;
 
   return (
-    <div>
-      {props.mb.geputzt && <h1>Für diese Woche bist du durch!</h1>}
+    <>
       {props.mb.geputzt === false ? (
         <Button onClick={checkForDouble} className="button">
           Yes! Alles erledigt!
@@ -169,6 +168,6 @@ export default function CompleteTask(props) {
           Oh nee... zurück bitte
         </Button>
       )}
-    </div>
+    </>
   );
 }
