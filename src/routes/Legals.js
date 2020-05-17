@@ -1,10 +1,13 @@
 import React from "react";
 
-import "../App.css";
+import styled from "styled-components";
+
+// import "../App.css";
 
 export default function Legals() {
+  const Legals = styled.ul``;
   return (
-    <ul>
+    <Legals>
       <li>
         Icons created by
         <a href="https://www.flaticon.com/de/autoren/eucalyp" title="Eucalyp">
@@ -15,6 +18,6 @@ export default function Legals() {
           www.flaticon.com
         </a>
       </li>
-    </ul>
+    </Legals>
   );
 }
