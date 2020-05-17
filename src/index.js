@@ -11,7 +11,7 @@ body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
   width: 100vw;
-  background: #e5e5e5;
+  background: #f5f5f5;
 }
 `;
 
