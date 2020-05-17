@@ -24,13 +24,13 @@ export default function DisplayTask(props) {
       if (WeekNumber().nextweek % 2 === 0) {
         roomtext = "den Müll weg! Denk an PLASTIK!";
       } else {
-        roomtext = "den Müll weg!";
+        roomtext = "Müll wegbringen";
       }
     } else {
       console.error("Hier stimmt was mit der Wochennummer nicht!");
     }
   } else if (props.mb.room === "Küche") {
-    roomtext = "die Küche!";
+    roomtext = "Die Küche!";
   } else if (props.mb.room === "Wohnen") {
     roomtext = "Wohnbereich";
   } else {
@@ -67,7 +67,8 @@ export default function DisplayTask(props) {
     ${StyledIcon}
   `;
   const StyledGarbageIcon = styled(GarbageIcon)`
-    ${StyledIcon}
+    ${StyledIcon};
+    width: 12vh;
   `;
   const StyledToiletIcon = styled(ToiletIcon)`
     ${StyledIcon}
