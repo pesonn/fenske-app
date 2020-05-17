@@ -10,13 +10,6 @@ import "./App.css";
 
 import styled, { ThemeProvider } from "styled-components";
 
-const Background = styled.div`
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  width: 100vw;
-  background: #e5e5e5;
-`;
-
 const theme = {
   main: {
     colors: {
@@ -62,16 +55,14 @@ const theme = {
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Background className="App">
-        <BrowserRouter>
-          <Switch>
-            <Route path="/" exact component={Overview} />
-            {/* <Route path="/Admin" exact component={Admin} /> */}
-            <Route path="/:name" component={MBView} />
-            <Route path="/Legals" exact component={Legals} />
-          </Switch>
-        </BrowserRouter>
-      </Background>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={Overview} />
+          {/* <Route path="/Admin" exact component={Admin} /> */}
+          <Route path="/:name" component={MBView} />
+          <Route path="/Legals" exact component={Legals} />
+        </Switch>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
