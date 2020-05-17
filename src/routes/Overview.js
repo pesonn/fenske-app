@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import OverviewName from "../components/OverviewName";
+import AppTitle from "../components/AppTitle";
+
 // import "../App.css";
 // import "../index.css";
 // import "../styles/generals.css";
@@ -8,7 +10,6 @@ import OverviewName from "../components/OverviewName";
 
 import { getFirebaseCollectionFrom } from "../firebase";
 import styled from "styled-components";
-import AppTitle from "../components/AppTitle";
 
 function Overview() {
   const [mbs, setMBs] = useState([]);
@@ -34,14 +35,15 @@ function Overview() {
   const OverviewList = styled.div`
     display: flex;
     flex-wrap: wrap;
-    width: 70vw;
+    width: 80vw;
     margin-left: 10vw;
-    padding: 5vh 0 0 0;
+    padding: 8vh 0 0 0;
     min-height: 350px;
   `;
 
   const ListOfNames = styled.section`
     height: 50vh;
+    width: 100%;
     margin-top: 3vh;
     display: flex;
     flex-wrap: wrap;
@@ -60,7 +62,9 @@ function Overview() {
         <AppTitle appdetails={appDetails} />
         <ListOfNames>
           {mbs.map((item) => (
-            <OverviewName item={item} />
+            <>
+              <OverviewName item={item} />
+            </>
           ))}
         </ListOfNames>
       </OverviewList>
