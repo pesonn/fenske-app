@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
 
 export default function Indicator(props) {
   // to use the props inside the styled component it as to be stored inside a variable
@@ -23,14 +24,23 @@ export default function Indicator(props) {
     font-size: 2.5vh;
   `;
 
+  const StyledCheckedIcon = styled(CheckedIcon)`
+    margin-top: 0.5vh;
+    width: 5.5vh;
+    color: ${(props) => props.theme.main.colors.white};
+  `;
   const switchRoomNames = (room) => {
-    switch (room) {
-      case "Bad 1":
-        return "Bad";
-      case "Bad 2":
-        return "Bad";
-      default:
-        return room;
+    if (props.mb.geputzt) {
+      return <StyledCheckedIcon></StyledCheckedIcon>;
+    } else {
+      switch (room) {
+        case "Bad 1":
+          return "Bad";
+        case "Bad 2":
+          return "Bad";
+        default:
+          return room;
+      }
     }
   };
   return <ButtonIndicator>{switchRoomNames(props.mb.room)}</ButtonIndicator>;
