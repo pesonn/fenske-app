@@ -2,10 +2,6 @@ import React, { useState, useEffect } from "react";
 import { getFirebaseCollectionFrom } from "../firebase";
 import { WeekNumber } from "./WeekNumber";
 import Button from "./Button";
-<<<<<<< HEAD
-=======
-import styled from "styled-components";
->>>>>>> 7ce7f6e7909b09f94e94bfc8fc5126c598df5c26
 
 export default function CompleteTask(props) {
   const [rooms, setRooms] = useState([]);
@@ -149,20 +145,6 @@ export default function CompleteTask(props) {
       checkForWeeklyUpdate();
     }
   };
-<<<<<<< HEAD
-=======
-  /* 
-  const Button = styled.button`
-    width: 23vh;
-    height: 5vh;
-    border: 0;
-    background-color: ${(props) => props.theme.putzt.colors.button};
-    color: ${(props) => props.theme.main.colors.white};
-    font-family: ${(props) => props.theme.main.fontFamily.subline};
-    font-size: ${(props) => props.theme.main.fontSizes.subline};
-    box-shadow: 0px 4px 6px ${(props) => props.theme.putzt.colors.buttonShadow};
-  `; */
->>>>>>> 7ce7f6e7909b09f94e94bfc8fc5126c598df5c26
 
   return (
     <>
