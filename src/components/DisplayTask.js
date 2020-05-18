@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { WeekNumber } from "./WeekNumber";
+import CircleIcon from "./CircleIcon";
 import { ReactComponent as DishIcon } from "../svg-icons/Dish.svg";
 import { ReactComponent as DustIcon } from "../svg-icons/Dust.svg";
 import { ReactComponent as GarbageIcon } from "../svg-icons/Garbage.svg";
@@ -42,20 +43,6 @@ export default function DisplayTask(props) {
       "Öhh... hier stimmt was nicht. Sag mal schnell Jan Bescheid!!!",
     );
   }
-
-  const Circle = styled.div`
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    width: 36vh;
-    height: 36vh;
-    background-color: ${(props) => props.theme.putzt.icon.colors.background};
-    border-radius: 50%;
-    margin-top: 8vh;
-    box-shadow: -4px -3px 7px rgba(255, 255, 255, 0.55),
-      2px 3px 7px rgba(88, 88, 88, 0.25);
-  `;
 
   const StyledIcon = css`
     width: 18vh;
@@ -111,10 +98,10 @@ export default function DisplayTask(props) {
   };
 
   return (
-    <Circle>
+    <CircleIcon sizeinVH={36}>
       {setSVG(props.mb.room)}
       {!props.mb.geputzt && <RoomDescription>{roomtext}</RoomDescription>}
       {!props.mb.geputzt && <RoomDescription>{roomtext2}</RoomDescription>}
-    </Circle>
+    </CircleIcon>
   );
 }
