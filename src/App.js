@@ -38,7 +38,7 @@ const theme = {
     },
     indicator: {
       incomplete: "#FF9081",
-      done: "#5AF141",
+      done: "#59EB3F",
     },
     icon: {
       description: {
