@@ -25,6 +25,7 @@ const theme = {
 
     fontSizes: {
       headline: "3.7vh",
+      subheadline: "3.3vh",
       subline: "1.8vh",
       paragraph: "1.5vh",
     },
