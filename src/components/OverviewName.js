@@ -17,8 +17,8 @@ export default function OverviewName(props) {
     ${"" /* max-width: 900px;
   min-width: 300px; */} 
     font-family: ${(props) => props.theme.main.fontFamily.headline};
-    font-size: ${(props) => props.theme.main.fontSizes.headline};
-    color: ${(props) => props.theme.main.colors.black};
+    font-size: ${(props) => props.theme.main.fontSizes.subheadline};
+    color: ${(props) => props.theme.putzt.colors.headline};
   `;
 
   return (
