@@ -1,14 +1,13 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Overview from "./routes/putzt/Overview";
-// import MBView from "./routes/MBView";
-import MBView from "./routes/putzt/MBView";
-import Legals from "./routes/Legals";
+import Mainmenu from "./routes/Mainmenu";
+import Putzt from "./routes/putzt/index";
+import Glotzt from "./routes/glotzt";
 import Admin from "./routes/Admin";
-import NoMatch from "./routes/putzt/NoMatch";
-// import "./App.css";
-
-import styled, { ThemeProvider } from "styled-components";
+import Legals from "./routes/Legals";
+import "./index.css";
+import "./App.css";
+import { ThemeProvider } from "styled-components";
 
 const theme = {
   general: {
@@ -71,24 +70,11 @@ function App(props) {
           <Route
             path="/"
             exact
-            render={(props) => (
-              <Overview {...props} thememode="light" apptheme="putzt" />
-            )}
+            render={(props) => <Mainmenu {...props} thememode="light" />}
           />
-          <Route
-            path="/Admin"
-            exact
-            render={(props) => (
-              <Admin {...props} thememode="light" apptheme="putzt" />
-            )}
-          />
-
-          <Route
-            path="/:name"
-            render={(props) => (
-              <MBView {...props} thememode="light" apptheme="putzt" />
-            )}
-          />
+          <Route path="/putzt" exact component={Putzt} />
+          <Route path="/glotzt" exact component={Glotzt} />
+          <Route path="/Admin" exact component={Admin} />
           <Route path="/Legals" exact component={Legals} />
         </Switch>
       </BrowserRouter>

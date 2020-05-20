@@ -27,7 +27,7 @@ export default function OverviewName(props) {
   return (
     <LinkStyled
       to={{
-        pathname: `/${props.item.name || props.item.name.toLowerCase()}`,
+        pathname: `/putzt/${props.item.name || props.item.name.toLowerCase()}`,
         state: {
           data: "test",
         },
