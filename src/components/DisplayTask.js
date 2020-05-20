@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { WeekNumber } from "./WeekNumber";
+import CircleIcon from "./CircleIcon";
 import { ReactComponent as DishIcon } from "../svg-icons/Dish.svg";
 import { ReactComponent as DustIcon } from "../svg-icons/Dust.svg";
 import { ReactComponent as GarbageIcon } from "../svg-icons/Garbage.svg";
@@ -8,6 +9,9 @@ import { ReactComponent as ToiletIcon } from "../svg-icons/Toilet.svg";
 import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
 
 export default function DisplayTask(props) {
+  const thememode = props.thememode;
+  const apptheme = props.apptheme;
+
   let roomtext = "";
   let roomtext2 = "";
   if (props.mb.room === "Bad 1" || props.mb.room === "Bad 2") {
@@ -43,23 +47,9 @@ export default function DisplayTask(props) {
     );
   }
 
-  const Circle = styled.div`
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-    align-items: center;
-    width: 36vh;
-    height: 36vh;
-    background-color: ${(props) => props.theme.putzt.icon.colors.background};
-    border-radius: 50%;
-    margin-top: 8vh;
-    box-shadow: -4px -3px 7px rgba(255, 255, 255, 0.55),
-      2px 3px 7px rgba(88, 88, 88, 0.25);
-  `;
-
   const StyledIcon = css`
     width: 18vh;
-    color: ${(props) => props.theme.putzt.colors.headline};
+    color: ${(props) => props.theme[thememode][apptheme].colors.headline};
     ${"" /* TODO: #7 Create Shadow for SVGs */}
     ${"" /* box-shadow: 6px 4px 13px rgba(0, 0, 0, 0.3); */}
   `;
@@ -84,9 +74,9 @@ export default function DisplayTask(props) {
 
   const RoomDescription = styled.h6`
     margin-top: 20px;
-    font-family: ${(props) => props.theme.main.fontFamily.subline};
-    font-size: ${(props) => props.theme.main.fontSizes.subline};
-    color: ${(props) => props.theme.putzt.icon.description.fontColor};
+    font-family: ${(props) => props.theme.general.fontFamily.subline};
+    font-size: ${(props) => props.theme.general.fontSizes.subline};
+    color: ${(props) => props.theme[thememode].icon.description.fontColor};
   `;
 
   const setSVG = (room) => {
@@ -111,10 +101,10 @@ export default function DisplayTask(props) {
   };
 
   return (
-    <Circle>
+    <CircleIcon sizeinVH={36} thememode={props.thememode}>
       {setSVG(props.mb.room)}
       {!props.mb.geputzt && <RoomDescription>{roomtext}</RoomDescription>}
       {!props.mb.geputzt && <RoomDescription>{roomtext2}</RoomDescription>}
-    </Circle>
+    </CircleIcon>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getFirebaseCollectionFrom } from "../firebase";
 import { WeekNumber } from "./WeekNumber";
-import styled from "styled-components";
+import Button from "./Button";
 
 export default function CompleteTask(props) {
   const [rooms, setRooms] = useState([]);
@@ -146,27 +146,22 @@ export default function CompleteTask(props) {
     }
   };
 
-  const Button = styled.button`
-    width: 23vh;
-    height: 5vh;
-    border: 0;
-    background-color: ${(props) => props.theme.putzt.colors.button};
-    color: ${(props) => props.theme.main.colors.white};
-    font-family: ${(props) => props.theme.main.fontFamily.subline};
-    font-size: ${(props) => props.theme.main.fontSizes.subline};
-    box-shadow: 0px 4px 6px ${(props) => props.theme.putzt.colors.buttonShadow};
-  `;
-
   return (
     <>
       {props.mb.geputzt === false ? (
-        <Button onClick={checkForDouble} className="button">
-          Yes! Alles erledigt!
-        </Button>
+        <Button
+          callFunction={checkForDouble}
+          text="Yes! Alles erledigt!"
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        />
       ) : (
-        <Button onClick={toggleGeputzt} className="button button--changeback">
-          Oh nee... zurück bitte
-        </Button>
+        <Button
+          callFunction={toggleGeputzt}
+          text="Oh nee... zurück bitte"
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        />
       )}
     </>
   );

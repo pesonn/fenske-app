@@ -11,33 +11,28 @@ import NoMatch from "./routes/NoMatch";
 import styled, { ThemeProvider } from "styled-components";
 
 const theme = {
-  main: {
-    colors: {
-      text: "#737272",
-      black: "#2C2C2C",
-      white: "#F8F8F8",
-    },
+  general: {
     fontFamily: {
       headline: "SourceSansBold",
       subline: "SourceSansSemi",
       paragraph: "SourceSansReg",
     },
-
     fontSizes: {
       headline: "3.7vh",
+      subheadline: "3.3vh",
       subline: "1.8vh",
       paragraph: "1.5vh",
     },
   },
-  putzt: {
-    colors: {
-      headline: "#314F9B",
-      button: "#526CAC",
-      buttonShadow: "rgba(82, 108, 172, 0.67);",
+  light: {
+    maincolors: {
+      text: "#737272",
+      black: "#2C2C2C",
+      white: "#F8F8F8",
     },
     indicator: {
       incomplete: "#FF9081",
-      done: "#5AF141",
+      done: "#59EB3F",
     },
     icon: {
       description: {
@@ -50,18 +45,36 @@ const theme = {
         done: "#EEF2ED",
       },
     },
+    putzt: {
+      colors: {
+        headline: "#314F9B",
+        button: "#526CAC",
+        buttonShadow: "rgba(82, 108, 172, 0.67);",
+      },
+    },
   },
 };
 
 //TODO: Seite für falschgeschriebene URL
-function App() {
+function App(props) {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={Overview} />
-          {/* <Route path="/Admin" exact component={Admin} /> */}
-          <Route path="/:name" component={MBView} />
+          <Route
+            path="/"
+            exact
+            render={(props) => (
+              <Overview {...props} thememode="light" apptheme="putzt" />
+            )}
+          />
+          <Route
+            path="/:name"
+            render={(props) => (
+              <MBView {...props} thememode="light" apptheme="putzt" />
+            )}
+          />
+          {/* <Route path="/Admin" exact component={Admin} />  */}
           <Route path="/Legals" exact component={Legals} />
         </Switch>
       </BrowserRouter>

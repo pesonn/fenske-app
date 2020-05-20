@@ -3,31 +3,34 @@ import styled from "styled-components";
 import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
 
 export default function Indicator(props) {
+  const thememode = "light";
+  const apptheme = "";
+
   // to use the props inside the styled component it as to be stored inside a variable
   let mb = props.mb;
   const ButtonIndicator = styled.button`
     background-color: ${(props) =>
       mb.geputzt
-        ? props.theme.putzt.indicator.done
-        : props.theme.putzt.indicator.incomplete};
+        ? props.theme[thememode].indicator.done
+        : props.theme[thememode].indicator.incomplete};
     width: 15vh;
     height: 5.5vh;
     border: 0;
     box-shadow: 0px 1px 10px
       ${(props) =>
         mb.geputzt
-          ? props.theme.putzt.indicator.done
-          : props.theme.putzt.indicator.incomplete};
+          ? props.theme[thememode].indicator.done
+          : props.theme[thememode].indicator.incomplete};
     border-radius: 20px;
-    color: ${(props) => props.theme.main.colors.white};
-    font-family: ${(props) => props.theme.main.fontFamily.subline};
+    color: ${(props) => props.theme[thememode].maincolors.white};
+    font-family: ${(props) => props.theme.general.fontFamily.subline};
     font-size: 2.5vh;
   `;
 
   const StyledCheckedIcon = styled(CheckedIcon)`
     margin-top: 0.5vh;
     width: 5.5vh;
-    color: ${(props) => props.theme.main.colors.white};
+    color: ${(props) => props.theme[thememode].maincolors.white};
   `;
   const switchRoomNames = (room) => {
     if (props.mb.geputzt) {

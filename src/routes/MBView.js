@@ -11,7 +11,7 @@ import ShowGifOverlay from "../components/ShowGifOverlay";
 import "../styles/generals.css";
 import "../styles/MBView.css"; */
 
-export default function MBViewNew() {
+export default function MBViewNew(props) {
   const { name } = useParams();
   const [mb, setMB] = useState([]);
   const [displayGif, setDisplayGif] = useState(false);
@@ -105,9 +105,24 @@ export default function MBViewNew() {
         className="giphy-embed"
       /> */}
       <MBViewWrapper className="wrapper">
-        <DisplayTask mb={mb} orgas={orgas} />
-        <WelcomeName mb={mb} />
-        <CompleteTask mb={mb} orgas={orgas} startGif={selectGif} />
+        <DisplayTask
+          mb={mb}
+          orgas={orgas}
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        />
+        <WelcomeName
+          mb={mb}
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        />
+        <CompleteTask
+          mb={mb}
+          orgas={orgas}
+          startGif={selectGif}
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        />
       </MBViewWrapper>
     </>
   );
