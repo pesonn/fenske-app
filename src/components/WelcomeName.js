@@ -3,6 +3,9 @@ import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 
 export default function WelcomeName(props) {
+  const thememode = "light";
+  const apptheme = "putzt";
+
   const Wrapper = styled.div`
     display: flex;
     flex-flow: column wrap;
@@ -11,15 +14,15 @@ export default function WelcomeName(props) {
     margin-top: 10vh;
   `;
   const WelcomeMB = styled.h1`
-    font-family: ${(props) => props.theme.main.fontFamily.headline};
-    font-size: ${(props) => props.theme.main.fontSizes.headline};
-    color: ${(props) => props.theme.putzt.colors.headline};
+    font-family: ${(props) => props.theme.general.fontFamily.headline};
+    font-size: ${(props) => props.theme.general.fontSizes.headline};
+    color: ${(props) => props.theme[thememode][apptheme].colors.headline};
   `;
 
   const Description = styled.h6`
-    font-family: ${(props) => props.theme.main.fontFamily.subline};
-    font-size: ${(props) => props.theme.main.fontSizes.subline};
-    color: ${(props) => props.theme.main.colors.text};
+    font-family: ${(props) => props.theme.general.fontFamily.subline};
+    font-size: ${(props) => props.theme.general.fontSizes.subline};
+    color: ${(props) => props.theme[thememode].maincolors.text};
     margin-bottom: 6vh;
   `;
 
