@@ -4,8 +4,8 @@ import styled from "styled-components";
 import Indicator from "./Indicator";
 
 export default function OverviewName(props) {
-  const thememode = "light";
-  const apptheme = "putzt";
+  const thememode = props.thememode;
+  const apptheme = props.apptheme;
 
   const LinkStyled = styled(Link)`
     width: 100%;

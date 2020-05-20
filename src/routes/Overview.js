@@ -67,7 +67,11 @@ function Overview(props) {
         <ListOfNames>
           {mbs.map((item) => (
             <>
-              <OverviewName item={item} />
+              <OverviewName
+                item={item}
+                thememode={props.thememode}
+                apptheme={props.apptheme}
+              />
             </>
           ))}
         </ListOfNames>
