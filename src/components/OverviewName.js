@@ -4,6 +4,9 @@ import styled from "styled-components";
 import Indicator from "./Indicator";
 
 export default function OverviewName(props) {
+  const thememode = "light";
+  const apptheme = "putzt";
+
   const LinkStyled = styled(Link)`
     width: 100%;
     height: max-content;
@@ -16,9 +19,9 @@ export default function OverviewName(props) {
     text-align: left;
     ${"" /* max-width: 900px;
   min-width: 300px; */} 
-    font-family: ${(props) => props.theme.main.fontFamily.headline};
-    font-size: ${(props) => props.theme.main.fontSizes.subheadline};
-    color: ${(props) => props.theme.putzt.colors.headline};
+    font-family: ${(props) => props.theme.general.fontFamily.headline};
+    font-size: ${(props) => props.theme.general.fontSizes.subheadline};
+    color: ${(props) => props.theme[thememode][apptheme].colors.headline};
   `;
 
   return (
