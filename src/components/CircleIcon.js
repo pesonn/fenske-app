@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 export default function CircleIcon(props) {
+  const thememode = "light";
+  const apptheme = "";
+
   let size = props.sizeinVH;
   const Circle = styled.div`
     display: flex;
@@ -10,7 +13,8 @@ export default function CircleIcon(props) {
     align-items: center;
     width: ${size}vh;
     height: ${size}vh;
-    background-color: ${(props) => props.theme.putzt.icon.colors.background};
+    background-color: ${(props) =>
+      props.theme[thememode].icon.colors.background};
     border-radius: 50%;
     margin-top: 8vh;
     box-shadow: -4px -3px 7px rgba(255, 255, 255, 0.55),
