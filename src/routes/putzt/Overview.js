@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import OverviewName from "../components/OverviewName";
-import AppTitle from "../components/AppTitle";
+import OverviewName from "../../components/OverviewName";
+import AppTitle from "../../components/AppTitle";
 
-// import "../App.css";
-// import "../index.css";
-// import "../styles/generals.css";
-// import "../styles/Overview.css";
-
-import { getFirebaseCollectionFrom } from "../firebase";
+import { getFirebaseCollectionFrom } from "../../firebase";
 import styled from "styled-components";
 
 function Overview(props) {

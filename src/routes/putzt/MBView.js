@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getFirebaseCollectionFrom } from "../firebase";
+import { getFirebaseCollectionFrom } from "../../firebase";
 import styled from "styled-components";
-import WelcomeName from "../components/WelcomeName";
-import DisplayTask from "../components/DisplayTask";
-import CompleteTask from "../components/CompleteTask";
-import ShowGifOverlay from "../components/ShowGifOverlay";
-
-/* import "../App.css";
-import "../styles/generals.css";
-import "../styles/MBView.css"; */
+import WelcomeName from "../../components/WelcomeName";
+import DisplayTask from "../../components/DisplayTask";
+import CompleteTask from "../../components/CompleteTask";
+import ShowGifOverlay from "../../components/ShowGifOverlay";
 
 export default function MBViewNew(props) {
   const { name } = useParams();
