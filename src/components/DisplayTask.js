@@ -9,6 +9,9 @@ import { ReactComponent as ToiletIcon } from "../svg-icons/Toilet.svg";
 import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
 
 export default function DisplayTask(props) {
+  const thememode = "light";
+  const apptheme = "putzt";
+
   let roomtext = "";
   let roomtext2 = "";
   if (props.mb.room === "Bad 1" || props.mb.room === "Bad 2") {
@@ -46,7 +49,7 @@ export default function DisplayTask(props) {
 
   const StyledIcon = css`
     width: 18vh;
-    color: ${(props) => props.theme.putzt.colors.headline};
+    color: ${(props) => props.theme[thememode][apptheme].colors.headline};
     ${"" /* TODO: #7 Create Shadow for SVGs */}
     ${"" /* box-shadow: 6px 4px 13px rgba(0, 0, 0, 0.3); */}
   `;
@@ -71,9 +74,9 @@ export default function DisplayTask(props) {
 
   const RoomDescription = styled.h6`
     margin-top: 20px;
-    font-family: ${(props) => props.theme.main.fontFamily.subline};
-    font-size: ${(props) => props.theme.main.fontSizes.subline};
-    color: ${(props) => props.theme.putzt.icon.description.fontColor};
+    font-family: ${(props) => props.theme.general.fontFamily.subline};
+    font-size: ${(props) => props.theme.general.fontSizes.subline};
+    color: ${(props) => props.theme[thememode].icon.description.fontColor};
   `;
 
   const setSVG = (room) => {
