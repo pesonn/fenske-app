@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 export default function AppTitle(props) {
-  const thememode = "light";
-  const apptheme = "putzt";
+  const thememode = props.thememode;
+  const apptheme = props.apptheme;
 
   const AppWrapper = styled.div`
     width: 100%;

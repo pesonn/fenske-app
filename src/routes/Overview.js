@@ -11,7 +11,7 @@ import AppTitle from "../components/AppTitle";
 import { getFirebaseCollectionFrom } from "../firebase";
 import styled from "styled-components";
 
-function Overview() {
+function Overview(props) {
   const [mbs, setMBs] = useState([]);
   const [appDetails, setAppDetails] = useState({
     name: "Fenske putzt!",
@@ -59,7 +59,11 @@ function Overview() {
   return (
     <>
       <OverviewList>
-        <AppTitle appdetails={appDetails} />
+        <AppTitle
+          appdetails={appDetails}
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        />
         <ListOfNames>
           {mbs.map((item) => (
             <>

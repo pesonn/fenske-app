@@ -30,43 +30,52 @@ const theme = {
       black: "#2C2C2C",
       white: "#F8F8F8",
     },
+    indicator: {
+      incomplete: "#FF9081",
+      done: "#59EB3F",
+    },
+    icon: {
+      description: {
+        fontColor: "rgba(203, 203, 203, 0.98)",
+        filter: "blur(0.5px)",
+      },
+      colors: {
+        background: "#F0F0F0",
+        incomplete: "#F2EDED",
+        done: "#EEF2ED",
+      },
+    },
     putzt: {
       colors: {
         headline: "#314F9B",
         button: "#526CAC",
         buttonShadow: "rgba(82, 108, 172, 0.67);",
       },
-      indicator: {
-        incomplete: "#FF9081",
-        done: "#59EB3F",
-      },
-      icon: {
-        description: {
-          fontColor: "rgba(203, 203, 203, 0.98)",
-          filter: "blur(0.5px)",
-        },
-        colors: {
-          background: "#F0F0F0",
-          incomplete: "#F2EDED",
-          done: "#EEF2ED",
-        },
-      },
     },
   },
 };
 
 //TODO: Seite für falschgeschriebene URL
-function App() {
+function App(props) {
   return (
     <ThemeProvider theme={theme}>
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={Overview} />
-          {/* <Route path="/Admin" exact component={Admin} /> }
+          <Route
+            path="/"
+            exact
+            render={(props) => (
+              <Overview {...props} thememode="light" apptheme="putzt" />
+            )}
+          />
+          {/* 
+
+            <Route path="/" exact component={Overview} thememode={"dark"} />
+          <Route path="/Admin" exact component={Admin} /> }
           <Route path="/:name" component={MBView} />
-          <Route path="/Legals" exact component={Legals} />
+          <Route path="/Legals" exact component={Legals} />*/}
         </Switch>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
