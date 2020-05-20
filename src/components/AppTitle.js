@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 export default function AppTitle(props) {
+  const thememode = "light";
+  const apptheme = "putzt";
+
   const AppWrapper = styled.div`
     width: 100%;
     text-align: left;
@@ -9,17 +12,17 @@ export default function AppTitle(props) {
   `;
 
   const AppName = styled.h1`
-    font-family: ${(props) => props.theme.main.fontFamily.headline};
-    font-size: ${(props) => props.theme.main.fontSizes.headline};
+    font-family: ${(props) => props.theme.general.fontFamily.headline};
+    font-size: ${(props) => props.theme.general.fontSizes.headline};
 
-    color: ${(props) => props.theme.putzt.colors.headline};
+    color: ${(props) => props.theme[thememode][apptheme].colors.headline};
     width: 100%;
     margin-left: -3px;
   `;
   const AppDescription = styled.h2`
-    font-family: ${(props) => props.theme.main.fontFamily.subline};
-    font-size: ${(props) => props.theme.main.fontSizes.subline};
-    color: ${(props) => props.theme.main.colors.text};
+    font-family: ${(props) => props.theme.general.fontFamily.subline};
+    font-size: ${(props) => props.theme.general.fontSizes.subline};
+    color: ${(props) => props.theme[thememode].maincolors.text};
     margin-top: 10px;
     width: 100%;
   `;
