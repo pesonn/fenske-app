@@ -68,9 +68,13 @@ function App(props) {
               <Overview {...props} thememode="light" apptheme="putzt" />
             )}
           />
+          <Route
+            path="/:name"
+            render={(props) => (
+              <MBView {...props} thememode="light" apptheme="putzt" />
+            )}
+          />
           {/* 
-
-            <Route path="/" exact component={Overview} thememode={"dark"} />
           <Route path="/Admin" exact component={Admin} /> }
           <Route path="/:name" component={MBView} />
           <Route path="/Legals" exact component={Legals} />*/}

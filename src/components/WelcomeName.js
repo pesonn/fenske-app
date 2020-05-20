@@ -3,8 +3,8 @@ import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 
 export default function WelcomeName(props) {
-  const thememode = "light";
-  const apptheme = "putzt";
+  const thememode = props.thememode;
+  const apptheme = props.apptheme;
 
   const Wrapper = styled.div`
     display: flex;

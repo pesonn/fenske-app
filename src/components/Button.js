@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 export default function Button(props) {
-  const thememode = "light";
-  const apptheme = "putzt";
+  const thememode = props.thememode;
+  const apptheme = props.apptheme;
   const Button = styled.button`
     width: 23vh;
     height: 5vh;

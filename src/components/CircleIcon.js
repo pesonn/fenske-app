@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export default function CircleIcon(props) {
-  const thememode = "light";
-  const apptheme = "";
+  const thememode = props.thememode;
 
   let size = props.sizeinVH;
   const Circle = styled.div`

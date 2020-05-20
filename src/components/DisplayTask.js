@@ -9,8 +9,8 @@ import { ReactComponent as ToiletIcon } from "../svg-icons/Toilet.svg";
 import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
 
 export default function DisplayTask(props) {
-  const thememode = "light";
-  const apptheme = "putzt";
+  const thememode = props.thememode;
+  const apptheme = props.apptheme;
 
   let roomtext = "";
   let roomtext2 = "";
@@ -101,7 +101,7 @@ export default function DisplayTask(props) {
   };
 
   return (
-    <CircleIcon sizeinVH={36}>
+    <CircleIcon sizeinVH={36} thememode={props.thememode}>
       {setSVG(props.mb.room)}
       {!props.mb.geputzt && <RoomDescription>{roomtext}</RoomDescription>}
       {!props.mb.geputzt && <RoomDescription>{roomtext2}</RoomDescription>}

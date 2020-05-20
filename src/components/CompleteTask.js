@@ -149,9 +149,19 @@ export default function CompleteTask(props) {
   return (
     <>
       {props.mb.geputzt === false ? (
-        <Button callFunction={checkForDouble} text="Yes! Alles erledigt!" />
+        <Button
+          callFunction={checkForDouble}
+          text="Yes! Alles erledigt!"
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        />
       ) : (
-        <Button callFunction={toggleGeputzt} text="Oh nee... zurück bitte" />
+        <Button
+          callFunction={toggleGeputzt}
+          text="Oh nee... zurück bitte"
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        />
       )}
     </>
   );
