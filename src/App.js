@@ -74,10 +74,8 @@ function App(props) {
               <MBView {...props} thememode="light" apptheme="putzt" />
             )}
           />
-          {/* 
-          <Route path="/Admin" exact component={Admin} /> }
-          <Route path="/:name" component={MBView} />
-          <Route path="/Legals" exact component={Legals} />*/}
+          {/* <Route path="/Admin" exact component={Admin} />  */}
+          <Route path="/Legals" exact component={Legals} />
         </Switch>
       </BrowserRouter>
     </ThemeProvider>
