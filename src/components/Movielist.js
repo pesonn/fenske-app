@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getFirebaseCollectionFrom } from "../firebase";
+import StyledButton from "./Button";
 
 export default function Movielist(props) {
   const [movielist, setMovielist] = useState([]);
@@ -40,31 +41,51 @@ export default function Movielist(props) {
     setSortedMovielist({ active: allactives, inactive: alldeactives });
   };
 
+  const toggle
+
   return (
     <ListWrapper>
       {sortedMovielist.active.map((item) => (
-        <ActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
-          {item.name}
-        </ActiveMovie>
+        <ListRow>
+          <ActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
+            {item.name}
+          </ActiveMovie>
+          <ListButton thememode={props.thememode} apptheme={props.apptheme}>
+            Raus damit!
+          </ListButton>
+        </ListRow>
       ))}
       {sortedMovielist.inactive.map((item) => (
-        <InActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
-          {item.name}
-        </InActiveMovie>
+        <ListRow>
+          <InActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
+            {item.name}
+          </InActiveMovie>
+          <ListButton thememode={props.thememode} apptheme={props.apptheme}>
+            Raus damit!
+          </ListButton>
+        </ListRow>
       ))}
       {console.log(sortedMovielist)}
     </ListWrapper>
   );
 }
 
-const ListWrapper = styled.section`
+const ListWrapper = styled.div`
   width: 100%;
+`;
+
+const ListRow = styled.section`
+  width: 100%;
+  margin-bottom: 2vh;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
 `;
 
 const ActiveMovie = styled.h2`
   text-align: left;
   width: 100%;
-  margin-bottom: 2vh;
+  margin-right: 2vh;
   font-family: ${(props) => props.theme.general.fontFamily.headline};
   font-size: ${(props) =>
     props.theme[props.thememode][props.apptheme].fontSizes.list};
@@ -75,4 +96,10 @@ const ActiveMovie = styled.h2`
 const InActiveMovie = styled(ActiveMovie)`
   color: ${(props) => props.theme[props.thememode].maincolors.text};
   text-decoration: line-through;
+`;
+
+const ListButton = styled(StyledButton)`
+  font-size: ${(props) => props.theme.general.fontSizes.subline};
+  width: 18vh;
+  height: 4vh;
 `;
