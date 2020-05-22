@@ -5,7 +5,7 @@ import AppTitle from "../components/AppTitle";
 
 export default function Mainmenu(props) {
   return (
-    <Menuwrapper>
+    <MenuWrapper>
       <StyledAppTitle
         thememode={props.thememode}
         apptheme="mainmenu"
@@ -24,7 +24,7 @@ export default function Mainmenu(props) {
           Glotzt
         </MenuButton>
       </a>
-    </Menuwrapper>
+    </MenuWrapper>
   );
 }
 
@@ -32,7 +32,7 @@ const StyledAppTitle = styled(AppTitle)`
   margin-bottom: 5vh;
 `;
 
-const Menuwrapper = styled.div`
+const MenuWrapper = styled.div`
   display: flex;
   flex-flow: column wrap;
   align-items: center;
