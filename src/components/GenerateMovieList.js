@@ -11,6 +11,7 @@ export default function GenerateMovieList(props) {
         apptheme={props.apptheme}
         gamename="Rausvoten"
         database="rausvoten"
+        activegameid={props.activegameid}
       ></Movielist>
     </MenuWrapper>
   );

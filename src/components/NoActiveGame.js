@@ -16,7 +16,7 @@ export default function NoActiveGame(props) {
         thememode={props.thememode}
         apptheme={props.apptheme}
         className={props.className}
-        onClick={props.startgame}
+        onClick={props.setgameup}
       >
         Wir woll'n jez was GlOtZen!
       </Button>

@@ -17,6 +17,19 @@ export default function StartGame(props) {
   const [gamedetails, setGamedetails] = useState({
     activeGame: false,
   });
+  const setGameId = () => {
+    getFirebaseCollectionFrom(props.database).onSnapshot((snapshot) => {
+      const dbdata = [];
+      let activegameid = "";
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const dbid = doc.id;
+        dbdata.push({ ...data, dbid });
+      });
+      activegameid = dbdata.find((item) => item.active === true);
+      activegameid ? props.setGameId(activegameid.dbid) : props.setGameId("");
+    });
+  };
 
   const getDataFromDatabase = () => {
     getFirebaseCollectionFrom(props.database).onSnapshot((snapshot) => {
@@ -29,34 +42,33 @@ export default function StartGame(props) {
           : setGamedetails({ activeGame: true });
       });
     });
+    setGameId();
   };
 
   useEffect(() => {
     getDataFromDatabase();
   }, []);
-
-  const startgame = () => {
-    getFirebaseCollectionFrom(props.gamemode).add({
+  const setGameUp = () => {
+    getFirebaseCollectionFrom(props.database).add({
       active: true,
       gamemode: props.gamename,
       date: new Date(),
       movielist: [],
     });
+    setGameId();
   };
 
   return (
     <>
-      {!gamedetails.activeGame && (
-        <NoActiveGame
-          thememode={props.thememode}
-          apptheme={props.apptheme}
-          appdetails={{
-            name: props.gamename,
-            description: "Aktuell läuft kein Spiel.",
-          }}
-          startgame={startgame}
-        ></NoActiveGame>
-      )}
+      <NoActiveGame
+        thememode={props.thememode}
+        apptheme={props.apptheme}
+        appdetails={{
+          name: props.gamename,
+          description: "Aktuell läuft kein Spiel.",
+        }}
+        setgameup={setGameUp}
+      ></NoActiveGame>
     </>
   );
 }

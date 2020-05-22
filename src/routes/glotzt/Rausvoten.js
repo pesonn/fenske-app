@@ -8,20 +8,32 @@ import StartGame from "../../components/StartGame";
 import GenerateMovieList from "../../components/GenerateMovieList";
 
 export default function Rausvoten(props) {
+  const [activeGame, setActiveGame] = useState({
+    dbid: "",
+  });
+
+  const setGameId = (id) => {
+    setActiveGame({ ...activeGame, dbid: id });
+  };
   return (
     <>
-      <StartGame
-        thememode={props.thememode}
-        apptheme={props.apptheme}
-        gamename="Rausvoten"
-        database="rausvoten"
-      ></StartGame>
+      {activeGame.dbid === "" && (
+        <StartGame
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+          gamename="Rausvoten"
+          database="rausvoten"
+          setGameId={setGameId}
+        ></StartGame>
+      )}
       <GenerateMovieList
         thememode={props.thememode}
         apptheme={props.apptheme}
         gamename="Rausvoten"
         database="rausvoten"
+        activegameid={activeGame.dbid}
       ></GenerateMovieList>
+      {console.log(activeGame)}
     </>
   );
 }
