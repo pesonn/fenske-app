@@ -36,7 +36,11 @@ export default function OverviewName(props) {
       <Name key={props.item.id} className="Name">
         {props.item.name}
       </Name>
-      <Indicator mb={props.item} />
+      <Indicator
+        mb={props.item}
+        thememode={props.thememode}
+        apptheme={props.apptheme}
+      />
     </LinkStyled>
   );
 }
