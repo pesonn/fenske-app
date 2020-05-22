@@ -4,6 +4,10 @@ import { getFirebaseCollectionFrom } from "../firebase";
 
 export default function Movielist(props) {
   const [movielist, setMovielist] = useState([]);
+  const [sortedMovielist, setSortedMovielist] = useState({
+    active: [],
+    inactive: [],
+  });
 
   const getMovieList = () => {
     getFirebaseCollectionFrom(props.database).onSnapshot((snapshot) => {
@@ -21,24 +25,54 @@ export default function Movielist(props) {
   useEffect(() => {
     getMovieList();
   }, []);
+  useEffect(() => {
+    sortMovieList();
+  }, [movielist]);
+
+  const sortMovieList = () => {
+    let sortedlist = [];
+
+    let allactives = movielist.filter((item) => item.active === true);
+    let alldeactives = movielist.filter((item) => item.active === false);
+    // sortedlist.push(allactives, alldeactives);
+    // sortedlist.push(alldeactives);
+    console.log(sortedlist);
+    setSortedMovielist({ active: allactives, inactive: alldeactives });
+  };
 
   return (
-    <>
-      {movielist.map((item) => (
-        <MovieName thememode={props.thememode} apptheme={props.apptheme}>
+    <ListWrapper>
+      {sortedMovielist.active.map((item) => (
+        <ActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
           {item.name}
-        </MovieName>
+        </ActiveMovie>
       ))}
-    </>
+      {sortedMovielist.inactive.map((item) => (
+        <InActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
+          {item.name}
+        </InActiveMovie>
+      ))}
+      {console.log(sortedMovielist)}
+    </ListWrapper>
   );
 }
 
-const MovieName = styled.h1`
-text-align: left;
-${"" /* max-width: 900px;
-min-width: 300px; */} 
-font-family: ${(props) => props.theme.general.fontFamily.headline};
-font-size: ${(props) => props.theme.general.fontSizes.subheadline};
-color: ${(props) =>
-  props.theme[props.thememode][props.apptheme].colors.headline};
+const ListWrapper = styled.section`
+  width: 100%;
+`;
+
+const ActiveMovie = styled.h2`
+  text-align: left;
+  width: 100%;
+  margin-bottom: 2vh;
+  font-family: ${(props) => props.theme.general.fontFamily.headline};
+  font-size: ${(props) =>
+    props.theme[props.thememode][props.apptheme].fontSizes.list};
+  color: ${(props) =>
+    props.theme[props.thememode][props.apptheme].colors.headline};
+`;
+
+const InActiveMovie = styled(ActiveMovie)`
+  color: ${(props) => props.theme[props.thememode].maincolors.text};
+  text-decoration: line-through;
 `;
