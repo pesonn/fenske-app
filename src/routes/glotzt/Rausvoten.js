@@ -5,6 +5,7 @@ import NoActiveGame from "../../components/NoActiveGame";
 import Button from "../../components/Button";
 import AppTitle from "../../components/AppTitle";
 import StartGame from "../../components/StartGame";
+import GenerateMovieList from "../../components/GenerateMovieList";
 
 export default function Rausvoten(props) {
   return (
@@ -15,6 +16,12 @@ export default function Rausvoten(props) {
         gamename="Rausvoten"
         database="rausvoten"
       ></StartGame>
+      <GenerateMovieList
+        thememode={props.thememode}
+        apptheme={props.apptheme}
+        gamename="Rausvoten"
+        database="rausvoten"
+      ></GenerateMovieList>
     </>
   );
 }
