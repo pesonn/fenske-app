@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { getFirebaseCollectionFrom } from "../../firebase";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 import OverviewName from "../../components/OverviewName";
 import AppTitle from "../../components/AppTitle";
 
-import { getFirebaseCollectionFrom } from "../../firebase";
-import styled from "styled-components";
-
-function Overview(props) {
+export default function Overview(props) {
   const [mbs, setMBs] = useState([]);
   const [appDetails, setAppDetails] = useState({
     name: "Fenske putzt!",
@@ -26,30 +25,6 @@ function Overview(props) {
         setMBs(dbdata);
       });
   }, []);
-
-  const OverviewList = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    width: 80vw;
-    margin-left: 10vw;
-    padding: 8vh 0 0 0;
-    min-height: 350px;
-  `;
-
-  const ListOfNames = styled.section`
-    height: 50vh;
-    width: 100%;
-    margin-top: 3vh;
-    display: flex;
-    flex-wrap: wrap;
-  `;
-
-  const LegalsLink = styled.sub`
-    position: absolute;
-    bottom: 15px;
-    right: 30px;
-    font-size: 0.8rem;
-  `;
 
   return (
     <>
@@ -78,4 +53,26 @@ function Overview(props) {
   );
 }
 
-export default Overview;
+const OverviewList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 80vw;
+  margin-left: 10vw;
+  padding: 8vh 0 0 0;
+  min-height: 350px;
+`;
+
+const ListOfNames = styled.section`
+  height: 50vh;
+  width: 100%;
+  margin-top: 3vh;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const LegalsLink = styled.sub`
+  position: absolute;
+  bottom: 15px;
+  right: 30px;
+  font-size: 0.8rem;
+`;
