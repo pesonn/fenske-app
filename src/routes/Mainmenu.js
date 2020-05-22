@@ -10,7 +10,7 @@ export default function Mainmenu(props) {
         thememode={props.thememode}
         apptheme="mainmenu"
         appdetails={{
-          name: "Die Fenske.app",
+          name: "Fenske.app",
           description: "Was möchtest du machen?",
         }}
       ></StyledAppTitle>
