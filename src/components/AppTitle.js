@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export default function AppTitle(props) {
   return (
-    <AppWrapper>
+    <AppWrapper className={props.className}>
       <AppName thememode={props.thememode} apptheme={props.apptheme}>
         {props.appdetails.name}
       </AppName>
