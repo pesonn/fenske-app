@@ -1,6 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 
+export default function StyledButton(props) {
+  return (
+    <Button
+      className={props.className}
+      thememode={props.thememode}
+      apptheme={props.apptheme}
+      onClick={props.onClick}
+    >
+      {props.children}
+    </Button>
+  );
+}
 const Button = styled.button`
   width: 23vh;
   height: 5vh;
@@ -16,15 +28,3 @@ const Button = styled.button`
     ${(props) =>
       props.theme[props.thememode][props.apptheme].colors.buttonShadow};
 `;
-export default function StyledButton(props) {
-  return (
-    <Button
-      className={props.className}
-      thememode={props.thememode}
-      apptheme={props.apptheme}
-      onClick={props.onClick}
-    >
-      {props.children}
-    </Button>
-  );
-}
