@@ -71,6 +71,7 @@ export default function MBViewNew(props) {
     getUsersFromDatabase();
     getGifs();
     getOrgaStuffFromDatabase();
+    console.log("hello" + name);
   }, []);
 
   function toggleGif() {
@@ -81,16 +82,6 @@ export default function MBViewNew(props) {
     setShowGif(gifs.find((item) => item.gifname === name));
     toggleGif();
   }
-
-  const MBViewWrapper = styled.div`
-    height: 75vh;
-    min-height: 350px;
-    ${"" /* padding-top: 9vh; */}
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: space-around;
-    align-items: center;
-  `;
 
   return (
     <>
@@ -123,3 +114,13 @@ export default function MBViewNew(props) {
     </>
   );
 }
+
+const MBViewWrapper = styled.div`
+  height: 75vh;
+  min-height: 350px;
+  ${"" /* padding-top: 9vh; */}
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  align-items: center;
+`;
