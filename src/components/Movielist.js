@@ -63,6 +63,14 @@ export default function Movielist(props) {
       });
   };
 
+  const deleteMovie = (moviename) => {
+    getFirebaseCollectionFrom(props.database)
+      .doc(props.activegameid)
+      .collection("movielist")
+      .doc(moviename)
+      .delete();
+  };
+
   return (
     <ListWrapper>
       {sortedMovielist.active.map((item) => (
@@ -70,15 +78,28 @@ export default function Movielist(props) {
           <ActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
             {item.name}
           </ActiveMovie>
-          <ListButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
-            onClick={() => {
-              inActivateMovie(item.name);
-            }}
-          >
-            Raus damit!
-          </ListButton>
+          {props.showToggleButtons && (
+            <ActivateButton
+              thememode={props.thememode}
+              apptheme={props.apptheme}
+              onClick={() => {
+                inActivateMovie(item.name);
+              }}
+            >
+              Raus damit!
+            </ActivateButton>
+          )}
+          {props.showDeleteButton && (
+            <DeleteButton
+              thememode={props.thememode}
+              apptheme={props.apptheme}
+              onClick={() => {
+                deleteMovie(item.name);
+              }}
+            >
+              Löschen
+            </DeleteButton>
+          )}
         </ListRow>
       ))}
       {sortedMovielist.inactive.map((item) => (
@@ -86,15 +107,17 @@ export default function Movielist(props) {
           <InActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
             {item.name}
           </InActiveMovie>
-          <ListInactiveButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
-            onClick={() => {
-              activateMovie(item.name);
-            }}
-          >
-            zurück
-          </ListInactiveButton>
+          {props.showToggleButtons && (
+            <InactiveButton
+              thememode={props.thememode}
+              apptheme={props.apptheme}
+              onClick={() => {
+                activateMovie(item.name);
+              }}
+            >
+              zurück
+            </InactiveButton>
+          )}
         </ListRow>
       ))}
     </ListWrapper>
@@ -129,13 +152,23 @@ const InActiveMovie = styled(ActiveMovie)`
   text-decoration: line-through;
 `;
 
-const ListButton = styled(StyledButton)`
+const ActivateButton = styled(StyledButton)`
   font-size: ${(props) => props.theme.general.fontSizes.subline};
   width: 18vh;
   height: 4vh;
 `;
 
-const ListInactiveButton = styled(ListButton)`
+const InactiveButton = styled(ActivateButton)`
+  background-color: ${(props) => props.theme[props.thememode].maincolors.white};
+  border: 2px solid ${(props) => props.theme[props.thememode].maincolors.text};
+  color: ${(props) => props.theme[props.thememode].maincolors.text};
+  box-shadow: 0 0;
+`;
+
+const DeleteButton = styled(ActivateButton)`
+  width: 9vh;
+  height: 3vh;
+  font-size: ${(props) => props.theme.general.fontSizes.paragraph};
   background-color: ${(props) => props.theme[props.thememode].maincolors.white};
   border: 2px solid ${(props) => props.theme[props.thememode].maincolors.text};
   color: ${(props) => props.theme[props.thememode].maincolors.text};

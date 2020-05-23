@@ -12,6 +12,8 @@ export default function GenerateMovieList(props) {
         gamename="Rausvoten"
         database="rausvoten"
         activegameid={props.activegameid}
+        showToggleButtons={false}
+        showDeleteButton={true}
       ></Movielist>
     </MenuWrapper>
   );
