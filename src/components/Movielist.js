@@ -78,7 +78,7 @@ export default function Movielist(props) {
           <ActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
             {item.name}
           </ActiveMovie>
-          {props.showToggleButtons && (
+          {props.showtogglebuttons && (
             <ActivateButton
               thememode={props.thememode}
               apptheme={props.apptheme}
@@ -89,7 +89,7 @@ export default function Movielist(props) {
               Raus damit!
             </ActivateButton>
           )}
-          {props.showDeleteButton && (
+          {props.showdeletebutton && (
             <DeleteButton
               thememode={props.thememode}
               apptheme={props.apptheme}
@@ -107,7 +107,7 @@ export default function Movielist(props) {
           <InActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
             {item.name}
           </InActiveMovie>
-          {props.showToggleButtons && (
+          {props.showtogglebuttons && (
             <InactiveButton
               thememode={props.thememode}
               apptheme={props.apptheme}

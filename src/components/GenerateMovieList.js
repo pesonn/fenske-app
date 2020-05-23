@@ -5,17 +5,17 @@ import Movielist from "./Movielist";
 
 export default function GenerateMovieList(props) {
   return (
-    <MenuWrapper>
-      <Movielist
-        thememode={props.thememode}
-        apptheme={props.apptheme}
-        gamename="Rausvoten"
-        database="rausvoten"
-        activegameid={props.activegameid}
-        showToggleButtons={false}
-        showDeleteButton={true}
-      ></Movielist>
-    </MenuWrapper>
+    // <MenuWrapper>
+    <Movielist
+      thememode={props.thememode}
+      apptheme={props.apptheme}
+      gamename="Rausvoten"
+      database="rausvoten"
+      activegameid={props.activegameid}
+      showtogglebuttons={props.showtogglebuttons}
+      showdeletebutton={props.showdeletebutton}
+    ></Movielist>
+    // </MenuWrapper>
   );
 }
 
