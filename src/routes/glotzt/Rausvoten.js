@@ -8,7 +8,6 @@ import AppTitle from "../../components/AppTitle";
 import StartGame from "../../components/StartGame";
 import GenerateMovieList from "../../components/GenerateMovieList";
 import AddToMovielist from "../../components/AddToMovielist";
-import { Redirect } from "react-router-dom";
 
 export default function Rausvoten(props) {
   const [activeGame, setActiveGame] = useState({
