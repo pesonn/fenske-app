@@ -21,17 +21,32 @@ export default function Admin(props) {
   useEffect(() => {
     getDatafromDatabase();
   }, []);
-
   const leer = () => {};
+
+  let dibidada = { dbid: "" };
   const updateDataInDatabase = () => {
-    getFirebaseCollectionFrom("test").add({
+    getFirebaseCollectionFrom("rausvoten").doc("Findet Nemo").add({
+      name: "Findet Nemo",
       active: true,
-      gamemode: "game2",
-      date: new Date(),
-      movielist: [
-        { name: "Harry Potter", active: true, provider: "DVD Regal" },
-      ],
+      provider: "Disney+",
     });
+
+    getFirebaseCollectionFrom("rausvoten")
+      .doc("HfRKCameXsXlLZzWhbiF")
+      .collection("movielist")
+      .doc("Harry Potter")
+      .update({
+        active: false,
+      });
+    console.log(data);
+
+    getFirebaseCollectionFrom("rausvoten")
+      .doc("HfRKCameXsXlLZzWhbiF")
+      .collection("movielist")
+      .doc(dibidada.dbid)
+      .update({
+        active: false,
+      });
   };
 
   return (
@@ -39,14 +54,16 @@ export default function Admin(props) {
       <AppTitle
         appdetails={{ name: "Hello Admin", description: "" }}
         thememode={props.thememode}
-        apptheme={"glotzt"}
+        apptheme={props.apptheme}
       ></AppTitle>
       <Button
-        callFunction={updateDataInDatabase}
-        text="starte den Test"
+        onClick={updateDataInDatabase}
         thememode={props.thememode}
-        apptheme={"glotzt"}
-      ></Button>
+        apptheme={props.apptheme}
+      >
+        starte den Test
+      </Button>
+      {console.log(data)}
     </>
   );
 }

@@ -53,7 +53,6 @@ export default function StartGame(props) {
       active: true,
       gamemode: props.gamename,
       date: new Date(),
-      movielist: [],
     });
     setGameId();
   };

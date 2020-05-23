@@ -132,11 +132,13 @@ const MenuWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  height: 80vh;
+  justify-content: center;
+  height: 85vh;
   width: 80vw;
   margin-left: 10vw;
   padding: 0vh 0 0 0;
   min-height: 300px;
+  overflow: hidden;
 `;
 
 const PositionedButton = styled(Button)`

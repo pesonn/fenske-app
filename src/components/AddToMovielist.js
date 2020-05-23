@@ -66,29 +66,33 @@ export default function AddToMovielist(props) {
 const Wrapper = styled.div``;
 
 const WrapperForm = styled.form`
-  position: absolute;
-  bottom: 5vh;
-  left: 1vh;
-  width: 80vw;
+  ${"" /* position: absolute;
+  bottom: 3vh;
+  left: 1vh; */}
+  width: 72vw;
+  height: 5vh;
   display: flex;
-  flex: wrap;
+  flex: column wrap;
   justify-content: space-between;
+  align-items: center;
   border: 1px solid ${(props) => props.theme[props.thememode].maincolors.text};
   background-color: ${(props) => props.theme[props.thememode].maincolors.white};
-  padding: 10px 8vw 10px 8vw;
+  padding: 10px 3vw 10px 3vw;
 `;
 
 const StyledInput = styled.input`
-  width: 60%;
-  height: 35px;
-  font-family: ${(props) => props.theme.general.fontFamily.paragraph};
-  font-size: ${(props) => props.theme.general.fontSizes.paragraph};
+  width: 53%;
+  height: 4vh;
+  font-family: ${(props) => props.theme.general.fontFamily.subline};
+  font-size: ${(props) => props.theme.general.fontSizes.subline};
   background-color: ${(props) => props.theme[props.thememode].maincolors.white};
   border: 0px solid ${(props) => props.theme[props.thememode].maincolors.text};
   border-radius: 0;
   box-shadow: 0 0;
   ::placeholder {
     color: ${(props) => props.theme[props.thememode].maincolors.text};
+    font-family: ${(props) => props.theme.general.fontFamily.paragraph};
+    font-size: ${(props) => props.theme.general.fontSizes.paragraph};
   }
 `;
 

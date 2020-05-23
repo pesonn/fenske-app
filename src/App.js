@@ -37,6 +37,7 @@ const theme = {
       text: "#737272",
       black: "#2C2C2C",
       white: "#F8F8F8",
+      background: "#f5f5f5",
     },
     indicator: {
       incomplete: "#FF9081",
@@ -65,6 +66,9 @@ const theme = {
         headline: "#D64038",
         button: "#E0483A",
         buttonShadow: "rgba(224, 72, 58, 0.67);",
+      },
+      fontSizes: {
+        list: "2.5vh",
       },
     },
   },
@@ -124,7 +128,13 @@ function App(props) {
             )}
           />
 
-          <Route path="/Admin" exact component={Admin} />
+          <Route
+            path="/Admin"
+            exact
+            render={(props) => (
+              <Admin {...props} thememode="light" apptheme="glotzt" />
+            )}
+          />
           <Route path="/Legals" exact component={Legals} />
         </Switch>
       </BrowserRouter>
