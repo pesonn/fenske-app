@@ -1,14 +1,17 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Overview from "./routes/Overview";
-// import MBView from "./routes/MBView";
-import MBView from "./routes/MBView";
+import Mainmenu from "./routes/Mainmenu";
+import GlotztMenu from "./routes/glotzt/GlotztMenu";
+import Rausvoten from "./routes/glotzt/Rausvoten";
+import Bepunktet from "./routes/glotzt/Bepunktet";
+import Top100 from "./routes/glotzt/Top100";
+import Overview from "./routes/putzt/Overview";
+import MBView from "./routes/putzt/MBView";
+import Admin from "./routes/Admin";
 import Legals from "./routes/Legals";
-// import Admin from "./routes/Admin";
-import NoMatch from "./routes/NoMatch";
-// import "./App.css";
-
-import styled, { ThemeProvider } from "styled-components";
+import "./index.css";
+import "./App.css";
+import { ThemeProvider } from "styled-components";
 
 const theme = {
   general: {
@@ -25,10 +28,16 @@ const theme = {
     },
   },
   light: {
+    mainmenu: {
+      colors: {
+        headline: "#2C2C2C",
+      },
+    },
     maincolors: {
       text: "#737272",
       black: "#2C2C2C",
       white: "#F8F8F8",
+      background: "#f5f5f5",
     },
     indicator: {
       incomplete: "#FF9081",
@@ -52,6 +61,16 @@ const theme = {
         buttonShadow: "rgba(82, 108, 172, 0.67);",
       },
     },
+    glotzt: {
+      colors: {
+        headline: "#D64038",
+        button: "#E0483A",
+        buttonShadow: "rgba(224, 72, 58, 0.67);",
+      },
+      fontSizes: {
+        list: "2.5vh",
+      },
+    },
   },
 };
 
@@ -64,17 +83,58 @@ function App(props) {
           <Route
             path="/"
             exact
+            render={(props) => <Mainmenu {...props} thememode="light" />}
+          />
+
+          <Route
+            path="/putzt"
+            exact
             render={(props) => (
               <Overview {...props} thememode="light" apptheme="putzt" />
             )}
           />
           <Route
-            path="/:name"
+            path="/putzt/:name"
             render={(props) => (
               <MBView {...props} thememode="light" apptheme="putzt" />
             )}
           />
-          {/* <Route path="/Admin" exact component={Admin} />  */}
+          <Route
+            path="/glotzt/"
+            exact
+            render={(props) => (
+              <GlotztMenu {...props} thememode="light" apptheme="glotzt" />
+            )}
+          />
+          <Route
+            path="/glotzt/rausvoten"
+            exact
+            render={(props) => (
+              <Rausvoten {...props} thememode="light" apptheme="glotzt" />
+            )}
+          />
+          <Route
+            path="/glotzt/bepunktet"
+            exact
+            render={(props) => (
+              <Bepunktet {...props} thememode="light" apptheme="glotzt" />
+            )}
+          />
+          <Route
+            path="/glotzt/top100"
+            exact
+            render={(props) => (
+              <Top100 {...props} thememode="light" apptheme="glotzt" />
+            )}
+          />
+
+          <Route
+            path="/Admin"
+            exact
+            render={(props) => (
+              <Admin {...props} thememode="light" apptheme="glotzt" />
+            )}
+          />
           <Route path="/Legals" exact component={Legals} />
         </Switch>
       </BrowserRouter>

@@ -9,9 +9,6 @@ import { ReactComponent as ToiletIcon } from "../svg-icons/Toilet.svg";
 import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
 
 export default function DisplayTask(props) {
-  const thememode = props.thememode;
-  const apptheme = props.apptheme;
-
   let roomtext = "";
   let roomtext2 = "";
   if (props.mb.room === "Bad 1" || props.mb.room === "Bad 2") {
@@ -47,53 +44,57 @@ export default function DisplayTask(props) {
     );
   }
 
-  const StyledIcon = css`
-    width: 18vh;
-    color: ${(props) => props.theme[thememode][apptheme].colors.headline};
-    ${"" /* TODO: #7 Create Shadow for SVGs */}
-    ${"" /* box-shadow: 6px 4px 13px rgba(0, 0, 0, 0.3); */}
-  `;
-
-  const StyledDishIcon = styled(DishIcon)`
-    ${StyledIcon}
-  `;
-  const StyledDustIcon = styled(DustIcon)`
-    ${StyledIcon}
-  `;
-  const StyledGarbageIcon = styled(GarbageIcon)`
-    ${StyledIcon};
-    width: 12vh;
-  `;
-  const StyledToiletIcon = styled(ToiletIcon)`
-    ${StyledIcon}
-  `;
-  const StyledCheckedIcon = styled(CheckedIcon)`
-    ${StyledIcon}
-    width: 20vh;
-  `;
-
-  const RoomDescription = styled.h6`
-    margin-top: 20px;
-    font-family: ${(props) => props.theme.general.fontFamily.subline};
-    font-size: ${(props) => props.theme.general.fontSizes.subline};
-    color: ${(props) => props.theme[thememode].icon.description.fontColor};
-  `;
-
   const setSVG = (room) => {
     if (props.mb.geputzt) {
-      return <StyledCheckedIcon></StyledCheckedIcon>;
+      return (
+        <StyledCheckedIcon
+          className={props.className}
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        ></StyledCheckedIcon>
+      );
     } else {
       switch (room) {
         case "Küche":
-          return <StyledDishIcon></StyledDishIcon>;
+          return (
+            <StyledDishIcon
+              className={props.className}
+              thememode={props.thememode}
+              apptheme={props.apptheme}
+            ></StyledDishIcon>
+          );
         case "Müll":
-          return <StyledGarbageIcon></StyledGarbageIcon>;
+          return (
+            <StyledGarbageIcon
+              className={props.className}
+              thememode={props.thememode}
+              apptheme={props.apptheme}
+            ></StyledGarbageIcon>
+          );
         case "Wohnen":
-          return <StyledDustIcon></StyledDustIcon>;
+          return (
+            <StyledDustIcon
+              className={props.className}
+              thememode={props.thememode}
+              apptheme={props.apptheme}
+            ></StyledDustIcon>
+          );
         case "Bad 1":
-          return <StyledToiletIcon></StyledToiletIcon>;
+          return (
+            <StyledToiletIcon
+              className={props.className}
+              thememode={props.thememode}
+              apptheme={props.apptheme}
+            ></StyledToiletIcon>
+          );
         case "Bad 2":
-          return <StyledToiletIcon></StyledToiletIcon>;
+          return (
+            <StyledToiletIcon
+              className={props.className}
+              thememode={props.thememode}
+              apptheme={props.apptheme}
+            ></StyledToiletIcon>
+          );
         default:
           return console.log("Hier ist ein Fehler.");
       }
@@ -101,10 +102,64 @@ export default function DisplayTask(props) {
   };
 
   return (
-    <CircleIcon sizeinVH={36} thememode={props.thememode}>
+    <TaskCircleIcon thememode={props.thememode}>
       {setSVG(props.mb.room)}
-      {!props.mb.geputzt && <RoomDescription>{roomtext}</RoomDescription>}
-      {!props.mb.geputzt && <RoomDescription>{roomtext2}</RoomDescription>}
-    </CircleIcon>
+      {!props.mb.geputzt && (
+        <RoomDescription
+          className={props.className}
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        >
+          {roomtext}
+        </RoomDescription>
+      )}
+      {!props.mb.geputzt && (
+        <RoomDescription
+          className={props.className}
+          thememode={props.thememode}
+          apptheme={props.apptheme}
+        >
+          {roomtext2}
+        </RoomDescription>
+      )}
+    </TaskCircleIcon>
   );
 }
+
+const TaskCircleIcon = styled(CircleIcon)`
+  width: 36vh;
+  height: 36vh;
+`;
+
+const StyledIcon = css`
+  width: 18vh;
+  color: ${(props) =>
+    props.theme[props.thememode][props.apptheme].colors.headline};
+  ${"" /* TODO: #7 Create Shadow for SVGs */}
+  ${"" /* box-shadow: 6px 4px 13px rgba(0, 0, 0, 0.3); */}
+`;
+
+const StyledDishIcon = styled(DishIcon)`
+  ${StyledIcon}
+`;
+const StyledDustIcon = styled(DustIcon)`
+  ${StyledIcon}
+`;
+const StyledGarbageIcon = styled(GarbageIcon)`
+  ${StyledIcon};
+  width: 12vh;
+`;
+const StyledToiletIcon = styled(ToiletIcon)`
+  ${StyledIcon}
+`;
+const StyledCheckedIcon = styled(CheckedIcon)`
+  ${StyledIcon}
+  width: 20vh;
+`;
+
+const RoomDescription = styled.h6`
+  margin-top: 20px;
+  font-family: ${(props) => props.theme.general.fontFamily.subline};
+  font-size: ${(props) => props.theme.general.fontSizes.subline};
+  color: ${(props) => props.theme[props.thememode].icon.description.fontColor};
+`;
