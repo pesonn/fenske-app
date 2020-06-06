@@ -8,7 +8,7 @@ Putzplan immer noch auf Papier oder einer Kreidetafel? Das ist doch voll 2005! M
 Zufällig wird jedem Mitbewohner am Ende der Woche die nächste Putz-ToDo zugeteilt.
 
 
-<h2>Fenske.Glotzt - Endlich einfach gemeinsam entscheiden, welcher Film heute Abend geschaut wird!</h2>
+<h2>Fenske.Glotzt - gemeinsam entscheiden, welcher Film heute Abend geschaut wird!</h2>
 
 Dank drei verschiedener Modi (die noch nicht ganz fertig sind) könnt ihr gemeinschaftlich entscheiden, welchen Film ihr an eurem nächsten Filmabend sehen wollt.
 
