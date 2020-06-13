@@ -20,22 +20,46 @@ export default function GlotztMenu(props) {
           Rausvoten
         </MenuButton>
       </a>
-      <a href="/glotzt/bepunktet">
-        <MenuButton thememode={props.thememode} apptheme={props.apptheme}>
-          Bepunktet
-        </MenuButton>
-      </a>
-      <a href="/glotzt/top100">
-        <MenuButton thememode={props.thememode} apptheme={props.apptheme}>
-          Top 100 Poster
-        </MenuButton>
-      </a>
+      <StyledAppTitleCOMINGSOON
+        thememode={props.thememode}
+        apptheme={props.apptheme}
+        className={props.className}
+        appdetails={{
+          name: "coming soon",
+          description: "",
+        }}
+      ></StyledAppTitleCOMINGSOON>
+      {/* <a href="/glotzt/bepunktet"> */}
+      <MenuButtonCOMINGSOON
+        thememode={props.thememode}
+        apptheme={props.apptheme}
+      >
+        Bepunktet
+      </MenuButtonCOMINGSOON>
+      {/* </a> */}
+      {/* <a href="/glotzt/top100"> */}
+      <MenuButtonCOMINGSOON
+        thememode={props.thememode}
+        apptheme={props.apptheme}
+      >
+        Top 100 Poster
+      </MenuButtonCOMINGSOON>
+      {/* </a> */}
     </MenuWrapper>
   );
 }
 
 const StyledAppTitle = styled(AppTitle)`
   margin-bottom: 5vh;
+`;
+
+const StyledAppTitleCOMINGSOON = styled(StyledAppTitle)`
+  text-align: center;
+  margin: 0 0 -35px 0;
+  h1 {
+    font-size: 2.5vh;
+    font-family: ${(props) => props.theme.general.fontFamily.subline};
+  }
 `;
 
 const MenuWrapper = styled.div`
@@ -54,4 +78,9 @@ const MenuButton = styled(Button)`
   width: 45vh;
   height: 10vh;
   font-size: 2.8vh;
+`;
+
+const MenuButtonCOMINGSOON = styled(MenuButton)`
+  background-color: #d6d6d6;
+  box-shadow: 0 0;
 `;
