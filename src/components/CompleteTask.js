@@ -60,90 +60,104 @@ export default function CompleteTask(props) {
     });
 
     if (everystatus.length === mbswithoutmb.length) {
-      // toggleGeputzt();
-      // reset local mbs to room = "" and geputzt = false
-      const resetMbs = () => {
-        return mbs.map((item) => ({
-          ...item,
-          room: "",
-          geputzt: false,
-        }));
-      };
-      newMBs = resetMbs();
-
-      // Badezimmer zuordnen
-      const setBathRooms = () => {
-        let usedNumbers = [];
-        while (usedNumbers.length < rooms.bathrooms.length) {
-          var n = Math.floor(
-            Math.random() * Math.floor(rooms.bathrooms.length),
-          );
-          if (usedNumbers.indexOf(n) === -1) {
-            usedNumbers.push(n);
-          }
-        }
-        const setOneBathRoom = (group, bathroomname) => {
-          let bathgroup = newMBs.filter((item) => item.group === group);
-          let randomindex = Math.floor(
-            Math.random() * Math.floor(bathgroup.length),
-          );
-          newMBs.find(
-            (item) => bathgroup[randomindex].name === item.name,
-          ).room = bathroomname;
+      const setNewRooms = () => {
+        const resetMbs = () => {
+          return mbs.map((item) => ({
+            ...item,
+            room: "",
+            geputzt: false,
+          }));
         };
+        newMBs = resetMbs();
 
-        setOneBathRoom("b1", rooms.bathrooms[0]);
-        setOneBathRoom("b2", rooms.bathrooms[1]);
-      };
-      setBathRooms();
+        // Badezimmer zuordnen
+        const setBathRooms = () => {
+          let usedNumbers = [];
+          while (usedNumbers.length < rooms.bathrooms.length) {
+            var n = Math.floor(
+              Math.random() * Math.floor(rooms.bathrooms.length),
+            );
+            if (usedNumbers.indexOf(n) === -1) {
+              usedNumbers.push(n);
+            }
+          }
+          const setOneBathRoom = (group, bathroomname) => {
+            let bathgroup = newMBs.filter((item) => item.group === group);
+            let randomindex = Math.floor(
+              Math.random() * Math.floor(bathgroup.length),
+            );
+            newMBs.find(
+              (item) => bathgroup[randomindex].name === item.name,
+            ).room = bathroomname;
+          };
 
-      // restliche Räume zuordnen
-      const setOtherRooms = () => {
-        let forOtherRooms = [];
-        let usedNumbers = [];
-        while (usedNumbers.length < rooms.otherrooms.length) {
-          var n = Math.floor(
-            Math.random() * Math.floor(rooms.otherrooms.length),
+          setOneBathRoom("b1", rooms.bathrooms[0]);
+          setOneBathRoom("b2", rooms.bathrooms[1]);
+        };
+        setBathRooms();
+
+        // restliche Räume zuordnen
+        const setOtherRooms = () => {
+          let forOtherRooms = [];
+          let usedNumbers = [];
+          while (usedNumbers.length < rooms.otherrooms.length) {
+            var n = Math.floor(
+              Math.random() * Math.floor(rooms.otherrooms.length),
+            );
+            if (usedNumbers.indexOf(n) === -1) {
+              usedNumbers.push(n);
+            }
+          }
+          // Alle aus MBs, die bisher kein Room zugeteilt bekommen haben werden in forOtherRooms gespeichert
+          newMBs.forEach((mb) =>
+            mb.room === "" ? forOtherRooms.push(mb) : null,
           );
-          if (usedNumbers.indexOf(n) === -1) {
-            usedNumbers.push(n);
+          // Da die Zahlen zufällig im Array gespeichert sind, erfolgt die Zuordnung nach Indexen
+          for (let i = 0; i < forOtherRooms.length; i++) {
+            forOtherRooms[usedNumbers[i]].room = rooms.otherrooms[i];
+          }
+        };
+        setOtherRooms();
+
+        // Daten aus newMBs in Datenbank hochladen
+        newMBs.forEach((item) => {
+          getFirebaseCollectionFrom("putzplan").doc(item.dbid).update({
+            room: item.room,
+            geputzt: false,
+          });
+        });
+
+        getFirebaseCollectionFrom("administration")
+          .doc(props.orgas.dbid)
+          .update({
+            lastupdate: new Date(),
+            weeknumber: WeekNumber().nextweek,
+          });
+      };
+      // Damit keiner den selben Raum der letzten Woche wieder zugeteilt bekommt, wird der wert aus der Datenbank mit dem neugenerierten Wert solange verglichen, bis alle einen neuen Raum haben.
+      let newrooms = 0;
+      const checkForAllNewRooms = () => {
+        newrooms = 0;
+        for (let i = 0; i < newMBs.length; i++) {
+          const element = newMBs[i];
+          let oldmb = mbs.find((item) => item.name === element.name);
+
+          if (element.room !== oldmb.room) {
+            newrooms++;
           }
         }
-        // Alle aus MBs, die bisher kein Room zugeteilt bekommen haben werden in forOtherRooms gespeichert
-        newMBs.forEach((mb) =>
-          mb.room === "" ? forOtherRooms.push(mb) : null,
-        );
-        // Da die Zahlen zufällig im Array gespeichert sind, erfolgt die Zuordnung nach Indexen
-        for (let i = 0; i < forOtherRooms.length; i++) {
-          forOtherRooms[usedNumbers[i]].room = rooms.otherrooms[i];
-        }
       };
-      setOtherRooms();
 
-      // Daten aus newMBs in Datenbank hochladen
-      newMBs.forEach((item) => {
-        getFirebaseCollectionFrom("putzplan").doc(item.dbid).update({
-          room: item.room,
-          geputzt: false,
-        });
-      });
-
-      getFirebaseCollectionFrom("administration").doc(props.orgas.dbid).update({
-        lastupdate: new Date(),
-        weeknumber: WeekNumber().nextweek,
-      });
+      while (newrooms !== newMBs.length) {
+        setNewRooms();
+        checkForAllNewRooms();
+      }
     }
   }
-  // Damit keiner den selben Raum der letzten Woche wieder zugeteilt bekommt, wird der wert aus der Datenbank mit dem neugenerierten Wert solange verglichen, bis alle einen neuen Raum haben.
+
   const checkForDouble = () => {
     toggleGeputzt();
-    if (
-      mbs.every(
-        (mb) => mb.room === newMBs.find((item) => item.name === mb.name).room,
-      )
-    ) {
-      checkForWeeklyUpdate();
-    }
+    checkForWeeklyUpdate();
   };
 
   return (
