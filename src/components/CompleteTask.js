@@ -6,6 +6,7 @@ import Button from "./Button";
 export default function CompleteTask(props) {
   const [rooms, setRooms] = useState([]);
   const [mbs, setMBs] = useState([]);
+  const [admin, setAdmin] = useState([]);
   let newMBs = mbs;
 
   function getUsersFromDatabase() {
@@ -29,9 +30,19 @@ export default function CompleteTask(props) {
     });
   }
 
+  function getAdministrationFromDatabase() {
+    getFirebaseCollectionFrom("administration").onSnapshot((snapshot) => {
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        setAdmin(data);
+      });
+    });
+  }
+
   useEffect(() => {
     getUsersFromDatabase();
     getRoomsFromDatabase();
+    getAdministrationFromDatabase();
   }, []);
 
   function toggleGeputzt() {
@@ -127,11 +138,19 @@ export default function CompleteTask(props) {
           });
         });
 
+        // Fals die Auslosung der neuen Aufgaben in der Folgewoche erfolgt, darf nicht die nächste Woche gesetzt werden, sondern es muss die aktuelle Woche gesetzt werden.
+        let correctedweeknumber;
+        if (WeekNumber().nextweek - admin.weeknumber < 2) {
+          correctedweeknumber = WeekNumber().nextweek;
+        } else {
+          correctedweeknumber = WeekNumber().thisweek;
+        }
+
         getFirebaseCollectionFrom("administration")
           .doc(props.orgas.dbid)
           .update({
             lastupdate: new Date(),
-            weeknumber: WeekNumber().nextweek,
+            weeknumber: correctedweeknumber,
           });
       };
       // Damit keiner den selben Raum der letzten Woche wieder zugeteilt bekommt, wird der wert aus der Datenbank mit dem neugenerierten Wert solange verglichen, bis alle einen neuen Raum haben.
