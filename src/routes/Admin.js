@@ -1,30 +1,69 @@
 import React, { useState, useEffect } from "react";
 import { getFirebaseCollectionFrom } from "../firebase";
-import { GiphyFetch } from "@giphy/js-fetch-api";
+import AppTitle from "../components/AppTitle";
+import Button from "../components/Button";
 
-export default function Admin() {
-  const [gif, setGif] = useState({
-    data: {},
-    images: {},
-  });
+export default function Admin(props) {
+  const [data, setData] = useState({});
 
-  async function getGif(id) {
-    const gf = new GiphyFetch(process.env.REACT_APP_GIPHY_apiKey);
-    const result = await gf.gif(id);
-    setGif({ data: result.data, images: result.data.images.original });
-  }
+  const getDatafromDatabase = () => {
+    getFirebaseCollectionFrom("test").onSnapshot((snapshot) => {
+      const dbdata = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const dbid = doc.id;
+        dbdata.push({ ...data, dbid });
+        setData(dbdata);
+      });
+    });
+  };
 
   useEffect(() => {
-    getGif("vX9WcCiWwUF7G");
+    getDatafromDatabase();
   }, []);
+  const leer = () => {};
+
+  let dibidada = { dbid: "" };
+  const updateDataInDatabase = () => {
+    getFirebaseCollectionFrom("rausvoten").doc("Findet Nemo").add({
+      name: "Findet Nemo",
+      active: true,
+      provider: "Disney+",
+    });
+
+    getFirebaseCollectionFrom("rausvoten")
+      .doc("HfRKCameXsXlLZzWhbiF")
+      .collection("movielist")
+      .doc("Harry Potter")
+      .update({
+        active: false,
+      });
+    console.log(data);
+
+    getFirebaseCollectionFrom("rausvoten")
+      .doc("HfRKCameXsXlLZzWhbiF")
+      .collection("movielist")
+      .doc(dibidada.dbid)
+      .update({
+        active: false,
+      });
+  };
 
   return (
-    <div>
-      <h1 style={{ color: "black" }}>Hello Admin</h1>
-      <div className="giphy-embed"></div>
-      <p></p>
-      <img src={gif.images.url} alt={gif.data.title} />
-      {console.log(gif.data.title)}
-    </div>
+    <>
+      <AppTitle
+        appdetails={{ name: "Hello Admin", description: "" }}
+        thememode={props.thememode}
+        apptheme={props.apptheme}
+      ></AppTitle>
+      <Button
+        onClick={updateDataInDatabase}
+        thememode={props.thememode}
+        apptheme={props.apptheme}
+      >
+        starte den Test
+      </Button>
+      {console.log(data)}
+    </>
   );
 }
