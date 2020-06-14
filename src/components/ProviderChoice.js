@@ -69,6 +69,17 @@ export default function ProviderChoice(props) {
           >
             Disney+
           </DisneyButton>
+          <SkyGoButton
+            thememode={props.thememode}
+            apptheme={props.apptheme}
+            className={props.className}
+            database={props.database}
+            activegameid={props.activegameid}
+            moviename={props.moviename}
+            onClick={() => movieToDatabase(props.moviename, "Sky Go")}
+          >
+            Sky Go
+          </SkyGoButton>
           <RegalButton
             thememode={props.thememode}
             apptheme={props.apptheme}
@@ -139,6 +150,15 @@ const AmazonButton = styled(NetflixButton)`
 
 const DisneyButton = styled(NetflixButton)`
   background-color: #1a45ab;
+`;
+const SkyGoButton = styled(NetflixButton)`
+  background: rgb(232, 122, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(232, 122, 0, 1) 0%,
+    rgba(218, 4, 107, 1) 43%,
+    rgba(59, 56, 131, 1) 100%
+  );
 `;
 const RegalButton = styled(NetflixButton)`
   background-color: #918e8e;
