@@ -104,9 +104,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 95vw;
-  height: auto;
-  padding-top: 6vh;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 0;
   background-color: ${(props) =>
     props.theme[props.thememode].maincolors.background};
 `;
@@ -117,6 +117,7 @@ const SquareIcon = styled(CircleIcon)`
   max-width: 500px;
   height: 50vh;
   max-height: 800px;
+  margin-top: -25vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
