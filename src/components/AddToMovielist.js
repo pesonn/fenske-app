@@ -81,7 +81,7 @@ const WrapperForm = styled.form`
 `;
 
 const StyledInput = styled.input`
-  width: 53%;
+  width: 68%;
   height: 4vh;
   font-family: ${(props) => props.theme.general.fontFamily.subline};
   font-size: ${(props) => props.theme.general.fontSizes.subline};
