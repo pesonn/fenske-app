@@ -9,6 +9,7 @@ const Background = createGlobalStyle`
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  height: 100%;
   width: 100vw;
   background: #f5f5f5;
 }
