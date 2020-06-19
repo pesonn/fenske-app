@@ -133,7 +133,8 @@ const MenuWrapper = styled.div`
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: center;
-  height: 85vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   width: 80vw;
   margin-left: 10vw;
   padding: 0vh 0 0 0;

@@ -63,13 +63,15 @@ export default function AddToMovielist(props) {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  ${"" /* width: 84.49%; */}
+`;
 
 const WrapperForm = styled.form`
   ${"" /* position: absolute;
   bottom: 3vh;
   left: 1vh; */}
-  width: 72vw;
+  width: 73vw;
   height: 5vh;
   display: flex;
   flex: column wrap;

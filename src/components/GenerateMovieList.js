@@ -24,7 +24,8 @@ const MenuWrapper = styled.div`
   flex-flow: column wrap;
   align-items: center;
   justify-content: space-around;
-  height: 70vh;
+  height: 61vh; //TODO: Hier liegt das Problem! Auf dem iPhone wird das Eingabefeld weiter nach unten gedrückt als es eigentlich sollte.
+
   width: 80vw;
   margin-left: 10vw;
   padding: 0vh 0 0 0;
