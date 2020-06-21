@@ -70,7 +70,11 @@ const Wrapper = styled.div`
 const WrapperForm = styled.form`
   position: absolute;
   bottom: 2vh;
-  left: 6vh;
+  ${"" /* left: 6vh; */}
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
   width: 73vw;
   height: 5vh;
   display: flex;

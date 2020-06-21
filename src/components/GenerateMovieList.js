@@ -26,7 +26,7 @@ const FullvhMenuWrapper = styled(Div100vh)`
   align-items: center;
   justify-content: space-around;
   width: 94vw;
-  margin-left: 4vw;
+  margin-left: 1vw;
   padding: 0vh 0 0 0;
   overflow: auto;
 `;
