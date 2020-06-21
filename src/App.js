@@ -12,6 +12,7 @@ import Legals from "./routes/Legals";
 import "./index.css";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
+import NoActiveGame from "./components/NoActiveGame";
 
 const theme = {
   general: {
@@ -81,76 +82,64 @@ export const AppTheme = createContext();
 function App(props) {
   return (
     <ThemeProvider theme={theme}>
-      <ThemeMode.Provider value="light">
-        <BrowserRouter>
-          <Switch>
-            <Route
-              path="/"
-              exact
-              render={(props) => <Mainmenu {...props} thememode="light" />}
-            />
+      <BrowserRouter>
+        <Switch>
+          <ThemeMode.Provider value="light">
+            <AppTheme.Provider value="mainmenu">
+              <Route
+                path="/"
+                exact
+                render={(props) => <Mainmenu {...props} />}
+              />
+            </AppTheme.Provider>
             <AppTheme.Provider value="putzt">
               <Route
                 path="/putzt"
                 exact
-                render={(props) => (
-                  <Overview {...props} thememode="light" apptheme="putzt" />
-                )}
+                render={(props) => <Overview {...props} />}
               />
 
               <Route
                 path="/putzt/:name"
-                render={(props) => (
-                  <MBView {...props} thememode="light" apptheme="putzt" />
-                )}
+                render={(props) => <MBView {...props} />}
               />
             </AppTheme.Provider>
-            {/* <AppTheme.Provider value="glotzt"> */}
-            <Route
-              path="/glotzt/"
-              exact
-              render={(props) => (
-                <GlotztMenu {...props} thememode="light" apptheme="glotzt" />
-              )}
-            />
+            <AppTheme.Provider value="glotzt">
+              <Route
+                path="/glotzt"
+                exact
+                render={(props) => <GlotztMenu {...props} />}
+              />
 
-            <Route
-              path="/glotzt/rausvoten"
-              exact
-              render={(props) => (
-                <Rausvoten {...props} thememode="light" apptheme="glotzt" />
-              )}
-            />
+              <Route
+                path="/glotzt/rausvoten"
+                exact
+                render={(props) => <Rausvoten {...props} />}
+              />
 
-            <Route
-              path="/glotzt/bepunktet"
-              exact
-              render={(props) => (
-                <Bepunktet {...props} thememode="light" apptheme="glotzt" />
-              )}
-            />
+              <Route
+                path="/glotzt/bepunktet"
+                exact
+                render={(props) => <Bepunktet {...props} />}
+              />
 
-            <Route
-              path="/glotzt/top100"
-              exact
-              render={(props) => (
-                <Top100 {...props} thememode="light" apptheme="glotzt" />
-              )}
-            />
-            {/* </AppTheme.Provider> */}
-            {/* <AppTheme.Provider value="glotzt"> */}
+              <Route
+                path="/glotzt/top100"
+                exact
+                render={(props) => <Top100 {...props} />}
+              />
+            </AppTheme.Provider>
             <Route
               path="/Admin"
               exact
               render={(props) => (
-                <Admin {...props} thememode="light" apptheme="glotzt" />
+                <NoActiveGame {...props} thememode="light" apptheme="glotzt" />
               )}
             />
-            {/* </AppTheme.Provider> */}
             <Route path="/Legals" exact component={Legals} />
-          </Switch>
-        </BrowserRouter>
-      </ThemeMode.Provider>
+          </ThemeMode.Provider>
+        </Switch>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
