@@ -75,6 +75,7 @@ export default function Rausvoten(props) {
             activegameid={activeGame.dbid}
             showtogglebuttons={activeGame.showtogglebuttons}
             showdeletebutton={activeGame.showdeletebutton}
+            listheight="72rvh"
           />
           <AddToMovielist
             thememode={props.thememode}
@@ -114,6 +115,7 @@ export default function Rausvoten(props) {
             activegameid={activeGame.dbid}
             showtogglebuttons={activeGame.showtogglebuttons}
             showdeletebutton={activeGame.showdeletebutton}
+            listheight="84rvh"
           />
         </FullvhMenuWrapper>
       )}
