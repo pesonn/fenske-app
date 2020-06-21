@@ -28,5 +28,5 @@ const FullvhMenuWrapper = styled(Div100vh)`
   width: 94vw;
   margin-left: 4vw;
   padding: 0vh 0 0 0;
-  overflow: scroll;
+  overflow: auto;
 `;
