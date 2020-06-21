@@ -12,7 +12,6 @@ import Legals from "./routes/Legals";
 import "./index.css";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
-import NoActiveGame from "./components/NoActiveGame";
 
 const theme = {
   general: {
@@ -133,7 +132,7 @@ function App(props) {
               path="/Admin"
               exact
               render={(props) => (
-                <NoActiveGame {...props} thememode="light" apptheme="glotzt" />
+                <Admin {...props} thememode="light" apptheme="glotzt" />
               )}
             />
             <Route path="/Legals" exact component={Legals} />
