@@ -6,7 +6,7 @@ import Div100vh from "react-div-100vh";
 
 export default function GenerateMovieList(props) {
   return (
-    <FullvhMenuWrapper style={{ height: "72rvh" }}>
+    <FullvhMenuWrapper style={{ height: props.listheight }}>
       <Movielist
         thememode={props.thememode}
         apptheme={props.apptheme}
