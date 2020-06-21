@@ -8,8 +8,6 @@ export default function GenerateMovieList(props) {
   return (
     <FullvhMenuWrapper style={{ height: props.listheight }}>
       <Movielist
-        thememode={props.thememode}
-        apptheme={props.apptheme}
         gamename="Rausvoten"
         database="rausvoten"
         activegameid={props.activegameid}

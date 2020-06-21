@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { getFirebaseCollectionFrom } from "../firebase";
 import styled from "styled-components";
 import CircleIcon from "./CircleIcon";
 import AppTitle from "./AppTitle";
 import Button from "./Button";
+import { ThemeMode, AppTheme } from "../App";
 
 export default function ProviderChoice(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
+
   const movieToDatabase = (moviename, provider) => {
     getFirebaseCollectionFrom(props.database)
       .doc(props.activegameid)
@@ -20,15 +24,9 @@ export default function ProviderChoice(props) {
   };
 
   return (
-    <Wrapper thememode={props.thememode} apptheme={props.apptheme}>
-      <SquareIcon
-        thememode={props.thememode}
-        apptheme={props.apptheme}
-        className={props.className}
-      >
+    <Wrapper thememode={thememode} apptheme={apptheme}>
+      <SquareIcon className={props.className}>
         <SmallAppTitle
-          thememode={props.thememode}
-          apptheme={props.apptheme}
           className={props.className}
           appdetails={{
             name: "Wo gibt's den Film?",
@@ -37,8 +35,6 @@ export default function ProviderChoice(props) {
         />
         <ProviderWrapper>
           <NetflixButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             database={props.database}
             activegameid={props.activegameid}
@@ -48,8 +44,6 @@ export default function ProviderChoice(props) {
             Netflix
           </NetflixButton>
           <AmazonButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             database={props.database}
             activegameid={props.activegameid}
@@ -59,8 +53,6 @@ export default function ProviderChoice(props) {
             Amazon Prime
           </AmazonButton>
           <DisneyButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             database={props.database}
             activegameid={props.activegameid}
@@ -70,8 +62,6 @@ export default function ProviderChoice(props) {
             Disney+
           </DisneyButton>
           <SkyGoButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             database={props.database}
             activegameid={props.activegameid}
@@ -81,8 +71,6 @@ export default function ProviderChoice(props) {
             Sky Go
           </SkyGoButton>
           <RegalButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             database={props.database}
             activegameid={props.activegameid}

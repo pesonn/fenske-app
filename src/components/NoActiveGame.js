@@ -7,17 +7,10 @@ export default function NoActiveGame(props) {
   return (
     <MenuWrapper>
       <StyledAppTitle
-        thememode={props.thememode}
-        apptheme={props.apptheme}
         className={props.className}
         appdetails={props.appdetails}
       ></StyledAppTitle>
-      <Button
-        thememode={props.thememode}
-        apptheme={props.apptheme}
-        className={props.className}
-        onClick={props.setgameup}
-      >
+      <Button className={props.className} onClick={props.setgameup}>
         Wir woll'n jez was GlOtZen!
       </Button>
     </MenuWrapper>
