@@ -4,7 +4,7 @@
 
 <h2>Fenske.Putzt - der Putzplan für eure WG</h2>
 
-Putzplan immer noch auf Papier oder einer Kreidetafel? Das ist doch voll 2005! Mit der Fenske.Putzt-App habt ihr den Putzplan digital in auf eurem Smartphone oder im Browser!
+Putzplan immer noch auf Papier oder einer Kreidetafel? Das ist doch voll 2005! Mit der Fenske.Putzt-App habt ihr den Putzplan digital auf eurem Smartphone oder im Browser!
 Zufällig wird jedem Mitbewohner am Ende der Woche die nächste Putz-ToDo zugeteilt.
 
 
