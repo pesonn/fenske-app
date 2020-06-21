@@ -126,7 +126,7 @@ export default function Movielist(props) {
 
 const ListWrapper = styled.div`
   width: 100%;
-  height: 60vh;
+  height: 100%;
   overflow-y: auto;
 `;
 
@@ -135,7 +135,7 @@ const ListRow = styled.section`
   margin-bottom: 2vh;
   display: flex;
   flex-wrap: nowrap;
-  align-items: center;
+  align-items: space-between;
 `;
 
 const ActiveMovie = styled.h2`

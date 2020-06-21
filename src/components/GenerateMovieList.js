@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getFirebaseCollectionFrom } from "../firebase";
 import Movielist from "./Movielist";
+import Div100vh from "react-div-100vh";
 
 export default function GenerateMovieList(props) {
   return (
-    <MenuWrapper>
+    <FullvhMenuWrapper style={{ height: "72rvh" }}>
       <Movielist
         thememode={props.thememode}
         apptheme={props.apptheme}
@@ -15,18 +16,17 @@ export default function GenerateMovieList(props) {
         showtogglebuttons={props.showtogglebuttons}
         showdeletebutton={props.showdeletebutton}
       ></Movielist>
-    </MenuWrapper>
+    </FullvhMenuWrapper>
   );
 }
 
-const MenuWrapper = styled.div`
+const FullvhMenuWrapper = styled(Div100vh)`
   display: flex;
   flex-flow: column wrap;
   align-items: center;
   justify-content: space-around;
-  height: 70vh;
-  width: 80vw;
-  margin-left: 10vw;
+  width: 94vw;
+  margin-left: 1vw;
   padding: 0vh 0 0 0;
-  min-height: 300px;
+  overflow: auto;
 `;
