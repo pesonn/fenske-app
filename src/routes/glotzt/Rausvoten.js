@@ -8,6 +8,7 @@ import AppTitle from "../../components/AppTitle";
 import StartGame from "../../components/StartGame";
 import GenerateMovieList from "../../components/GenerateMovieList";
 import AddToMovielist from "../../components/AddToMovielist";
+import Div100vh from "react-div-100vh";
 
 export default function Rausvoten(props) {
   const [activeGame, setActiveGame] = useState({
@@ -47,7 +48,7 @@ export default function Rausvoten(props) {
         ></StartGame>
       )}
       {activeGame.dbid !== "" && !activeGame.isVoting && (
-        <MenuWrapper>
+        <FullvhMenuWrapper>
           <StyledAppTitle
             thememode={props.thememode}
             apptheme={props.apptheme}
@@ -82,11 +83,11 @@ export default function Rausvoten(props) {
             database="rausvoten"
             activegameid={activeGame.dbid}
           />
-        </MenuWrapper>
+        </FullvhMenuWrapper>
       )}
-
+      {/* Ansicht für das Voting */}
       {activeGame.isVoting && (
-        <MenuWrapper>
+        <FullvhMenuWrapper>
           <StyledAppTitle
             thememode={props.thememode}
             apptheme={props.apptheme}
@@ -114,7 +115,7 @@ export default function Rausvoten(props) {
             showtogglebuttons={activeGame.showtogglebuttons}
             showdeletebutton={activeGame.showdeletebutton}
           />
-        </MenuWrapper>
+        </FullvhMenuWrapper>
       )}
       {console.log(activeGame)}
     </>
@@ -123,18 +124,17 @@ export default function Rausvoten(props) {
 
 const StyledAppTitle = styled(AppTitle)`
   margin-top: 3vh;
-  margin-bottom: 4vh;
+  margin-bottom: 2vh;
   h1 {
     font-size: 4vh;
   }
 `;
-const MenuWrapper = styled.div`
+
+const FullvhMenuWrapper = styled(Div100vh)`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: center;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
   width: 80vw;
   margin-left: 10vw;
   padding: 0vh 0 0 0;

@@ -68,15 +68,16 @@ const Wrapper = styled.div`
 `;
 
 const WrapperForm = styled.form`
-  ${"" /* position: absolute;
-  bottom: 3vh;
-  left: 1vh; */}
+  position: absolute;
+  bottom: 2vh;
+  left: 6vh;
   width: 73vw;
   height: 5vh;
   display: flex;
   flex: column wrap;
   justify-content: space-between;
   align-items: center;
+
   border: 1px solid ${(props) => props.theme[props.thememode].maincolors.text};
   background-color: ${(props) => props.theme[props.thememode].maincolors.white};
   padding: 10px 3vw 10px 3vw;

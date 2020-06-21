@@ -135,7 +135,7 @@ const ListRow = styled.section`
   margin-bottom: 2vh;
   display: flex;
   flex-wrap: nowrap;
-  align-items: center;
+  align-items: space-between;
 `;
 
 const ActiveMovie = styled.h2`
