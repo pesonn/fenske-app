@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { css } from "styled-components";
 import { WeekNumber } from "./WeekNumber";
 import CircleIcon from "./CircleIcon";
@@ -7,8 +7,11 @@ import { ReactComponent as DustIcon } from "../svg-icons/Dust.svg";
 import { ReactComponent as GarbageIcon } from "../svg-icons/Garbage.svg";
 import { ReactComponent as ToiletIcon } from "../svg-icons/Toilet.svg";
 import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
+import { ThemeMode, AppTheme } from "../App";
 
 export default function DisplayTask(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
   let roomtext = "";
   let roomtext2 = "";
   if (props.mb.room === "Bad 1" || props.mb.room === "Bad 2") {
@@ -49,8 +52,8 @@ export default function DisplayTask(props) {
       return (
         <StyledCheckedIcon
           className={props.className}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
+          thememode={thememode}
+          apptheme={apptheme}
         ></StyledCheckedIcon>
       );
     } else {
@@ -59,40 +62,40 @@ export default function DisplayTask(props) {
           return (
             <StyledDishIcon
               className={props.className}
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
             ></StyledDishIcon>
           );
         case "Müll":
           return (
             <StyledGarbageIcon
               className={props.className}
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
             ></StyledGarbageIcon>
           );
         case "Wohnen":
           return (
             <StyledDustIcon
               className={props.className}
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
             ></StyledDustIcon>
           );
         case "Bad 1":
           return (
             <StyledToiletIcon
               className={props.className}
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
             ></StyledToiletIcon>
           );
         case "Bad 2":
           return (
             <StyledToiletIcon
               className={props.className}
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
             ></StyledToiletIcon>
           );
         default:
@@ -107,8 +110,8 @@ export default function DisplayTask(props) {
       {!props.mb.geputzt && (
         <RoomDescription
           className={props.className}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
+          thememode={thememode}
+          apptheme={apptheme}
         >
           {roomtext}
         </RoomDescription>
@@ -116,8 +119,8 @@ export default function DisplayTask(props) {
       {!props.mb.geputzt && (
         <RoomDescription
           className={props.className}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
+          thememode={thememode}
+          apptheme={apptheme}
         >
           {roomtext2}
         </RoomDescription>
