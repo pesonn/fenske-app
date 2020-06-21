@@ -115,7 +115,7 @@ export default function Rausvoten(props) {
             activegameid={activeGame.dbid}
             showtogglebuttons={activeGame.showtogglebuttons}
             showdeletebutton={activeGame.showdeletebutton}
-            listheight="83rvh"
+            listheight="84rvh"
           />
         </FullvhMenuWrapper>
       )}
