@@ -146,8 +146,8 @@ const FullvhMenuWrapper = styled(Div100vh)`
 
 const PositionedButton = styled(Button)`
   position: absolute;
-  top: 4vh;
-  right: 9vw;
+  top: 3.8vh;
+  right: 10vw;
   width: 11vh;
   height: 3vh;
   font-size: ${(props) => props.theme.general.fontSizes.paragraph};
