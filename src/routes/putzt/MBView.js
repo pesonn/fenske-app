@@ -92,24 +92,9 @@ export default function MBViewNew(props) {
         className="giphy-embed"
       /> */}
       <MBViewWrapper className="wrapper">
-        <DisplayTask
-          mb={mb}
-          orgas={orgas}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
-        />
-        <WelcomeName
-          mb={mb}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
-        />
-        <CompleteTask
-          mb={mb}
-          orgas={orgas}
-          startGif={selectGif}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
-        />
+        <DisplayTask mb={mb} orgas={orgas} />
+        <WelcomeName mb={mb} />
+        <CompleteTask mb={mb} orgas={orgas} startGif={selectGif} />
       </MBViewWrapper>
     </>
   );
