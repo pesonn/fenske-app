@@ -12,11 +12,11 @@ import Legals from "./routes/Legals";
 import "./index.css";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
-import { theme } from "./styles/theme";
+import { theme } from "./style/theme";
 import { GlobalFonts } from "./fonts/GlobalFonts";
 import { createGlobalStyle } from "styled-components";
 
-const thememode = "dark";
+let thememode = "light";
 const Background = createGlobalStyle`
 body {
   min-height: 100vh;
@@ -38,7 +38,7 @@ function App(props) {
       <GlobalFonts />
       <BrowserRouter>
         <Switch>
-          <ThemeMode.Provider value="light">
+          <ThemeMode.Provider value={thememode}>
             <Background />
             <AppTheme.Provider value="mainmenu">
               <Route
