@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Mainmenu from "./routes/Mainmenu";
 import GlotztMenu from "./routes/glotzt/GlotztMenu";
@@ -74,68 +74,69 @@ const theme = {
   },
 };
 
+export const ThemeMode = createContext();
+export const AppTheme = createContext();
+
 //TODO: Seite für falschgeschriebene URL
 function App(props) {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Switch>
-          <Route
-            path="/"
-            exact
-            render={(props) => <Mainmenu {...props} thememode="light" />}
-          />
+          <ThemeMode.Provider value="light">
+            <AppTheme.Provider value="mainmenu">
+              <Route
+                path="/"
+                exact
+                render={(props) => <Mainmenu {...props} />}
+              />
+            </AppTheme.Provider>
+            <AppTheme.Provider value="putzt">
+              <Route
+                path="/putzt"
+                exact
+                render={(props) => <Overview {...props} />}
+              />
 
-          <Route
-            path="/putzt"
-            exact
-            render={(props) => (
-              <Overview {...props} thememode="light" apptheme="putzt" />
-            )}
-          />
-          <Route
-            path="/putzt/:name"
-            render={(props) => (
-              <MBView {...props} thememode="light" apptheme="putzt" />
-            )}
-          />
-          <Route
-            path="/glotzt/"
-            exact
-            render={(props) => (
-              <GlotztMenu {...props} thememode="light" apptheme="glotzt" />
-            )}
-          />
-          <Route
-            path="/glotzt/rausvoten"
-            exact
-            render={(props) => (
-              <Rausvoten {...props} thememode="light" apptheme="glotzt" />
-            )}
-          />
-          <Route
-            path="/glotzt/bepunktet"
-            exact
-            render={(props) => (
-              <Bepunktet {...props} thememode="light" apptheme="glotzt" />
-            )}
-          />
-          <Route
-            path="/glotzt/top100"
-            exact
-            render={(props) => (
-              <Top100 {...props} thememode="light" apptheme="glotzt" />
-            )}
-          />
+              <Route
+                path="/putzt/:name"
+                render={(props) => <MBView {...props} />}
+              />
+            </AppTheme.Provider>
+            <AppTheme.Provider value="glotzt">
+              <Route
+                path="/glotzt"
+                exact
+                render={(props) => <GlotztMenu {...props} />}
+              />
 
-          <Route
-            path="/Admin"
-            exact
-            render={(props) => (
-              <Admin {...props} thememode="light" apptheme="glotzt" />
-            )}
-          />
-          <Route path="/Legals" exact component={Legals} />
+              <Route
+                path="/glotzt/rausvoten"
+                exact
+                render={(props) => <Rausvoten {...props} />}
+              />
+
+              <Route
+                path="/glotzt/bepunktet"
+                exact
+                render={(props) => <Bepunktet {...props} />}
+              />
+
+              <Route
+                path="/glotzt/top100"
+                exact
+                render={(props) => <Top100 {...props} />}
+              />
+            </AppTheme.Provider>
+            <Route
+              path="/Admin"
+              exact
+              render={(props) => (
+                <Admin {...props} thememode="light" apptheme="glotzt" />
+              )}
+            />
+            <Route path="/Legals" exact component={Legals} />
+          </ThemeMode.Provider>
         </Switch>
       </BrowserRouter>
     </ThemeProvider>

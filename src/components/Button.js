@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { ThemeMode, AppTheme } from "../App";
 
 export default function StyledButton(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
   return (
     <Button
       className={props.className}
-      thememode={props.thememode}
-      apptheme={props.apptheme}
+      thememode={thememode}
+      apptheme={apptheme}
       onClick={props.onClick}
     >
       {props.children}

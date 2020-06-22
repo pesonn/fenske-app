@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { getFirebaseCollectionFrom } from "../../firebase";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -29,19 +29,11 @@ export default function Overview(props) {
   return (
     <>
       <OverviewList>
-        <AppTitle
-          appdetails={appDetails}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
-        />
+        <AppTitle appdetails={appDetails} />
         <ListOfNames>
           {mbs.map((item) => (
             <>
-              <OverviewName
-                item={item}
-                thememode={props.thememode}
-                apptheme={props.apptheme}
-              />
+              <OverviewName item={item} />
             </>
           ))}
         </ListOfNames>

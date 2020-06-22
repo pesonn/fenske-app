@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import AppTitle from "../../components/AppTitle";
+import { ThemeMode, AppTheme } from "../../App";
 
 export default function GlotztMenu(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
   return (
     <MenuWrapper>
       <StyledAppTitle
-        thememode={props.thememode}
-        apptheme={props.apptheme}
+        thememode={thememode}
+        apptheme={apptheme}
         className={props.className}
         appdetails={{
           name: "Fenske glotzt!",
@@ -16,13 +19,13 @@ export default function GlotztMenu(props) {
         }}
       ></StyledAppTitle>
       <a href="/glotzt/rausvoten">
-        <MenuButton thememode={props.thememode} apptheme={props.apptheme}>
+        <MenuButton thememode={thememode} apptheme={apptheme}>
           Rausvoten
         </MenuButton>
       </a>
       <StyledAppTitleCOMINGSOON
-        thememode={props.thememode}
-        apptheme={props.apptheme}
+        thememode={thememode}
+        apptheme={apptheme}
         className={props.className}
         appdetails={{
           name: "coming soon",
@@ -30,18 +33,12 @@ export default function GlotztMenu(props) {
         }}
       ></StyledAppTitleCOMINGSOON>
       {/* <a href="/glotzt/bepunktet"> */}
-      <MenuButtonCOMINGSOON
-        thememode={props.thememode}
-        apptheme={props.apptheme}
-      >
+      <MenuButtonCOMINGSOON thememode={thememode} apptheme={apptheme}>
         Bepunktet
       </MenuButtonCOMINGSOON>
       {/* </a> */}
       {/* <a href="/glotzt/top100"> */}
-      <MenuButtonCOMINGSOON
-        thememode={props.thememode}
-        apptheme={props.apptheme}
-      >
+      <MenuButtonCOMINGSOON thememode={thememode} apptheme={apptheme}>
         Top 100 Poster
       </MenuButtonCOMINGSOON>
       {/* </a> */}

@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "./Button";
 import styled from "styled-components";
 import ProviderChoice from "./ProviderChoice";
+import { ThemeMode, AppTheme } from "../App";
+
 export default function AddToMovielist(props) {
   /*
   1. Eingabefeld -> eigene component
   2. eingegeben Namen per props an Providerauswahl, von da in Datenbank schieben und zurück zur Movielist Übersicht
   */
-
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
   const [moviedata, setMoviedata] = useState({
     name: "",
     showProviderChoice: false,
@@ -29,21 +32,16 @@ export default function AddToMovielist(props) {
   return (
     <Wrapper>
       {!moviedata.showProviderChoice && (
-        <WrapperForm thememode={props.thememode} apptheme={props.apptheme}>
+        <WrapperForm thememode={thememode} apptheme={apptheme}>
           <StyledInput
-            thememode={props.thememode}
-            apptheme={props.apptheme}
+            thememode={thememode}
+            apptheme={apptheme}
             type="text"
             value={moviedata.name}
             onChange={handleChange}
             placeholder="Filmname"
           ></StyledInput>
-          <StyledButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
-            className={props.className}
-            onClick={toggleProvider}
-          >
+          <StyledButton className={props.className} onClick={toggleProvider}>
             Auf die Liste
           </StyledButton>
         </WrapperForm>
@@ -51,8 +49,6 @@ export default function AddToMovielist(props) {
 
       {moviedata.showProviderChoice && (
         <ProviderChoice
-          thememode={props.thememode}
-          apptheme={props.apptheme}
           database={props.database}
           activegameid={props.activegameid}
           moviename={moviedata.name}

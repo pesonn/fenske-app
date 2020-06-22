@@ -40,8 +40,6 @@ export default function Rausvoten(props) {
     <>
       {activeGame.dbid === "" && (
         <StartGame
-          thememode={props.thememode}
-          apptheme={props.apptheme}
           gamename="Rausvoten"
           database="rausvoten"
           setGameId={setGameId}
@@ -50,26 +48,17 @@ export default function Rausvoten(props) {
       {activeGame.dbid !== "" && !activeGame.isVoting && (
         <FullvhMenuWrapper>
           <StyledAppTitle
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             appdetails={{
               name: "Rausvoten",
               description: "Welche Filme möchtest du heute sehen?",
             }}
           />
-          <PositionedButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
-            className={props.className}
-            onClick={goToVoting}
-          >
+          <PositionedButton className={props.className} onClick={goToVoting}>
             Ok hab alle
           </PositionedButton>
 
           <GenerateMovieList
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             gamename="Rausvoten"
             database="rausvoten"
             activegameid={activeGame.dbid}
@@ -78,8 +67,6 @@ export default function Rausvoten(props) {
             listheight="72rvh"
           />
           <AddToMovielist
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             gamename="Rausvoten"
             database="rausvoten"
             activegameid={activeGame.dbid}
@@ -90,8 +77,6 @@ export default function Rausvoten(props) {
       {activeGame.isVoting && (
         <FullvhMenuWrapper>
           <StyledAppTitle
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             appdetails={{
               name: "Rausvoten",
@@ -99,17 +84,10 @@ export default function Rausvoten(props) {
                 "Jetzt schmeiß alle Filme raus, die du nicht sehen willst!",
             }}
           />
-          <PositionedButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
-            className={props.className}
-            onClick={closeGame}
-          >
+          <PositionedButton className={props.className} onClick={closeGame}>
             Abschließen
           </PositionedButton>
           <GenerateMovieList
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             gamename="Rausvoten"
             database="rausvoten"
             activegameid={activeGame.dbid}

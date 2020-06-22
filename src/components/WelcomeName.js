@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
+import { ThemeMode, AppTheme } from "../App";
 
 export default function WelcomeName(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
   return (
     <Wrapper>
-      <WelcomeMB thememode={props.thememode} apptheme={props.apptheme}>
+      <WelcomeMB thememode={thememode} apptheme={apptheme}>
         Moin{" "}
         {typeof props.mb === "undefined" ? <Redirect to="/" /> : props.mb.name}!
       </WelcomeMB>
-      <Description thememode={props.thememode} apptheme={props.apptheme}>
+      <Description thememode={thememode} apptheme={apptheme}>
         {props.mb.geputzt
           ? "Für diese Woche bist du durch!"
           : "Hast du für diese Woche alles erledigt?"}
