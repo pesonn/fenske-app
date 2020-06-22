@@ -12,8 +12,21 @@ import Legals from "./routes/Legals";
 import "./index.css";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
+import { GlobalFonts } from "./fonts/GlobalFonts";
+import { createGlobalStyle } from "styled-components";
 
-const theme = {
+const Background = createGlobalStyle`
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  
+  width: 100vw;
+  ${"" /* background: #f7f7f7; */}
+  background: ${(props) => props.theme.light.maincolors.background};
+}
+`;
+
+export const theme = {
   general: {
     fontFamily: {
       headline: "SourceSansBold",
@@ -37,7 +50,7 @@ const theme = {
       text: "#737272",
       black: "#2C2C2C",
       white: "#F8F8F8",
-      background: "#f5f5f5",
+      background: "#f7f7f7",
     },
     indicator: {
       incomplete: "#FF9081",
@@ -81,6 +94,8 @@ export const AppTheme = createContext();
 function App(props) {
   return (
     <ThemeProvider theme={theme}>
+      <GlobalFonts />
+      <Background />
       <BrowserRouter>
         <Switch>
           <ThemeMode.Provider value="light">
