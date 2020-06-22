@@ -12,9 +12,11 @@ import Legals from "./routes/Legals";
 import "./index.css";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
+import { theme } from "./styles/theme";
 import { GlobalFonts } from "./fonts/GlobalFonts";
 import { createGlobalStyle } from "styled-components";
 
+const thememode = "dark";
 const Background = createGlobalStyle`
 body {
   min-height: 100vh;
@@ -22,70 +24,9 @@ body {
   
   width: 100vw;
   ${"" /* background: #f7f7f7; */}
-  background: ${(props) => props.theme.light.maincolors.background};
+  background: ${(props) => props.theme[thememode].maincolors.background};
 }
 `;
-
-export const theme = {
-  general: {
-    fontFamily: {
-      headline: "SourceSansBold",
-      subline: "SourceSansSemi",
-      paragraph: "SourceSansReg",
-    },
-    fontSizes: {
-      headline: "3.7vh",
-      subheadline: "3.3vh",
-      subline: "1.8vh",
-      paragraph: "1.5vh",
-    },
-  },
-  light: {
-    mainmenu: {
-      colors: {
-        headline: "#2C2C2C",
-      },
-    },
-    maincolors: {
-      text: "#737272",
-      black: "#2C2C2C",
-      white: "#F8F8F8",
-      background: "#f7f7f7",
-    },
-    indicator: {
-      incomplete: "#FF9081",
-      done: "#59EB3F",
-    },
-    icon: {
-      description: {
-        fontColor: "rgba(203, 203, 203, 0.98)",
-        filter: "blur(0.5px)",
-      },
-      colors: {
-        background: "#F0F0F0",
-        incomplete: "#F2EDED",
-        done: "#EEF2ED",
-      },
-    },
-    putzt: {
-      colors: {
-        headline: "#314F9B",
-        button: "#526CAC",
-        buttonShadow: "rgba(82, 108, 172, 0.67);",
-      },
-    },
-    glotzt: {
-      colors: {
-        headline: "#D64038",
-        button: "#E0483A",
-        buttonShadow: "rgba(224, 72, 58, 0.67);",
-      },
-      fontSizes: {
-        list: "2.5vh",
-      },
-    },
-  },
-};
 
 export const ThemeMode = createContext();
 export const AppTheme = createContext();
@@ -95,10 +36,10 @@ function App(props) {
   return (
     <ThemeProvider theme={theme}>
       <GlobalFonts />
-      <Background />
       <BrowserRouter>
         <Switch>
           <ThemeMode.Provider value="light">
+            <Background />
             <AppTheme.Provider value="mainmenu">
               <Route
                 path="/"
