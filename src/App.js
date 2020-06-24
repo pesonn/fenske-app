@@ -105,14 +105,14 @@ function App(props) {
                 exact
                 render={(props) => <Top100 {...props} />}
               />
+              <Route
+                path="/Admin"
+                exact
+                render={(props) => (
+                  <Admin {...props} thememode="light" apptheme="glotzt" />
+                )}
+              />
             </AppTheme.Provider>
-            <Route
-              path="/Admin"
-              exact
-              render={(props) => (
-                <Admin {...props} thememode="light" apptheme="glotzt" />
-              )}
-            />
             <Route path="/Legals" exact component={Legals} />
           </ThemeMode.Provider>
         </Switch>
