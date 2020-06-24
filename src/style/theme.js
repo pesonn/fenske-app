@@ -1,4 +1,4 @@
-export const theme = {
+export const lightTheme = {
   general: {
     fontFamily: {
       headline: "SourceSansBold",
@@ -57,8 +57,22 @@ export const theme = {
       },
     },
   },
-
-  // DARK THEME
+};
+// DARK THEME
+export const darkTheme = {
+  general: {
+    fontFamily: {
+      headline: "SourceSansBold",
+      subline: "SourceSansSemi",
+      paragraph: "SourceSansReg",
+    },
+    fontSizes: {
+      headline: "3.7vh",
+      subheadline: "3.3vh",
+      subline: "1.8vh",
+      paragraph: "1.5vh",
+    },
+  },
   dark: {
     mainmenu: {
       colors: {

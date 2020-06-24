@@ -12,11 +12,33 @@ import Legals from "./routes/Legals";
 import "./index.css";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
-import { theme } from "./style/theme";
+import { lightTheme, darkTheme } from "./style/theme";
 import { GlobalFonts } from "./fonts/GlobalFonts";
 import { createGlobalStyle } from "styled-components";
 
+let theme = lightTheme;
 let thememode = "light";
+
+/* window.matchMedia &&
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (e) => {
+      theme = e.matches ? darkTheme : lightTheme;
+      thememode = e.matches ? "dark" : "light";
+      console.log("Theme Changed");
+    });
+
+if (
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches
+) {
+  theme = darkTheme;
+  thememode = "dark";
+} else {
+  theme = lightTheme;
+  thememode = "light";
+} */
+
 const Background = createGlobalStyle`
 body {
   min-height: 100vh;
