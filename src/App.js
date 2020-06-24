@@ -1,6 +1,8 @@
 import React, { createContext } from "react";
+import firebase from "./firebase";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Mainmenu from "./routes/Mainmenu";
+import Welcome from "./routes/Welcome";
 import GlotztMenu from "./routes/glotzt/GlotztMenu";
 import Rausvoten from "./routes/glotzt/Rausvoten";
 import Bepunktet from "./routes/glotzt/Bepunktet";
@@ -55,6 +57,7 @@ export const AppTheme = createContext();
 
 //TODO: Seite für falschgeschriebene URL
 function App(props) {
+  const user = firebase.auth().currentUser;
   return (
     <ThemeProvider theme={theme}>
       <GlobalFonts />
@@ -66,7 +69,9 @@ function App(props) {
               <Route
                 path="/"
                 exact
-                render={(props) => <Mainmenu {...props} />}
+                render={(props) =>
+                  user ? <Mainmenu {...props} /> : <Welcome {...props} />
+                }
               />
             </AppTheme.Provider>
             <AppTheme.Provider value="putzt">

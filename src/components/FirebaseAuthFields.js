@@ -1,5 +1,6 @@
 import React from "react";
 import firebase from "../firebase";
+import * as firebaseui from "firebaseui";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 export default function FirebaseAuthFields() {

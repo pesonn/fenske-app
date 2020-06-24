@@ -5,6 +5,7 @@ import AppTitle from "../components/AppTitle";
 import Button from "../components/Button";
 
 export default function Admin(props) {
+  firebase.auth().languageCode = "de";
   const uiConfig = {
     signInFlow: "popup",
     signInSuccessUrl: "/",
