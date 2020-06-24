@@ -13,7 +13,10 @@ export default function Admin(props) {
         provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
         requireDisplayName: true,
       },
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      {
+        provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        scopes: ["https://www.googleapis.com/auth/plus.login"],
+      },
     ],
   };
 
