@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { getFirebaseCollectionFrom } from "../../firebase";
+import firebase, { getFirebaseCollectionFrom } from "../../firebase";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import OverviewName from "../../components/OverviewName";
@@ -12,19 +12,47 @@ export default function Overview(props) {
     description: "Das ist euer Putzplan für diese Woche:",
   });
 
-  useEffect(() => {
-    getFirebaseCollectionFrom("putzplan")
-      .orderBy("name", "asc") // sortiert anzeige alphabetisch
-      .onSnapshot((snapshot) => {
-        const dbdata = [];
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          const dbid = doc.id;
-          dbdata.push({ ...data, dbid });
+  /* 
+  Hier müssen die Userdaten abgerufen werden. 
+  Dann muss die user.uid gespeichert werden. 
+  Dann muss entsprechend des Users die Gruppe aus der DAtenbank gezogen werden.
+  Aus dieser Gruppe muss die ID des zugehörigen Documents aus der putzt-app
+  collection gezogen
+  */
+
+  let groupdocid = null;
+
+  const getUserData = () => {
+    if (props.user) {
+      getFirebaseCollectionFrom("users")
+        .doc(props.user.uid)
+        .onSnapshot((snapshot) => {
+          groupdocid = snapshot.data().groupID;
         });
-        setMBs(dbdata);
-      });
-  }, []);
+    }
+  };
+  const getPutzplanData = () => {
+    if (props.user) {
+      console.log(groupdocid);
+      getFirebaseCollectionFrom("putzt-app")
+        .doc(groupdocid)
+        .collection("putzplan")
+        .orderBy("name", "asc") // sortiert anzeige alphabetisch
+        .onSnapshot((snapshot) => {
+          const dbdata = [];
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            const dbid = doc.id;
+            dbdata.push({ ...data, dbid });
+          });
+          setMBs(dbdata);
+        });
+    }
+  };
+  useEffect(() => {
+    getUserData();
+    getPutzplanData();
+  }, [props.user]);
 
   return (
     <>
