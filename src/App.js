@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import firebase from "./firebase";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Mainmenu from "./routes/Mainmenu";
@@ -57,7 +57,17 @@ export const AppTheme = createContext();
 
 //TODO: Seite für falschgeschriebene URL
 function App(props) {
-  const user = firebase.auth().currentUser;
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((u) => {
+      if (u) {
+        setUser(u);
+        console.log(u);
+      }
+    });
+  }, [user]);
+  console.log(user);
   return (
     <ThemeProvider theme={theme}>
       <GlobalFonts />
