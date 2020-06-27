@@ -1,10 +1,14 @@
 import React, { useContext } from "react";
+import firebase from "../firebase";
 import styled from "styled-components";
 import Button from "../components/Button";
 import AppTitle from "../components/AppTitle";
 import { ThemeMode, AppTheme } from "../App";
+import { Redirect } from "react-router-dom";
 
 export default function Mainmenu(props) {
+  const user = firebase.auth().currentUser;
+
   const thememode = useContext(ThemeMode);
   return (
     <MenuWrapper>
@@ -17,7 +21,9 @@ export default function Mainmenu(props) {
       ></StyledAppTitle>
       <AppTheme.Provider value="putzt">
         <a href="/putzt">
-          <MenuButton thememode={thememode}>Putzt</MenuButton>
+          <MenuButton thememode={thememode} user={user}>
+            Putzt
+          </MenuButton>
         </a>
       </AppTheme.Provider>
       <AppTheme.Provider value="glotzt">
@@ -25,6 +31,8 @@ export default function Mainmenu(props) {
           <MenuButton thememode={thememode}>Glotzt</MenuButton>
         </a>
       </AppTheme.Provider>
+
+      <MenuButton thememode={thememode}>ausloggen</MenuButton>
     </MenuWrapper>
   );
 }
