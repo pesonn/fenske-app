@@ -7,6 +7,7 @@ import AppTitle from "../../components/AppTitle";
 
 export default function Overview(props) {
   const [mbs, setMBs] = useState([]);
+  const [groupdocid, setGroupdocid] = useState(null);
   const [appDetails, setAppDetails] = useState({
     name: "Fenske putzt!",
     description: "Das ist euer Putzplan für diese Woche:",
@@ -20,22 +21,33 @@ export default function Overview(props) {
   collection gezogen
   */
 
-  let groupdocid = null;
-
-  const getUserData = () => {
+  /*  const getUserData = () => {
     if (props.user) {
       getFirebaseCollectionFrom("users")
         .doc(props.user.uid)
         .onSnapshot((snapshot) => {
-          groupdocid = snapshot.data().groupID;
+          setGroupdocid(snapshot.data().groupID);
         });
+      console.log("hello?");
+      console.log(props.user.uid);
     }
-  };
+  }; */
   const getPutzplanData = () => {
     if (props.user) {
-      console.log(groupdocid);
+      console.log(props.user.documentids.putztapp);
+      let data;
       getFirebaseCollectionFrom("putzt-app")
-        .doc(groupdocid)
+        // .doc(props.user.documentids.putztapp)
+        .where("groupID", "==", props.user.groupID)
+        .onSnapshot((snapshot) => {
+          snapshot.forEach((doc) => {
+            // dataID = doc.id;
+            data = { ...doc.data() };
+          });
+          setGroupdocid(data);
+        });
+      getFirebaseCollectionFrom("putz-app")
+        .doc("ebbttqyZIF7Yihi3k80f")
         .collection("putzplan")
         .orderBy("name", "asc") // sortiert anzeige alphabetisch
         .onSnapshot((snapshot) => {
@@ -49,8 +61,8 @@ export default function Overview(props) {
         });
     }
   };
+
   useEffect(() => {
-    getUserData();
     getPutzplanData();
   }, [props.user]);
 
