@@ -21,44 +21,44 @@ export default function Overview(props) {
   collection gezogen
   */
 
-  /*  const getUserData = () => {
-    if (props.user) {
-      getFirebaseCollectionFrom("users")
-        .doc(props.user.uid)
-        .onSnapshot((snapshot) => {
-          setGroupdocid(snapshot.data().groupID);
-        });
-      console.log("hello?");
-      console.log(props.user.uid);
-    }
-  }; */
   const getPutzplanData = () => {
     if (props.user) {
       console.log(props.user.documentids.putztapp);
       let data;
+      let subdata;
       getFirebaseCollectionFrom("putzt-app")
-        // .doc(props.user.documentids.putztapp)
-        .where("groupID", "==", props.user.groupID)
+        .doc(props.user.documentids.putztapp)
+        // .where("putzplan", "==", props.user.userid)
+        .onSnapshot((snapshot) => {
+          // snapshot.forEach((doc) => {
+          //   // dataID = doc.id;
+          //   data = { ...doc.data() };
+          // });
+          data = snapshot.data();
+          setMBs(data);
+        });
+
+      getFirebaseCollectionFrom("putzt-app")
+        .doc(props.user.documentids.putztapp)
+        .collection("subcollection")
         .onSnapshot((snapshot) => {
           snapshot.forEach((doc) => {
-            // dataID = doc.id;
-            data = { ...doc.data() };
+            subdata = { ...doc.data() };
           });
-          setGroupdocid(data);
+          setGroupdocid(subdata);
         });
-      getFirebaseCollectionFrom("putz-app")
-        .doc("ebbttqyZIF7Yihi3k80f")
-        .collection("putzplan")
-        .orderBy("name", "asc") // sortiert anzeige alphabetisch
-        .onSnapshot((snapshot) => {
-          const dbdata = [];
-          snapshot.forEach((doc) => {
-            const data = doc.data();
-            const dbid = doc.id;
-            dbdata.push({ ...data, dbid });
-          });
-          setMBs(dbdata);
-        });
+      // getFirebaseCollectionFrom("putz-app")
+      //   .where("putzplan", "==", props.user.groupID)
+      //   .orderBy("name", "asc") // sortiert anzeige alphabetisch
+      //   .onSnapshot((snapshot) => {
+      //     const dbdata = [];
+      //     snapshot.forEach((doc) => {
+      //       const data = doc.data();
+      //       const dbid = doc.id;
+      //       dbdata.push({ ...data, dbid });
+      //     });
+      //     setMBs(dbdata);
+      //   });
     }
   };
 
@@ -70,13 +70,13 @@ export default function Overview(props) {
     <>
       <OverviewList>
         <AppTitle appdetails={appDetails} />
-        <ListOfNames>
+        {/* <ListOfNames>
           {mbs.map((item) => (
             <>
               <OverviewName item={item} />
             </>
           ))}
-        </ListOfNames>
+        </ListOfNames> */}
       </OverviewList>
       <LegalsLink>
         <Link to="/Legals">Legals</Link>
