@@ -20,3 +20,30 @@ export default firebase;
 
 export const getFirebaseCollectionFrom = (collectionname) =>
   firebase.firestore().collection(collectionname); //as string
+
+/* Firestore Security Rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	
+    match /users/{userID}  {
+    allow read: if request.auth != null && request.auth.uid == userID
+    }
+    match /groups/{groupID}  {
+    allow read, write: if true;
+    }
+    // match /putzt-app/{putztID} {
+     // allow read: if true
+     // allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.groupID == resource.data.groupID;
+    //  }
+    match /putzt-app/{putztID} {
+   // allow read: if true;
+    allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.groupID == resource.data.groupID;
+    }
+    match /putzt-app/{putztID}/{documentID}/{subcollection=**} {
+    allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.groupID == get(/databases/$(database)/documents/putzt-app/$(putztID)).data.groupID;
+    //allow read: if true;
+    }
+  }
+} */
