@@ -9,10 +9,6 @@ import { UserData } from "../../App";
 
 export default function Overview(props) {
   const [mbs, setMBs] = useState([]);
-  const [appDetails, setAppDetails] = useState({
-    name: "Fenske putzt!",
-    description: "Das ist euer Putzplan für diese Woche:",
-  });
   const user = useContext(UserData);
 
   const getPutzplanData = () => {
@@ -38,7 +34,12 @@ export default function Overview(props) {
     <>
       <LogoutButton>Ausloggen</LogoutButton>
       <OverviewList>
-        <AppTitle appdetails={appDetails} />
+        <AppTitle
+          appdetails={{
+            name: "Fenske putzt!",
+            description: "Das ist euer Putzplan für diese Woche:",
+          }}
+        />
         <ListOfNames>
           {mbs.map((item) => (
             <>
