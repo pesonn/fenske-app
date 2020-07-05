@@ -10,6 +10,7 @@ export const lightTheme = {
       subheadline: "3.3vh",
       subline: "1.8vh",
       paragraph: "1.5vh",
+      smallButton: "1.3vh",
     },
   },
   light: {
