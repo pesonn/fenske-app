@@ -4,79 +4,48 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import OverviewName from "../../components/OverviewName";
 import AppTitle from "../../components/AppTitle";
+import LogoutButton from "../../components/LogoutButton";
+import { UserData } from "../../App";
 
 export default function Overview(props) {
   const [mbs, setMBs] = useState([]);
-  const [groupdocid, setGroupdocid] = useState(null);
   const [appDetails, setAppDetails] = useState({
     name: "Fenske putzt!",
     description: "Das ist euer Putzplan für diese Woche:",
   });
-
-  /* 
-  Hier müssen die Userdaten abgerufen werden. 
-  Dann muss die user.uid gespeichert werden. 
-  Dann muss entsprechend des Users die Gruppe aus der DAtenbank gezogen werden.
-  Aus dieser Gruppe muss die ID des zugehörigen Documents aus der putzt-app
-  collection gezogen
-  */
+  const user = useContext(UserData);
 
   const getPutzplanData = () => {
-    if (props.user) {
-      console.log(props.user.documentids.putztapp);
-      let data;
-      let subdata;
+    if (user) {
       getFirebaseCollectionFrom("putzt-app")
-        .doc(props.user.documentids.putztapp)
-        // .where("putzplan", "==", props.user.userid)
-        .onSnapshot((snapshot) => {
-          // snapshot.forEach((doc) => {
-          //   // dataID = doc.id;
-          //   data = { ...doc.data() };
-          // });
-          data = snapshot.data();
-          setMBs(data);
-        });
-
-      getFirebaseCollectionFrom("putzt-app")
-        .doc(props.user.documentids.putztapp)
+        .doc(user.putztID)
         .collection("subcollection")
         .onSnapshot((snapshot) => {
+          let putzplandata;
           snapshot.forEach((doc) => {
-            subdata = { ...doc.data() };
+            putzplandata = [doc.data()];
           });
-          setGroupdocid(subdata);
+          setMBs(putzplandata);
         });
-      // getFirebaseCollectionFrom("putz-app")
-      //   .where("putzplan", "==", props.user.groupID)
-      //   .orderBy("name", "asc") // sortiert anzeige alphabetisch
-      //   .onSnapshot((snapshot) => {
-      //     const dbdata = [];
-      //     snapshot.forEach((doc) => {
-      //       const data = doc.data();
-      //       const dbid = doc.id;
-      //       dbdata.push({ ...data, dbid });
-      //     });
-      //     setMBs(dbdata);
-      //   });
     }
   };
 
   useEffect(() => {
     getPutzplanData();
-  }, [props.user]);
+  }, [user]);
 
   return (
     <>
+      <LogoutButton>Ausloggen</LogoutButton>
       <OverviewList>
         <AppTitle appdetails={appDetails} />
-        {/* <ListOfNames>
+        <ListOfNames>
           {mbs.map((item) => (
             <>
               <OverviewName item={item} />
             </>
           ))}
-        </ListOfNames> */}
+        </ListOfNames>
       </OverviewList>
       <LegalsLink>
         <Link to="/Legals">Legals</Link>
