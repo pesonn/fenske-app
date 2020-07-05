@@ -39,7 +39,7 @@ service cloud.firestore {
     //  }
     match /putzt-app/{putztID} {
    // allow read: if true;
-    allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.groupID == resource.data.groupID;
+    allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.putztID == resource.id;
     }
     match /putzt-app/{putztID}/{documentID}/{subcollection=**} {
     allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.groupID == get(/databases/$(database)/documents/putzt-app/$(putztID)).data.groupID;
