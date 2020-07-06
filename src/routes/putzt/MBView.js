@@ -106,12 +106,12 @@ export default function MBViewNew(props) {
       /> */}
       <MBViewWrapper className="wrapper">
         <DisplayTask mbforview={mbforview} putzplandata={putzplanData} />
-        {/* <WelcomeName mbforview={mbforview} /> */}
-        {/* <CompleteTask
+        <WelcomeName mbforview={mbforview} />
+        <CompleteTask
           mbforview={mbforview}
           putzplandata={putzplanData}
           startGif={selectGif}
-        /> */}
+        />
       </MBViewWrapper>
     </>
   );
