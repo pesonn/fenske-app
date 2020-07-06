@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, createContext } from "react";
 import firebase, { getFirebaseCollectionFrom } from "../../firebase";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -7,27 +7,46 @@ import AppTitle from "../../components/AppTitle";
 import LogoutButton from "../../components/LogoutButton";
 import { UserData } from "../../App";
 
+export const PutzplanData = createContext();
+export const Putzplanung = createContext();
+
 export default function Overview(props) {
-  const [mbs, setMBs] = useState([]);
+  const [putzplanData, setPutzplanData] = useState([]);
+  const [putzplanung, setPutzplanung] = useState([]);
   const user = useContext(UserData);
 
   const getPutzplanData = () => {
     if (user) {
       getFirebaseCollectionFrom("putzt-app")
         .doc(user.putztID)
-        .collection("subcollection")
         .onSnapshot((snapshot) => {
           let putzplandata = [];
           snapshot.forEach((doc) => {
             putzplandata.push(doc.data());
           });
-          setMBs(putzplandata);
+          setPutzplanData(putzplandata);
+        });
+    }
+  };
+
+  const getPutzplanung = () => {
+    if (user) {
+      getFirebaseCollectionFrom("putzt-app")
+        .doc(user.putztID)
+        .collection("subcollection")
+        .onSnapshot((snapshot) => {
+          let putzplan = [];
+          snapshot.forEach((doc) => {
+            putzplan.push(doc.data());
+          });
+          setPutzplanung(putzplan);
         });
     }
   };
 
   useEffect(() => {
     getPutzplanData();
+    getPutzplanung();
   }, [user]);
 
   return (
@@ -40,13 +59,17 @@ export default function Overview(props) {
             description: "Das ist euer Putzplan für diese Woche:",
           }}
         />
-        <ListOfNames>
-          {mbs.map((item) => (
-            <>
-              <OverviewName item={item} />
-            </>
-          ))}
-        </ListOfNames>
+        <PutzplanData.Provider value={putzplanData}>
+          <Putzplanung.Provider value={putzplanung}>
+            <ListOfNames>
+              {putzplanung.map((item) => (
+                <>
+                  <OverviewName item={item} />
+                </>
+              ))}
+            </ListOfNames>
+          </Putzplanung.Provider>
+        </PutzplanData.Provider>
       </OverviewList>
       <LegalsLink>
         <Link to="/Legals">Legals</Link>
