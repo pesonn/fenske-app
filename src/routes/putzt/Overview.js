@@ -17,9 +17,9 @@ export default function Overview(props) {
         .doc(user.putztID)
         .collection("subcollection")
         .onSnapshot((snapshot) => {
-          let putzplandata;
+          let putzplandata = [];
           snapshot.forEach((doc) => {
-            putzplandata = [doc.data()];
+            putzplandata.push(doc.data());
           });
           setMBs(putzplandata);
         });
