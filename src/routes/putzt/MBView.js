@@ -77,10 +77,6 @@ export default function MBViewNew(props) {
       getFirebaseCollectionFrom("putzt-app")
         .doc(user.putztID)
         .onSnapshot((snapshot) => {
-          // let putzplandata = [];
-          // snapshot.forEach((doc) => {
-          //   putzplandata.push(doc.data());
-          // });
           setPutzplanData(snapshot.data());
         });
     }
