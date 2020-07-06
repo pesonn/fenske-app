@@ -10,42 +10,13 @@ import { UserData } from "../../App";
 
 export default function MBViewNew(props) {
   const { name } = useParams();
-  const [mb, setMB] = useState([]);
+  const [mbforview, setMBForView] = useState([]);
+  const [putzplanData, setPutzplanData] = useState([]);
   const [displayGif, setDisplayGif] = useState(false);
-  const [orgas, setOrgas] = useState({ data: {}, dbid: null });
+  // const [orgas, setOrgas] = useState({ data: {}, dbid: null });
   const [gifs, setGifs] = useState([]);
   const [showGif, setShowGif] = useState({});
   const user = useContext(UserData);
-
-  function getUsersFromDatabase() {
-    // getFirebaseCollectionFrom("putzplan").onSnapshot((snapshot) => {
-    getFirebaseCollectionFrom("putzt-app")
-      .doc(user.putztID)
-      .collection("subcollection")
-      .onSnapshot((snapshot) => {
-        const dbdata = [];
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          const dbid = doc.id;
-          dbdata.push({ ...data, dbid });
-        });
-        // set unique MB for Component View
-        setMB(dbdata.find((item) => item.name === name));
-      });
-  }
-
-  function getOrgaStuffFromDatabase() {
-    getFirebaseCollectionFrom("putzt-app")
-      .doc(user.putztID)
-      .onSnapshot((snapshot) => {
-        setOrgas({ data: snapshot.data(), dbid: snapshot.id });
-        // snapshot.forEach((doc) => {
-        //   const data = doc.data();
-        //   const dbid = doc.id;
-        //   setOrgas({ data: data, dbid: dbid });
-        // });
-      });
-  }
 
   async function getGifs() {
     // get GIF ID from Database
@@ -83,6 +54,43 @@ export default function MBViewNew(props) {
     console.log("hello" + name);
   }, []); */
 
+  const getMBforView = () => {
+    if (user) {
+      getFirebaseCollectionFrom("putzt-app")
+        .doc(user.putztID)
+        .collection("subcollection")
+        .onSnapshot((snapshot) => {
+          let dbdata = [];
+          snapshot.forEach((doc) => {
+            let data = doc.data();
+            let dbid = doc.id;
+            dbdata.push({ ...data, dbid: dbid });
+          });
+
+          setMBForView(dbdata.find((item) => item.name === name));
+        });
+    }
+  };
+
+  const getPutzplanData = () => {
+    if (user) {
+      getFirebaseCollectionFrom("putzt-app")
+        .doc(user.putztID)
+        .onSnapshot((snapshot) => {
+          // let putzplandata = [];
+          // snapshot.forEach((doc) => {
+          //   putzplandata.push(doc.data());
+          // });
+          setPutzplanData(snapshot.data());
+        });
+    }
+  };
+
+  useEffect(() => {
+    getPutzplanData();
+    getMBforView();
+  }, [user]);
+
   function toggleGif() {
     displayGif ? setDisplayGif(false) : setDisplayGif(true);
   }
@@ -101,9 +109,13 @@ export default function MBViewNew(props) {
         className="giphy-embed"
       /> */}
       <MBViewWrapper className="wrapper">
-        <DisplayTask mb={mb} orgas={orgas} />
-        <WelcomeName mb={mb} />
-        <CompleteTask mb={mb} orgas={orgas} startGif={selectGif} />
+        <DisplayTask mbforview={mbforview} putzplandata={putzplanData} />
+        {/* <WelcomeName mbforview={mbforview} /> */}
+        {/* <CompleteTask
+          mbforview={mbforview}
+          putzplandata={putzplanData}
+          startGif={selectGif}
+        /> */}
       </MBViewWrapper>
     </>
   );
