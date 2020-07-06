@@ -11,23 +11,8 @@ export const PutzplanData = createContext();
 export const Putzplanung = createContext();
 
 export default function Overview(props) {
-  const [putzplanData, setPutzplanData] = useState([]);
   const [putzplanung, setPutzplanung] = useState([]);
   const user = useContext(UserData);
-
-  const getPutzplanData = () => {
-    if (user) {
-      getFirebaseCollectionFrom("putzt-app")
-        .doc(user.putztID)
-        .onSnapshot((snapshot) => {
-          let putzplandata = [];
-          snapshot.forEach((doc) => {
-            putzplandata.push(doc.data());
-          });
-          setPutzplanData(putzplandata);
-        });
-    }
-  };
 
   const getPutzplanung = () => {
     if (user) {
@@ -45,7 +30,6 @@ export default function Overview(props) {
   };
 
   useEffect(() => {
-    getPutzplanData();
     getPutzplanung();
   }, [user]);
 
@@ -59,17 +43,15 @@ export default function Overview(props) {
             description: "Das ist euer Putzplan für diese Woche:",
           }}
         />
-        <PutzplanData.Provider value={putzplanData}>
-          <Putzplanung.Provider value={putzplanung}>
-            <ListOfNames>
-              {putzplanung.map((item) => (
-                <>
-                  <OverviewName item={item} />
-                </>
-              ))}
-            </ListOfNames>
-          </Putzplanung.Provider>
-        </PutzplanData.Provider>
+        <Putzplanung.Provider value={putzplanung}>
+          <ListOfNames>
+            {putzplanung.map((item) => (
+              <>
+                <OverviewName item={item} />
+              </>
+            ))}
+          </ListOfNames>
+        </Putzplanung.Provider>
       </OverviewList>
       <LegalsLink>
         <Link to="/Legals">Legals</Link>
