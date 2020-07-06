@@ -10,10 +10,15 @@ export default function WelcomeName(props) {
     <Wrapper>
       <WelcomeMB thememode={thememode} apptheme={apptheme}>
         Moin{" "}
-        {typeof props.mb === "undefined" ? <Redirect to="/" /> : props.mb.name}!
+        {typeof props.mbforview === "undefined" ? (
+          <Redirect to="/" />
+        ) : (
+          props.mbforview.name
+        )}
+        !
       </WelcomeMB>
       <Description thememode={thememode} apptheme={apptheme}>
-        {props.mb.geputzt
+        {props.mbforview.geputzt
           ? "Für diese Woche bist du durch!"
           : "Hast du für diese Woche alles erledigt?"}
       </Description>
