@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled, { css } from "styled-components";
 import { WeekNumber } from "./WeekNumber";
 import CircleIcon from "./CircleIcon";
@@ -14,11 +14,12 @@ export default function DisplayTask(props) {
   const apptheme = useContext(AppTheme);
   let roomtext = "";
   let roomtext2 = "";
-  if (props.mb.room === "Bad 1" || props.mb.room === "Bad 2") {
+
+  if (props.mbforview.room === "Bad 1" || props.mbforview.room === "Bad 2") {
     roomtext = "Badezimmer";
-  } else if (props.mb.room === "Müll") {
+  } else if (props.mbforview.room === "Müll") {
     // Hier wird geprüft, ob die aktuelle Woche mit der aktuellen Woche übereinstimmt.
-    if (WeekNumber().thisweek === props.orgas.data.weeknumber) {
+    if (WeekNumber().thisweek === props.putzplandata.weeknumber) {
       // die aktuelle Woche aus der Datenbank stimmt mit der tatsächlichen aktuellen Woche überein.
       if (WeekNumber().thisweek % 2 === 0) {
         roomtext = "Müll wegbringen";
@@ -26,7 +27,7 @@ export default function DisplayTask(props) {
       } else {
         roomtext = "Müll wegbringen";
       }
-    } else if (WeekNumber().nextweek === props.orgas.data.weeknumber) {
+    } else if (WeekNumber().nextweek === props.putzplandata.weeknumber) {
       // Wenn alle aufgaben einer Woche erledigt wurden, wird bereits auf die Wochenummer der nächsten Woche geachtet.
       if (WeekNumber().nextweek % 2 === 0) {
         roomtext = "Müll wegbringen";
@@ -37,9 +38,9 @@ export default function DisplayTask(props) {
     } else {
       console.error("Hier stimmt was mit der Wochennummer nicht!");
     }
-  } else if (props.mb.room === "Küche") {
+  } else if (props.mbforview.room === "Küche") {
     roomtext = "Küche";
-  } else if (props.mb.room === "Wohnen") {
+  } else if (props.mbforview.room === "Wohnen") {
     roomtext = "Wohnbereich";
   } else {
     console.error(
@@ -48,7 +49,7 @@ export default function DisplayTask(props) {
   }
 
   const setSVG = (room) => {
-    if (props.mb.geputzt) {
+    if (props.mbforview.geputzt) {
       return (
         <StyledCheckedIcon
           className={props.className}
@@ -106,8 +107,8 @@ export default function DisplayTask(props) {
 
   return (
     <TaskCircleIcon thememode={props.thememode}>
-      {setSVG(props.mb.room)}
-      {!props.mb.geputzt && (
+      {setSVG(props.mbforview.room)}
+      {!props.mbforview.geputzt && (
         <RoomDescription
           className={props.className}
           thememode={thememode}
@@ -116,7 +117,7 @@ export default function DisplayTask(props) {
           {roomtext}
         </RoomDescription>
       )}
-      {!props.mb.geputzt && (
+      {!props.mbforview.geputzt && (
         <RoomDescription
           className={props.className}
           thememode={thememode}
