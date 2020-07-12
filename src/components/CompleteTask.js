@@ -148,11 +148,15 @@ export default function CompleteTask(props) {
           newMBs.forEach((mb) =>
             mb.room === "" ? forOtherRooms.push(mb) : null,
           );
+          //usedNumbers.splice(-usedNumbers.length, forOtherRooms.length);
+          console.log(usedNumbers);
           // Da die Zahlen zufällig im Array gespeichert sind, erfolgt die Zuordnung nach Indexen
           for (let i = 0; i < forOtherRooms.length; i++) {
             //TODO: Hier wirft er einen Fehler aus "cannot set property room of undefined"
+            console.log(usedNumbers);
             forOtherRooms[usedNumbers[i]].room =
               props.putzplandata.rooms.otherrooms[i];
+            console.log(forOtherRooms[0].room);
           }
         };
         setOtherRooms();
@@ -196,10 +200,18 @@ export default function CompleteTask(props) {
         }
       };
 
+      //TODO: In finaler Version korrekte Funktion wieder aktivieren!
+      // Ausführen der Funktion muss wieder gelöscht werden, es genügend User für den Putzplan gibt.
+      setNewRooms();
+      /* Funktion kann nur laufen, wenn es genügend User für den Putzplan
+      gibt. Problem sind die Badezimmergruppen. Da es hier immer die 
+      gleiche Zuordnung gibt, läuft die Funktion in einer Dauerschleife
+      
       while (newrooms !== newMBs.length) {
         setNewRooms();
         checkForAllNewRooms();
-      }
+        console.log("Run again");
+      } */
     }
   }
 
