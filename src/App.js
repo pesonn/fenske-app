@@ -17,6 +17,7 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./style/theme";
 import { GlobalFonts } from "./fonts/GlobalFonts";
 import { createGlobalStyle } from "styled-components";
+import LogoutButton from "./components/LogoutButton";
 
 let theme = lightTheme;
 let thememode = "light";
@@ -86,6 +87,9 @@ function App(props) {
             <Background />
             {user ? (
               <UserData.Provider value={user}>
+                <AppTheme.Provider value="mainmenu">
+                  <LogoutButton>Ausloggen</LogoutButton>
+                </AppTheme.Provider>
                 <AppTheme.Provider value="mainmenu">
                   <Route
                     path="/"
