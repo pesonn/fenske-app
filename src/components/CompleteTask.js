@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { getFirebaseCollectionFrom } from "../firebase";
+import firebase, { getFirebaseCollectionFrom } from "../firebase";
 import { WeekNumber } from "./WeekNumber";
 import Button from "./Button";
 import { UserData } from "../App";
@@ -222,10 +222,16 @@ export default function CompleteTask(props) {
 
   return (
     <>
-      {props.mbforview.geputzt === false ? (
-        <Button onClick={checkForDouble}>Yes! Alles erledigt!</Button>
+      {props.mbforview.dbid === user.userid ? (
+        props.mbforview.geputzt === false ? (
+          <Button onClick={checkForDouble}>Yes! Alles erledigt!</Button>
+        ) : (
+          <Button onClick={toggleGeputzt}>Oh nee... zurück bitte</Button>
+        )
       ) : (
-        <Button onClick={toggleGeputzt}>Oh nee... zurück bitte</Button>
+        <Button inactive={true}>
+          Du kannst den Putzplan nicht für andere erledigen!
+        </Button>
       )}
     </>
   );
