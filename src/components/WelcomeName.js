@@ -51,7 +51,7 @@ const Wrapper = styled.div`
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
-  margin-top: 10vh;
+  margin-top: 5vh;
 `;
 const WelcomeMB = styled.h1`
   font-family: ${(props) => props.theme.general.fontFamily.headline};

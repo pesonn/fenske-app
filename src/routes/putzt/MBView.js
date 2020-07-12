@@ -105,8 +105,8 @@ export default function MBViewNew(props) {
         className="giphy-embed"
       /> */}
       <MBViewWrapper className="wrapper">
-        <DisplayTask mbforview={mbforview} putzplandata={putzplanData} />
         <WelcomeName mbforview={mbforview} />
+        <DisplayTask mbforview={mbforview} putzplandata={putzplanData} />
         <CompleteTask
           mbforview={mbforview}
           putzplandata={putzplanData}
