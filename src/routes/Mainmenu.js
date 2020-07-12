@@ -31,8 +31,6 @@ export default function Mainmenu(props) {
           <MenuButton thememode={thememode}>Glotzt</MenuButton>
         </a>
       </AppTheme.Provider>
-
-      <MenuButton thememode={thememode}>ausloggen</MenuButton>
     </MenuWrapper>
   );
 }
