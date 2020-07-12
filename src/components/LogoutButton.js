@@ -27,6 +27,10 @@ export default function LogoutButton(props) {
 const StyledLogoutButton = styled(Button)`
   background-color: ${(props) => props.theme[props.thememode].maincolors.black};
   font-size: ${(props) => props.theme.general.fontSizes.smallButton};
-  width: 10vh;
-  height: 3vh;
+  width: 8vh;
+  height: 2.5vh;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 9999;
 `;
