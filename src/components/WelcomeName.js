@@ -2,26 +2,47 @@ import React, { useContext } from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { ThemeMode, AppTheme } from "../App";
+import { UserData } from "../App";
 
 export default function WelcomeName(props) {
   const thememode = useContext(ThemeMode);
   const apptheme = useContext(AppTheme);
+  const user = useContext(UserData);
+
   return (
     <Wrapper>
-      <WelcomeMB thememode={thememode} apptheme={apptheme}>
-        Moin{" "}
-        {typeof props.mbforview === "undefined" ? (
-          <Redirect to="/" />
-        ) : (
-          props.mbforview.name
-        )}
-        !
-      </WelcomeMB>
-      <Description thememode={thememode} apptheme={apptheme}>
-        {props.mbforview.geputzt
-          ? "Für diese Woche bist du durch!"
-          : "Hast du für diese Woche alles erledigt?"}
-      </Description>
+      {props.mbforview.dbid === user.userid ? (
+        <>
+          <WelcomeMB thememode={thememode} apptheme={apptheme}>
+            Moin{" "}
+            {typeof props.mbforview === "undefined" ? (
+              <Redirect to="/" />
+            ) : (
+              props.mbforview.name
+            )}
+            !
+          </WelcomeMB>
+          <Description thememode={thememode} apptheme={apptheme}>
+            {props.mbforview.geputzt
+              ? "Für diese Woche bist du durch!"
+              : "Hast du für diese Woche alles erledigt?"}
+          </Description>
+        </>
+      ) : (
+        <>
+          {/* <WelcomeMB thememode={thememode} apptheme={apptheme}>
+            Moin
+          </WelcomeMB> */}
+          <Description thememode={thememode} apptheme={apptheme}>
+            {typeof props.mbforview === "undefined" ? (
+              <Redirect to="/" />
+            ) : (
+              props.mbforview.name
+            )}
+            's Aufgabe für diese Woche!
+          </Description>
+        </>
+      )}
     </Wrapper>
   );
 }
@@ -37,6 +58,7 @@ const WelcomeMB = styled.h1`
   font-size: ${(props) => props.theme.general.fontSizes.headline};
   color: ${(props) =>
     props.theme[props.thememode][props.apptheme].colors.headline};
+  text-align: center;
 `;
 
 const Description = styled.h6`
