@@ -34,3 +34,6 @@ yarn-error.log*
 
 #firebase-tools
 /firebase-config
+
+#Security Keys
+*.p8
