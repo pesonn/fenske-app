@@ -28,16 +28,18 @@ service cloud.firestore {
   match /databases/{database}/documents {
   	
     match /users/{userID}  {
-    allow read: if request.auth != null && request.auth.uid == userID
+    allow read, write: if true
+    //allow read: if request.auth != null && request.auth.uid == userID
     }
     
     match /putzt-app/{putztID} {
-    allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.putztID == resource.id;
+    allow read, write: if true
+    //allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.putztID == resource.id;
     }
     
     match /putzt-app/{putztID}/{documentID}/{subcollection=**} {
-    allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.groupID == get(/databases/$(database)/documents/putzt-app/$(putztID)).data.groupID;
+    allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.putztID == putztID;
     
     }
   }
-} */
+}*/
