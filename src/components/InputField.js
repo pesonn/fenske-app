@@ -40,7 +40,6 @@ export default function InputField(props) {
           Lass mich rein!
         </StyledButton>
       </WrapperForm>
-      <button onClick={sendInviteCode}>TEST</button>
     </>
   );
 }
