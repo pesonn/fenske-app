@@ -10,6 +10,7 @@ import Top100 from "./routes/glotzt/Top100";
 import Overview from "./routes/putzt/Overview";
 import MBView from "./routes/putzt/MBView";
 import Admin from "./routes/Admin";
+import JoinForm from "./routes/JoinForm";
 import Legals from "./routes/Legals";
 import "./index.css";
 import "./App.css";
@@ -103,7 +104,13 @@ function App(props) {
                   <Route
                     path="/putzt"
                     exact
-                    render={(props) => <Overview {...props} user={user} />}
+                    render={(props) =>
+                      user.putztID ? (
+                        <Overview {...props} user={user} />
+                      ) : (
+                        <JoinForm {...props} user={user} app={"putzt"} />
+                      )
+                    }
                   />
 
                   <Route
