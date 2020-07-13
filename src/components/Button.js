@@ -12,6 +12,7 @@ export default function StyledButton(props) {
       apptheme={apptheme}
       onClick={props.onClick}
       inactive={props.inactive}
+      type={props.type}
     >
       {props.children}
     </Button>

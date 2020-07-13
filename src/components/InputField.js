@@ -32,7 +32,11 @@ export default function InputField(props) {
           onChange={handleChange}
           placeholder="Invitecode"
         ></StyledInput>
-        <StyledButton className={props.className} onClick={sendInviteCode}>
+        <StyledButton
+          className={props.className}
+          type={"button"}
+          onClick={sendInviteCode}
+        >
           Lass mich rein!
         </StyledButton>
       </WrapperForm>
