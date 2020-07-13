@@ -9,12 +9,18 @@ export default function FirebaseAuthFields() {
     signInSuccessUrl: "/",
     signInOptions: [
       {
-        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        requireDisplayName: true,
+        provider: "apple.com",
+        customParameters: {
+          locale: "de",
+        },
       },
       {
         provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         scopes: ["https://www.googleapis.com/auth/plus.login"],
+      },
+      {
+        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+        requireDisplayName: true,
       },
     ],
   };
