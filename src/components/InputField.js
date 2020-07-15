@@ -16,7 +16,7 @@ export default function InputField(props) {
     setInvite({ ...invite, code: event.target.value });
   };
 
-  let sendCode = firebase.functions().httpsCallable("setPutztID");
+  let sendCode = firebase.functions().httpsCallable(props.cloudFunction);
   const sendInviteCode = () => {
     sendCode({ code: invite.code });
   };

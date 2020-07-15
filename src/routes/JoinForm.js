@@ -25,7 +25,7 @@ export default function JoinForm(props) {
           />
           {/* Eröffne eine neue Putzgruppe für dich und deine WG. Oder gib hier
           den Invitecode deiner WG ein, um beim Putzplan mitzumachen. */}
-          <InputField />
+          <InputField cloudFunction={"setPutztIDForUser"} />
           <AppTitle
             appdetails={{
               name: "",
