@@ -1,24 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import firebase, { getFirebaseCollectionFrom } from "../firebase";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import AppTitle from "../components/AppTitle";
 import Button from "../components/Button";
+import { UserData } from "../App";
 
 export default function Admin(props) {
   firebase.auth().languageCode = "de";
-  const uiConfig = {
-    signInFlow: "popup",
-    signInSuccessUrl: "/",
-    signInOptions: [
-      {
-        provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        requireDisplayName: true,
+  const user = useContext(UserData);
+  let dbcode;
+  const createPutztgruppe = () => {
+    const newDoc = getFirebaseCollectionFrom("putzt-app").doc();
+
+    newDoc.set({
+      weeknumber: 0,
+      lastupdate: null,
+      rooms: {
+        bathrooms: ["Bad 1", "Bad 2"],
+        otherrooms: ["Müll", "Küche", "Wohnen"],
       },
-      {
-        provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        scopes: ["https://www.googleapis.com/auth/plus.login"],
-      },
-    ],
+    });
+    newDoc.update({
+      invitecode: newDoc.id.substr(0, 6),
+    });
+    newDoc.collection("putzplan").doc(user.userid).set({ test: "hallo" });
+
+    getFirebaseCollectionFrom("users")
+      .doc(user.userid)
+      .update({ putztID: newDoc.id });
   };
 
   return (
@@ -26,9 +35,7 @@ export default function Admin(props) {
       <AppTitle
         appdetails={{ name: "Hello Admin", description: "" }}
       ></AppTitle>
-      <Button>starte den Test</Button>
-
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+      <Button onClick={createPutztgruppe}>starte den Test</Button>
     </>
   );
 }
