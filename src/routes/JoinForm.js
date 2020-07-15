@@ -2,28 +2,61 @@ import React from "react";
 import styled from "styled-components";
 import AppTitle from "../components/AppTitle";
 import InputField from "../components/InputField";
+import Button from "../components/Button";
 
 export default function JoinForm(props) {
   return (
     <MenuWrapper>
       {props.app === "putzt" && (
-        <AppTitle
-          appdetails={{
-            name: "Fenske putzt!",
-            description:
-              "Anscheinend bist du in keiner Putzgruppe. Gib hier den Invitecode deiner Freunde ein, um beim Putzen mitzumachen.",
-          }}
-        />
+        <>
+          <AppTitle
+            appdetails={{
+              name: "Fenske putzt!",
+              description:
+                "Anscheinend bist du bisher in keiner Putzgruppe. Gib hier den Invitecode deiner Freunde ein, um beim Putzen mitzumachen.",
+            }}
+          />
+          <AppTitle
+            appdetails={{
+              name: "",
+              description:
+                "Gib hier den Invitecode deiner Freunde ein, um beim Putzen mitzumachen.",
+            }}
+          />
+          {/* Eröffne eine neue Putzgruppe für dich und deine WG. Oder gib hier
+          den Invitecode deiner WG ein, um beim Putzplan mitzumachen. */}
+          <InputField />
+          <AppTitle
+            appdetails={{
+              name: "",
+              description:
+                "Oder eröffne eine neue Putzgruppe für dich und deine WG. ",
+            }}
+          />
+          <StyledButton
+            type={"button"}
+            className={props.className}
+            onClick={""}
+          >
+            Spiel aufmachen
+          </StyledButton>
+        </>
       )}
       {props.app === "glotzt" && (
-        <AppTitle
-          appdetails={{
-            name: "Fenske glotzt!",
-            description: "Gib den Code zum laufenden Spiel ein",
-          }}
-        />
+        <>
+          <AppTitle
+            appdetails={{
+              name: "Fenske glotzt!",
+              description:
+                "Eröffne ein neues Spiel oder gib den Code zum laufenden Spiel ein!",
+            }}
+          />
+          <StyledButton type={"button"} className={props.className}>
+            Spiel aufmachen
+          </StyledButton>
+          <InputField />
+        </>
       )}
-      <InputField />
     </MenuWrapper>
   );
 }
@@ -39,3 +72,5 @@ const MenuWrapper = styled.div`
   padding: 0vh 0 0 0;
   min-height: 350px;
 `;
+
+const StyledButton = styled(Button)``;
