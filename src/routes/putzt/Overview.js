@@ -36,7 +36,6 @@ export default function Overview(props) {
 
   return (
     <>
-      <LogoutButton>Ausloggen</LogoutButton>
       <OverviewList>
         <AppTitle
           appdetails={{
