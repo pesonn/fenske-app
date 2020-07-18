@@ -104,6 +104,9 @@ function App(props) {
                   />
                 </AppTheme.Provider>
                 <AppTheme.Provider value="putzt">
+                  {
+                    //TODO: Falls es die Gruppe in der Putzt-app nicht mehr gibt muss erneut auf JoinForm verwiesen werden
+                  }
                   <Route
                     path="/putzt"
                     exact
