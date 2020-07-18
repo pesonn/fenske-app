@@ -1,10 +1,18 @@
 import React from "react";
+import firebase from "../firebase";
+import functions from "firebase/functions";
 import styled from "styled-components";
 import AppTitle from "../components/AppTitle";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 
 export default function JoinForm(props) {
+  const cloudfunction = firebase
+    .functions()
+    .httpsCallable("createNewPutzgroup");
+  const createNewPutzgroup = () => {
+    cloudfunction();
+  };
   return (
     <MenuWrapper>
       {props.app === "putzt" && (
@@ -36,7 +44,7 @@ export default function JoinForm(props) {
           <StyledButton
             type={"button"}
             className={props.className}
-            onClick={""}
+            onClick={createNewPutzgroup}
           >
             Spiel aufmachen
           </StyledButton>
