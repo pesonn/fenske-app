@@ -92,6 +92,9 @@ function App(props) {
                   <LogoutButton>Ausloggen</LogoutButton>
                 </AppTheme.Provider>
                 <AppTheme.Provider value="mainmenu">
+                  {
+                    //TODO: Falls DisplayName im auth() nicht vorhanden ist muss eine Abfrage zur manuellen Eingabe des Namens erstellt werden
+                  }
                   <Route
                     path="/"
                     exact
