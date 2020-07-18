@@ -39,7 +39,7 @@ export default function WelcomeName(props) {
             ) : (
               props.mbforview.name
             )}
-            's Aufgabe für diese Woche!
+            's Aufgabe für diese Woche
           </Description>
         </>
       )}
