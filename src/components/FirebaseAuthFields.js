@@ -13,10 +13,12 @@ export default function FirebaseAuthFields() {
         customParameters: {
           locale: "de",
         },
+        requireDisplayName: true,
       },
       {
         provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         scopes: ["https://www.googleapis.com/auth/plus.login"],
+        requireDisplayName: true,
       },
       {
         provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
