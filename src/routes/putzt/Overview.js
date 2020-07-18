@@ -35,13 +35,13 @@ export default function Overview(props) {
   }, [user]);
 
   // Um eine spezielle Ansicht zum ersten Auslosen des Putzplanes zu erstellen
-  let firstDraw = getFirebaseCollectionFrom("putzt-app").doc(user.putztID).onSnapshot((snapshot) => {
-    return snapshot.data().firstDraw
-  })
+  let firstDraw = getFirebaseCollectionFrom("putzt-app")
+    .doc(user.putztID)
+    .onSnapshot((snapshot) => {
+      return snapshot.data().firstDraw;
+    });
   return (
-    <>{
-       ? 
-    }
+    <>
       <OverviewList>
         <AppTitle
           appdetails={{
