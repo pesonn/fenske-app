@@ -18,7 +18,7 @@ export default function Overview(props) {
     if (user) {
       getFirebaseCollectionFrom("putzt-app")
         .doc(user.putztID)
-        .collection("subcollection")
+        .collection("putzplan")
         .onSnapshot((snapshot) => {
           let putzplan = [];
           snapshot.forEach((doc) => {
