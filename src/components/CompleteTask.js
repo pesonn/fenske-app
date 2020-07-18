@@ -14,7 +14,7 @@ export default function CompleteTask(props) {
   function getUsersFromDatabase() {
     getFirebaseCollectionFrom("putzt-app")
       .doc(user.putztID)
-      .collection("subcollection")
+      .collection("putzplan")
       .onSnapshot((snapshot) => {
         const dbdata = [];
         snapshot.forEach((doc) => {
@@ -58,7 +58,7 @@ export default function CompleteTask(props) {
     if (props.mbforview.geputzt) {
       getFirebaseCollectionFrom("putzt-app")
         .doc(user.putztID)
-        .collection("subcollection")
+        .collection("putzplan")
         .doc(props.mbforview.dbid)
         .update({
           geputzt: false,
@@ -67,7 +67,7 @@ export default function CompleteTask(props) {
     } else {
       getFirebaseCollectionFrom("putzt-app")
         .doc(user.putztID)
-        .collection("subcollection")
+        .collection("putzplan")
         .doc(props.mbforview.dbid)
         .update({
           geputzt: true,
@@ -165,7 +165,7 @@ export default function CompleteTask(props) {
         newMBs.forEach((item) => {
           getFirebaseCollectionFrom("putzt-app")
             .doc(user.putztID)
-            .collection("subcollection")
+            .collection("putzplan")
             .doc(item.dbid)
             .update({
               room: item.room,
