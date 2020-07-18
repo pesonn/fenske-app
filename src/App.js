@@ -86,6 +86,7 @@ function App(props) {
         <Switch>
           <ThemeMode.Provider value={thememode}>
             <Background />
+            {console.log(user)}
             {//Damit eine leere Seite gezeigt wird, wenn der User noch nicht komplett übergeben wurde
             // user = undefindet: nutzer ist angemeldet, aber die component hat den User noch nicht erhalten
             // user = null: es ist kein User angemeldet}
