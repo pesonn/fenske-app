@@ -19,6 +19,7 @@ export default function Overview(props) {
       getFirebaseCollectionFrom("putzt-app")
         .doc(user.putztID)
         .collection("putzplan")
+        .orderBy("name", "asc")
         .onSnapshot((snapshot) => {
           let putzplan = [];
           snapshot.forEach((doc) => {
