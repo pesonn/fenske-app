@@ -31,14 +31,12 @@ export default function JoinForm(props) {
                 "Gib hier den Invitecode deiner Freunde ein, um beim Putzen mitzumachen.",
             }}
           />
-          {/* Eröffne eine neue Putzgruppe für dich und deine WG. Oder gib hier
-          den Invitecode deiner WG ein, um beim Putzplan mitzumachen. */}
           <InputField cloudFunction={"setPutztIDForUser"} />
           <AppTitle
             appdetails={{
               name: "",
               description:
-                "Oder eröffne eine neue Putzgruppe für dich und deine WG. ",
+                "Oder eröffne eine neue Putzgruppe für dich und deine WG.",
             }}
           />
           <StyledButton
