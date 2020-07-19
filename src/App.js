@@ -12,6 +12,7 @@ import MBView from "./routes/putzt/MBView";
 import Admin from "./routes/Admin";
 import JoinForm from "./routes/JoinForm";
 import Legals from "./routes/Legals";
+import SetAccountSettings from "./routes/SetAccountSettings";
 import "./index.css";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
@@ -168,6 +169,15 @@ function App(props) {
               </AppTheme.Provider>
             )}
             <Route path="/Legals" exact component={Legals} />
+            <UserData.Provider value={user}>
+              <AppTheme.Provider value="mainmenu">
+                <Route
+                  path="/Account-Settings"
+                  exact
+                  component={SetAccountSettings}
+                />
+              </AppTheme.Provider>
+            </UserData.Provider>
           </ThemeMode.Provider>
         </Switch>
       </BrowserRouter>
