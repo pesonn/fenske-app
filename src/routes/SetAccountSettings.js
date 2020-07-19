@@ -5,10 +5,12 @@ import styled from "styled-components";
 import AppTitle from "../components/AppTitle";
 import Button from "../components/Button";
 import { ThemeMode, AppTheme } from "../App";
+import { UserData } from "../App";
 
 export default function SetAccountSettings(props) {
   const thememode = useContext(ThemeMode);
   const apptheme = useContext(AppTheme);
+  const user = useContext(UserData);
   const [userdata, setUserdata] = useState();
 
   useEffect(() => {
@@ -41,14 +43,14 @@ export default function SetAccountSettings(props) {
     if (userdata.name === null) {
       alert("Bitte gib deinen Vornamen an");
     } else {
-      let user = firebase.auth().currentUser;
-      user
+      let currentuser = firebase.auth().currentUser;
+      currentuser
         .updateProfile({
           displayName: userdata.name,
           email: userdata.email,
         })
         .then(() => {
-          user.reload();
+          currentuser.reload();
         })
         .catch(console.error);
 
@@ -62,8 +64,25 @@ export default function SetAccountSettings(props) {
         }
         return firstname;
       };
+
+      if (
+        getFirebaseCollectionFrom("users")
+          .doc(currentuser.uid)
+          .onSnapshot((snapshot) => {
+            return snapshot.data().putztID !== null;
+          })
+      ) {
+        getFirebaseCollectionFrom("putzt-app")
+          .doc(user.putztID)
+          .collection("putzplan")
+          .doc(currentuser.uid)
+          .update({
+            name: getOnlyFirstName(),
+          });
+      }
+
       getFirebaseCollectionFrom("users")
-        .doc(user.uid)
+        .doc(currentuser.uid)
         .update({
           name: getOnlyFirstName(),
         })
