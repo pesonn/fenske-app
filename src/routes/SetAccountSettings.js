@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import firebase from "../firebase";
+import firebase, { getFirebaseCollectionFrom } from "../firebase";
 import styled from "styled-components";
 import AppTitle from "../components/AppTitle";
 import Button from "../components/Button";
@@ -38,25 +38,44 @@ export default function SetAccountSettings(props) {
   };
 
   const updateAuthenticationProfile = () => {
-    let user = firebase.auth().currentUser;
-    user
-      .updateProfile({
-        displayName: userdata.name,
-        email: userdata.email,
-      })
-      .then(() => {
-        user.reload();
-      })
-      .catch(console.error);
-    console.log(user);
+    if (userdata.name === null) {
+      alert("Bitte gib deinen Vornamen an");
+    } else {
+      let user = firebase.auth().currentUser;
+      user
+        .updateProfile({
+          displayName: userdata.name,
+          email: userdata.email,
+        })
+        .then(() => {
+          user.reload();
+        })
+        .catch(console.error);
+
+      const getOnlyFirstName = () => {
+        let spaceindex = userdata.name.indexOf(" ");
+        let firstname = "";
+        if (spaceindex === -1) {
+          firstname = userdata.name;
+        } else {
+          firstname = userdata.name.substring(0, spaceindex);
+        }
+        return firstname;
+      };
+      getFirebaseCollectionFrom("users")
+        .doc(user.uid)
+        .update({
+          name: getOnlyFirstName(),
+        })
+        .then(() => {
+          window.location.href = "/";
+        })
+        .catch(console.error);
+    }
   };
 
   return (
     <>
-      <div></div>
-      {/* {currentdisplayname ? (
-        <Redirect to="/" />
-      ) : ( */}
       <MenuWrapper>
         <AppTitle
           appdetails={{
@@ -105,7 +124,6 @@ export default function SetAccountSettings(props) {
           Speichern
         </Button>
       </MenuWrapper>
-      {/* )} */}
     </>
   );
 }
