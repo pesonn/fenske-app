@@ -22,7 +22,8 @@ export default function FirebaseAuthFields() {
       },
       {
         provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        // display Name wird zu spät übergeben Name muss irgendwie händisch eingegeben werden. requireDisplayName: true,
+        // display Name wird zu spät übergeben Name muss irgendwie händisch eingegeben werden.
+        requireDisplayName: false,
       },
     ],
   };
