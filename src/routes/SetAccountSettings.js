@@ -65,13 +65,7 @@ export default function SetAccountSettings(props) {
         return firstname;
       };
 
-      if (
-        getFirebaseCollectionFrom("users")
-          .doc(currentuser.uid)
-          .onSnapshot((snapshot) => {
-            return snapshot.data().putztID !== null;
-          })
-      ) {
+      if (user.putztID !== undefined) {
         getFirebaseCollectionFrom("putzt-app")
           .doc(user.putztID)
           .collection("putzplan")
@@ -88,6 +82,10 @@ export default function SetAccountSettings(props) {
         })
         .then(() => {
           window.location.href = "/";
+          alert(
+            "Bitte melde dich erneut an um deine Änderungen zu übernehmen.",
+          );
+          firebase.auth().signOut();
         })
         .catch(console.error);
     }

@@ -13,6 +13,7 @@ import Admin from "./routes/Admin";
 import JoinForm from "./routes/JoinForm";
 import Legals from "./routes/Legals";
 import SetAccountSettings from "./routes/SetAccountSettings";
+import SetNameAfterRegistration from "./routes/putzt/SetNameAfterRegistration";
 import "./index.css";
 import "./App.css";
 import { ThemeProvider } from "styled-components";
@@ -162,6 +163,18 @@ function App(props) {
                     )}
                   />
                 </AppTheme.Provider>
+                <AppTheme.Provider value="mainmenu">
+                  <Route
+                    path="/Account-Settings"
+                    exact
+                    component={SetAccountSettings}
+                  />
+                  <Route
+                    path="/checklogin"
+                    exact
+                    component={SetNameAfterRegistration}
+                  />
+                </AppTheme.Provider>
               </UserData.Provider>
             ) : (
               <AppTheme.Provider value="mainmenu">
@@ -169,15 +182,6 @@ function App(props) {
               </AppTheme.Provider>
             )}
             <Route path="/Legals" exact component={Legals} />
-            <UserData.Provider value={user}>
-              <AppTheme.Provider value="mainmenu">
-                <Route
-                  path="/Account-Settings"
-                  exact
-                  component={SetAccountSettings}
-                />
-              </AppTheme.Provider>
-            </UserData.Provider>
           </ThemeMode.Provider>
         </Switch>
       </BrowserRouter>

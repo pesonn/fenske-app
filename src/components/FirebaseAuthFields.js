@@ -6,7 +6,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 export default function FirebaseAuthFields() {
   const uiConfig = {
     signInFlow: "popup",
-    signInSuccessUrl: "/",
+    signInSuccessUrl: "/checklogin",
     signInOptions: [
       {
         provider: "apple.com",
