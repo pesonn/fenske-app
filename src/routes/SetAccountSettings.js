@@ -4,7 +4,6 @@ import firebase from "../firebase";
 import styled from "styled-components";
 import AppTitle from "../components/AppTitle";
 import Button from "../components/Button";
-import InputField from "../components/InputField";
 import { ThemeMode, AppTheme } from "../App";
 
 export default function SetAccountSettings(props) {
@@ -31,19 +30,25 @@ export default function SetAccountSettings(props) {
     });
   }, []);
 
-  const checkForAppleMail = () => {
-    if (userdata.email.indexOf("privaterelay.appleid.com") === -1) {
-      setUserdata({ ...userdata, hasAppleMail: false });
-    } else {
-      setUserdata({ ...userdata, hasAppleMail: true });
-    }
-  };
-
   const handleNameChange = (event) => {
     setUserdata({ ...userdata, name: event.target.value });
   };
   const handleEmailChange = (event) => {
     setUserdata({ ...userdata, email: event.target.value });
+  };
+
+  const updateAuthenticationProfile = () => {
+    let user = firebase.auth().currentUser;
+    user
+      .updateProfile({
+        displayName: userdata.name,
+        email: userdata.email,
+      })
+      .then(() => {
+        user.reload();
+      })
+      .catch(console.error);
+    console.log(user);
   };
 
   return (
@@ -94,7 +99,7 @@ export default function SetAccountSettings(props) {
         <Button
           className={props.className}
           type={"button"}
-          onClick={""}
+          onClick={updateAuthenticationProfile}
           inactive={false}
         >
           Speichern
