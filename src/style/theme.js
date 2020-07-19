@@ -17,6 +17,7 @@ export const lightTheme = {
     mainmenu: {
       colors: {
         headline: "#2C2C2C",
+        button: "#2C2C2C",
       },
     },
     maincolors: {
