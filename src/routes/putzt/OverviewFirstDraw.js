@@ -3,27 +3,17 @@ import firebase, { getFirebaseCollectionFrom } from "../../firebase";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import OverviewName from "../../components/OverviewName";
-import OverviewFirstDraw from "./OverviewFirstDraw";
 import AppTitle from "../../components/AppTitle";
 import { UserData } from "../../App";
 
-export const PutzplanGroupData = createContext();
+export const PutzplanData = createContext();
 export const Putzplanung = createContext();
 
-export default function Overview(props) {
+export default function OverviewFirstDraw(props) {
   const [putzplanung, setPutzplanung] = useState([]);
-  const [putzdata, setPutzdata] = useState({});
   const user = useContext(UserData);
 
-  const getPutztGroupData = () => {
-    if (user) {
-      getFirebaseCollectionFrom("putzt-app")
-        .doc(user.putztID)
-        .onSnapshot((snapshot) => {
-          setPutzdata({ ...snapshot.data() });
-        });
-    }
-  };
+  // const get
   const getPutzplanung = () => {
     if (user) {
       getFirebaseCollectionFrom("putzt-app")
@@ -42,7 +32,6 @@ export default function Overview(props) {
 
   useEffect(() => {
     getPutzplanung();
-    getPutztGroupData();
   }, [user]);
 
   // Um eine spezielle Ansicht zum ersten Auslosen des Putzplanes zu erstellen
@@ -53,29 +42,25 @@ export default function Overview(props) {
     });
   return (
     <>
-      <PutzplanGroupData.Provider value={putzdata}>
-        {putzdata.firstDrawDone ? (
-          <OverviewList>
-            <AppTitle
-              appdetails={{
-                name: "Fenske putzt!",
-                description: "Das ist euer Putzplan für diese Woche:",
-              }}
-            />
-            <Putzplanung.Provider value={putzplanung}>
-              <ListOfNames>
-                {putzplanung.map((item) => (
-                  <>
-                    <OverviewName item={item} showindicator={true} />
-                  </>
-                ))}
-              </ListOfNames>
-            </Putzplanung.Provider>
-          </OverviewList>
-        ) : (
-          <OverviewFirstDraw />
-        )}
-      </PutzplanGroupData.Provider>
+      <OverviewList>
+        <AppTitle
+          appdetails={{
+            name: "Fenske putzt!",
+            description:
+              "Sobald alle beigetreten sind könnt ihr den Putzplan starten",
+          }}
+        />
+        <Putzplanung.Provider value={putzplanung}>
+          <ListOfNames>
+            {putzplanung.map((item) => (
+              <>
+                <OverviewName item={item} showindicator={false} />
+              </>
+            ))}
+          </ListOfNames>
+        </Putzplanung.Provider>
+        <Button></Button>
+      </OverviewList>
     </>
   );
 }
