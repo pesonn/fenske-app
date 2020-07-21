@@ -77,9 +77,6 @@ export default function Overview(props) {
           <OverviewFirstDraw />
         )}
       </PutzplanGroupData.Provider>
-      <LegalsLink>
-        <Link to="/Legals">Legals</Link>
-      </LegalsLink>
     </>
   );
 }
