@@ -54,15 +54,15 @@ export default function Overview(props) {
   return (
     <>
       <PutzplanGroupData.Provider value={putzdata}>
-        {putzdata.firstDrawDone ? (
-          <OverviewList>
-            <AppTitle
-              appdetails={{
-                name: "Fenske putzt!",
-                description: "Das ist euer Putzplan für diese Woche:",
-              }}
-            />
-            <Putzplanung.Provider value={putzplanung}>
+        <Putzplanung.Provider value={putzplanung}>
+          {putzdata.firstDrawDone ? (
+            <OverviewList>
+              <AppTitle
+                appdetails={{
+                  name: "Fenske putzt!",
+                  description: "Das ist euer Putzplan für diese Woche:",
+                }}
+              />
               <ListOfNames>
                 {putzplanung.map((item) => (
                   <>
@@ -70,11 +70,11 @@ export default function Overview(props) {
                   </>
                 ))}
               </ListOfNames>
-            </Putzplanung.Provider>
-          </OverviewList>
-        ) : (
-          <OverviewFirstDraw />
-        )}
+            </OverviewList>
+          ) : (
+            <OverviewFirstDraw />
+          )}
+        </Putzplanung.Provider>
       </PutzplanGroupData.Provider>
     </>
   );
