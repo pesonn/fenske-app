@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { getFirebaseCollectionFrom } from "../firebase";
 import styled from "styled-components";
 import CircleIcon from "./CircleIcon";
 import AppTitle from "./AppTitle";
 import Button from "./Button";
+import { ThemeMode, AppTheme } from "../App";
 
 export default function ProviderChoice(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
+
   const movieToDatabase = (moviename, provider) => {
     getFirebaseCollectionFrom(props.database)
       .doc(props.activegameid)
@@ -20,15 +24,9 @@ export default function ProviderChoice(props) {
   };
 
   return (
-    <Wrapper thememode={props.thememode} apptheme={props.apptheme}>
-      <SquareIcon
-        thememode={props.thememode}
-        apptheme={props.apptheme}
-        className={props.className}
-      >
+    <Wrapper thememode={thememode} apptheme={apptheme}>
+      <SquareIcon className={props.className}>
         <SmallAppTitle
-          thememode={props.thememode}
-          apptheme={props.apptheme}
           className={props.className}
           appdetails={{
             name: "Wo gibt's den Film?",
@@ -37,8 +35,6 @@ export default function ProviderChoice(props) {
         />
         <ProviderWrapper>
           <NetflixButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             database={props.database}
             activegameid={props.activegameid}
@@ -48,8 +44,6 @@ export default function ProviderChoice(props) {
             Netflix
           </NetflixButton>
           <AmazonButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             database={props.database}
             activegameid={props.activegameid}
@@ -59,8 +53,6 @@ export default function ProviderChoice(props) {
             Amazon Prime
           </AmazonButton>
           <DisneyButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             database={props.database}
             activegameid={props.activegameid}
@@ -69,9 +61,16 @@ export default function ProviderChoice(props) {
           >
             Disney+
           </DisneyButton>
+          <SkyGoButton
+            className={props.className}
+            database={props.database}
+            activegameid={props.activegameid}
+            moviename={props.moviename}
+            onClick={() => movieToDatabase(props.moviename, "Sky Go")}
+          >
+            Sky Go
+          </SkyGoButton>
           <RegalButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             database={props.database}
             activegameid={props.activegameid}
@@ -93,9 +92,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 95vw;
-  height: auto;
-  padding-top: 6vh;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 0;
   background-color: ${(props) =>
     props.theme[props.thememode].maincolors.background};
 `;
@@ -106,6 +105,7 @@ const SquareIcon = styled(CircleIcon)`
   max-width: 500px;
   height: 50vh;
   max-height: 800px;
+  margin-top: -25vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -139,6 +139,15 @@ const AmazonButton = styled(NetflixButton)`
 
 const DisneyButton = styled(NetflixButton)`
   background-color: #1a45ab;
+`;
+const SkyGoButton = styled(NetflixButton)`
+  background: rgb(232, 122, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(232, 122, 0, 1) 0%,
+    rgba(218, 4, 107, 1) 43%,
+    rgba(59, 56, 131, 1) 100%
+  );
 `;
 const RegalButton = styled(NetflixButton)`
   background-color: #918e8e;

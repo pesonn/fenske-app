@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
+import { ThemeMode, AppTheme } from "../App";
 
 export default function AppTitle(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
+
   return (
     <AppWrapper className={props.className}>
-      <AppName thememode={props.thememode} apptheme={props.apptheme}>
+      <AppName thememode={thememode} apptheme={apptheme}>
         {props.appdetails.name}
       </AppName>
-      <AppDescription thememode={props.thememode} apptheme={props.apptheme}>
+      <AppDescription thememode={thememode} apptheme={apptheme}>
         {props.appdetails.description}
       </AppDescription>
     </AppWrapper>

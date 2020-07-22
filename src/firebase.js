@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import "firebase/auth";
 import "firebase/firestore";
 
 // Your web app's Firebase configuration
@@ -19,3 +20,26 @@ export default firebase;
 
 export const getFirebaseCollectionFrom = (collectionname) =>
   firebase.firestore().collection(collectionname); //as string
+
+/* Firestore Security Rules
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	
+    match /users/{userID}  {
+    allow read, write: if true
+    //allow read: if request.auth != null && request.auth.uid == userID
+    }
+    
+    match /putzt-app/{putztID} {
+    allow read, write: if true
+    //allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.putztID == resource.id;
+    }
+    
+    match /putzt-app/{putztID}/{documentID}/{subcollection=**} {
+    allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.putztID == putztID;
+    
+    }
+  }
+}*/

@@ -1,29 +1,36 @@
-import React from "react";
+import React, { useContext } from "react";
+import firebase from "../firebase";
 import styled from "styled-components";
 import Button from "../components/Button";
 import AppTitle from "../components/AppTitle";
+import { ThemeMode, AppTheme } from "../App";
+import { Redirect } from "react-router-dom";
 
 export default function Mainmenu(props) {
+  const user = firebase.auth().currentUser;
+
+  const thememode = useContext(ThemeMode);
   return (
     <MenuWrapper>
       <StyledAppTitle
-        thememode={props.thememode}
-        apptheme="mainmenu"
+        thememode={thememode}
         appdetails={{
           name: "Fenske.app",
           description: "Was möchtest du machen?",
         }}
       ></StyledAppTitle>
-      <a href="/putzt">
-        <MenuButton apptheme={"putzt"} thememode={props.thememode}>
-          Putzt
-        </MenuButton>
-      </a>
-      <a href="/glotzt">
-        <MenuButton apptheme={"glotzt"} thememode={props.thememode}>
-          Glotzt
-        </MenuButton>
-      </a>
+      <AppTheme.Provider value="putzt">
+        <a href="/putzt">
+          <MenuButton thememode={thememode} user={user}>
+            Putzt
+          </MenuButton>
+        </a>
+      </AppTheme.Provider>
+      <AppTheme.Provider value="glotzt">
+        <a href="/glotzt">
+          <MenuButton thememode={thememode}>Glotzt</MenuButton>
+        </a>
+      </AppTheme.Provider>
     </MenuWrapper>
   );
 }

@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { getFirebaseCollectionFrom } from "../firebase";
 import firebase, { FieldValue } from "firebase/app";
 import StyledButton from "./Button";
+import { ThemeMode, AppTheme } from "../App";
 
 export default function Movielist(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
   const [movielist, setMovielist] = useState([]);
   const [gameData, setGameData] = useState({});
   const [sortedMovielist, setSortedMovielist] = useState({
@@ -75,12 +78,12 @@ export default function Movielist(props) {
     <ListWrapper>
       {sortedMovielist.active.map((item) => (
         <ListRow>
-          <ActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
+          <ActiveMovie thememode={thememode} apptheme={apptheme}>
             {item.name}
           </ActiveMovie>
           {props.showtogglebuttons && (
             <ActivateButton
-              thememode={props.thememode}
+              thememode={thememode}
               apptheme={props.apptheme}
               onClick={() => {
                 inActivateMovie(item.name);
@@ -91,8 +94,8 @@ export default function Movielist(props) {
           )}
           {props.showdeletebutton && (
             <DeleteButton
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
               onClick={() => {
                 deleteMovie(item.name);
               }}
@@ -104,13 +107,13 @@ export default function Movielist(props) {
       ))}
       {sortedMovielist.inactive.map((item) => (
         <ListRow>
-          <InActiveMovie thememode={props.thememode} apptheme={props.apptheme}>
+          <InActiveMovie thememode={thememode} apptheme={apptheme}>
             {item.name}
           </InActiveMovie>
           {props.showtogglebuttons && (
             <InactiveButton
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
               onClick={() => {
                 activateMovie(item.name);
               }}
@@ -126,7 +129,7 @@ export default function Movielist(props) {
 
 const ListWrapper = styled.div`
   width: 100%;
-  height: 60vh;
+  height: 100%;
   overflow-y: auto;
 `;
 
@@ -135,7 +138,7 @@ const ListRow = styled.section`
   margin-bottom: 2vh;
   display: flex;
   flex-wrap: nowrap;
-  align-items: center;
+  align-items: space-between;
 `;
 
 const ActiveMovie = styled.h2`

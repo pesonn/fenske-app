@@ -8,6 +8,7 @@ import AppTitle from "../../components/AppTitle";
 import StartGame from "../../components/StartGame";
 import GenerateMovieList from "../../components/GenerateMovieList";
 import AddToMovielist from "../../components/AddToMovielist";
+import Div100vh from "react-div-100vh";
 
 export default function Rausvoten(props) {
   const [activeGame, setActiveGame] = useState({
@@ -39,57 +40,43 @@ export default function Rausvoten(props) {
     <>
       {activeGame.dbid === "" && (
         <StartGame
-          thememode={props.thememode}
-          apptheme={props.apptheme}
           gamename="Rausvoten"
           database="rausvoten"
           setGameId={setGameId}
         ></StartGame>
       )}
       {activeGame.dbid !== "" && !activeGame.isVoting && (
-        <MenuWrapper>
+        <FullvhMenuWrapper>
           <StyledAppTitle
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             appdetails={{
               name: "Rausvoten",
               description: "Welche Filme möchtest du heute sehen?",
             }}
           />
-          <PositionedButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
-            className={props.className}
-            onClick={goToVoting}
-          >
+          <PositionedButton className={props.className} onClick={goToVoting}>
             Ok hab alle
           </PositionedButton>
 
           <GenerateMovieList
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             gamename="Rausvoten"
             database="rausvoten"
             activegameid={activeGame.dbid}
             showtogglebuttons={activeGame.showtogglebuttons}
             showdeletebutton={activeGame.showdeletebutton}
+            listheight="72rvh"
           />
           <AddToMovielist
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             gamename="Rausvoten"
             database="rausvoten"
             activegameid={activeGame.dbid}
           />
-        </MenuWrapper>
+        </FullvhMenuWrapper>
       )}
-
+      {/* Ansicht für das Voting */}
       {activeGame.isVoting && (
-        <MenuWrapper>
+        <FullvhMenuWrapper>
           <StyledAppTitle
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             className={props.className}
             appdetails={{
               name: "Rausvoten",
@@ -97,24 +84,18 @@ export default function Rausvoten(props) {
                 "Jetzt schmeiß alle Filme raus, die du nicht sehen willst!",
             }}
           />
-          <PositionedButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
-            className={props.className}
-            onClick={closeGame}
-          >
+          <PositionedButton className={props.className} onClick={closeGame}>
             Abschließen
           </PositionedButton>
           <GenerateMovieList
-            thememode={props.thememode}
-            apptheme={props.apptheme}
             gamename="Rausvoten"
             database="rausvoten"
             activegameid={activeGame.dbid}
             showtogglebuttons={activeGame.showtogglebuttons}
             showdeletebutton={activeGame.showdeletebutton}
+            listheight="83rvh"
           />
-        </MenuWrapper>
+        </FullvhMenuWrapper>
       )}
       {console.log(activeGame)}
     </>
@@ -123,17 +104,17 @@ export default function Rausvoten(props) {
 
 const StyledAppTitle = styled(AppTitle)`
   margin-top: 3vh;
-  margin-bottom: 4vh;
+  margin-bottom: 2vh;
   h1 {
     font-size: 4vh;
   }
 `;
-const MenuWrapper = styled.div`
+
+const FullvhMenuWrapper = styled(Div100vh)`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
   justify-content: center;
-  height: 85vh;
   width: 80vw;
   margin-left: 10vw;
   padding: 0vh 0 0 0;
@@ -143,8 +124,8 @@ const MenuWrapper = styled.div`
 
 const PositionedButton = styled(Button)`
   position: absolute;
-  top: 4vh;
-  right: 9vw;
+  top: 3.8vh;
+  right: 10vw;
   width: 11vh;
   height: 3vh;
   font-size: ${(props) => props.theme.general.fontSizes.paragraph};

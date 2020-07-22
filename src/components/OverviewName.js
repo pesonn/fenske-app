@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Indicator from "./Indicator";
+import { ThemeMode, AppTheme } from "../App";
 
 export default function OverviewName(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
   return (
     <LinkStyled
       to={{
@@ -13,18 +16,12 @@ export default function OverviewName(props) {
         },
       }}
     >
-      <Name
-        key={props.item.id}
-        thememode={props.thememode}
-        apptheme={props.apptheme}
-      >
+      <Name key={props.item.id} thememode={thememode} apptheme={apptheme}>
         {props.item.name}
       </Name>
-      <Indicator
-        mb={props.item}
-        thememode={props.thememode}
-        apptheme={props.apptheme}
-      />
+      {props.showindicator && (
+        <Indicator mb={props.item} thememode={thememode} apptheme={apptheme} />
+      )}
     </LinkStyled>
   );
 }

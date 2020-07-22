@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "./Button";
 import styled from "styled-components";
 import ProviderChoice from "./ProviderChoice";
+import { ThemeMode, AppTheme } from "../App";
+
 export default function AddToMovielist(props) {
   /*
   1. Eingabefeld -> eigene component
   2. eingegeben Namen per props an Providerauswahl, von da in Datenbank schieben und zurück zur Movielist Übersicht
   */
-
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
   const [moviedata, setMoviedata] = useState({
     name: "",
     showProviderChoice: false,
@@ -29,21 +32,16 @@ export default function AddToMovielist(props) {
   return (
     <Wrapper>
       {!moviedata.showProviderChoice && (
-        <WrapperForm thememode={props.thememode} apptheme={props.apptheme}>
+        <WrapperForm thememode={thememode} apptheme={apptheme}>
           <StyledInput
-            thememode={props.thememode}
-            apptheme={props.apptheme}
+            thememode={thememode}
+            apptheme={apptheme}
             type="text"
             value={moviedata.name}
             onChange={handleChange}
             placeholder="Filmname"
           ></StyledInput>
-          <StyledButton
-            thememode={props.thememode}
-            apptheme={props.apptheme}
-            className={props.className}
-            onClick={toggleProvider}
-          >
+          <StyledButton className={props.className} onClick={toggleProvider}>
             Auf die Liste
           </StyledButton>
         </WrapperForm>
@@ -51,8 +49,6 @@ export default function AddToMovielist(props) {
 
       {moviedata.showProviderChoice && (
         <ProviderChoice
-          thememode={props.thememode}
-          apptheme={props.apptheme}
           database={props.database}
           activegameid={props.activegameid}
           moviename={moviedata.name}
@@ -63,25 +59,32 @@ export default function AddToMovielist(props) {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  ${"" /* width: 84.49%; */}
+`;
 
 const WrapperForm = styled.form`
-  ${"" /* position: absolute;
-  bottom: 3vh;
-  left: 1vh; */}
-  width: 72vw;
+  position: absolute;
+  bottom: 2vh;
+  ${"" /* left: 6vh; */}
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  width: 73vw;
   height: 5vh;
   display: flex;
   flex: column wrap;
   justify-content: space-between;
   align-items: center;
+
   border: 1px solid ${(props) => props.theme[props.thememode].maincolors.text};
   background-color: ${(props) => props.theme[props.thememode].maincolors.white};
   padding: 10px 3vw 10px 3vw;
 `;
 
 const StyledInput = styled.input`
-  width: 53%;
+  width: 68%;
   height: 4vh;
   font-family: ${(props) => props.theme.general.fontFamily.subline};
   font-size: ${(props) => props.theme.general.fontSizes.subline};

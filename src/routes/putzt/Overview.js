@@ -1,54 +1,83 @@
-import React, { useState, useEffect } from "react";
-import { getFirebaseCollectionFrom } from "../../firebase";
+import React, { useState, useEffect, useContext, createContext } from "react";
+import firebase, { getFirebaseCollectionFrom } from "../../firebase";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import OverviewName from "../../components/OverviewName";
+import OverviewFirstDraw from "./OverviewFirstDraw";
 import AppTitle from "../../components/AppTitle";
+import { UserData } from "../../App";
+
+export const PutzplanGroupData = createContext();
+export const Putzplanung = createContext();
 
 export default function Overview(props) {
-  const [mbs, setMBs] = useState([]);
-  const [appDetails, setAppDetails] = useState({
-    name: "Fenske putzt!",
-    description: "Das ist euer Putzplan für diese Woche:",
-  });
+  const [putzplanung, setPutzplanung] = useState([]);
+  const [putzdata, setPutzdata] = useState({});
+  const user = useContext(UserData);
+
+  const getPutztGroupData = () => {
+    if (user) {
+      getFirebaseCollectionFrom("putzt-app")
+        .doc(user.putztID)
+        .onSnapshot((snapshot) => {
+          setPutzdata({ ...snapshot.data() });
+        });
+    }
+  };
+  const getPutzplanung = () => {
+    if (user) {
+      getFirebaseCollectionFrom("putzt-app")
+        .doc(user.putztID)
+        .collection("putzplan")
+        .orderBy("name", "asc")
+        .onSnapshot((snapshot) => {
+          let putzplan = [];
+          snapshot.forEach((doc) => {
+            putzplan.push(doc.data());
+          });
+          setPutzplanung(putzplan);
+        });
+    }
+  };
 
   useEffect(() => {
-    getFirebaseCollectionFrom("putzplan")
-      .orderBy("name", "asc") // sortiert anzeige alphabetisch
-      .onSnapshot((snapshot) => {
-        const dbdata = [];
-        snapshot.forEach((doc) => {
-          const data = doc.data();
-          const dbid = doc.id;
-          dbdata.push({ ...data, dbid });
-        });
-        setMBs(dbdata);
-      });
-  }, []);
+    getPutzplanung();
+    getPutztGroupData();
+  }, [user]);
 
+  // Um eine spezielle Ansicht zum ersten Auslosen des Putzplanes zu erstellen
+  let firstDraw = getFirebaseCollectionFrom("putzt-app")
+    .doc(user.putztID)
+    .onSnapshot((snapshot) => {
+      return snapshot.data().firstDraw;
+    });
   return (
     <>
-      <OverviewList>
-        <AppTitle
-          appdetails={appDetails}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
-        />
-        <ListOfNames>
-          {mbs.map((item) => (
-            <>
-              <OverviewName
-                item={item}
-                thememode={props.thememode}
-                apptheme={props.apptheme}
+      <PutzplanGroupData.Provider value={putzdata}>
+        <Putzplanung.Provider value={putzplanung}>
+          {putzdata.firstDrawDone ? (
+            <OverviewList>
+              <AppTitle
+                appdetails={{
+                  name: "Fenske putzt!",
+                  description: "Das ist euer Putzplan für diese Woche:",
+                }}
               />
-            </>
-          ))}
-        </ListOfNames>
-      </OverviewList>
-      <LegalsLink>
-        <Link to="/Legals">Legals</Link>
-      </LegalsLink>
+              <ListOfNames>
+                {putzplanung.map((item) => (
+                  <OverviewName
+                    key={item.id}
+                    item={item}
+                    showindicator={true}
+                  />
+                ))}
+              </ListOfNames>
+            </OverviewList>
+          ) : (
+            <OverviewFirstDraw />
+          )}
+        </Putzplanung.Provider>
+      </PutzplanGroupData.Provider>
     </>
   );
 }

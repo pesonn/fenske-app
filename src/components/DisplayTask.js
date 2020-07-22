@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import styled, { css } from "styled-components";
 import { WeekNumber } from "./WeekNumber";
 import CircleIcon from "./CircleIcon";
@@ -7,15 +7,19 @@ import { ReactComponent as DustIcon } from "../svg-icons/Dust.svg";
 import { ReactComponent as GarbageIcon } from "../svg-icons/Garbage.svg";
 import { ReactComponent as ToiletIcon } from "../svg-icons/Toilet.svg";
 import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
+import { ThemeMode, AppTheme } from "../App";
 
 export default function DisplayTask(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
   let roomtext = "";
   let roomtext2 = "";
-  if (props.mb.room === "Bad 1" || props.mb.room === "Bad 2") {
+
+  if (props.mbforview.room === "Bad 1" || props.mbforview.room === "Bad 2") {
     roomtext = "Badezimmer";
-  } else if (props.mb.room === "Müll") {
+  } else if (props.mbforview.room === "Müll") {
     // Hier wird geprüft, ob die aktuelle Woche mit der aktuellen Woche übereinstimmt.
-    if (WeekNumber().thisweek === props.orgas.data.weeknumber) {
+    if (WeekNumber().thisweek === props.putzplandata.weeknumber) {
       // die aktuelle Woche aus der Datenbank stimmt mit der tatsächlichen aktuellen Woche überein.
       if (WeekNumber().thisweek % 2 === 0) {
         roomtext = "Müll wegbringen";
@@ -23,7 +27,7 @@ export default function DisplayTask(props) {
       } else {
         roomtext = "Müll wegbringen";
       }
-    } else if (WeekNumber().nextweek === props.orgas.data.weeknumber) {
+    } else if (WeekNumber().nextweek === props.putzplandata.weeknumber) {
       // Wenn alle aufgaben einer Woche erledigt wurden, wird bereits auf die Wochenummer der nächsten Woche geachtet.
       if (WeekNumber().nextweek % 2 === 0) {
         roomtext = "Müll wegbringen";
@@ -34,9 +38,9 @@ export default function DisplayTask(props) {
     } else {
       console.error("Hier stimmt was mit der Wochennummer nicht!");
     }
-  } else if (props.mb.room === "Küche") {
+  } else if (props.mbforview.room === "Küche") {
     roomtext = "Küche";
-  } else if (props.mb.room === "Wohnen") {
+  } else if (props.mbforview.room === "Wohnen") {
     roomtext = "Wohnbereich";
   } else {
     console.error(
@@ -45,12 +49,12 @@ export default function DisplayTask(props) {
   }
 
   const setSVG = (room) => {
-    if (props.mb.geputzt) {
+    if (props.mbforview.geputzt) {
       return (
         <StyledCheckedIcon
           className={props.className}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
+          thememode={thememode}
+          apptheme={apptheme}
         ></StyledCheckedIcon>
       );
     } else {
@@ -59,40 +63,40 @@ export default function DisplayTask(props) {
           return (
             <StyledDishIcon
               className={props.className}
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
             ></StyledDishIcon>
           );
         case "Müll":
           return (
             <StyledGarbageIcon
               className={props.className}
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
             ></StyledGarbageIcon>
           );
         case "Wohnen":
           return (
             <StyledDustIcon
               className={props.className}
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
             ></StyledDustIcon>
           );
         case "Bad 1":
           return (
             <StyledToiletIcon
               className={props.className}
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
             ></StyledToiletIcon>
           );
         case "Bad 2":
           return (
             <StyledToiletIcon
               className={props.className}
-              thememode={props.thememode}
-              apptheme={props.apptheme}
+              thememode={thememode}
+              apptheme={apptheme}
             ></StyledToiletIcon>
           );
         default:
@@ -103,21 +107,21 @@ export default function DisplayTask(props) {
 
   return (
     <TaskCircleIcon thememode={props.thememode}>
-      {setSVG(props.mb.room)}
-      {!props.mb.geputzt && (
+      {setSVG(props.mbforview.room)}
+      {!props.mbforview.geputzt && (
         <RoomDescription
           className={props.className}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
+          thememode={thememode}
+          apptheme={apptheme}
         >
           {roomtext}
         </RoomDescription>
       )}
-      {!props.mb.geputzt && (
+      {!props.mbforview.geputzt && (
         <RoomDescription
           className={props.className}
-          thememode={props.thememode}
-          apptheme={props.apptheme}
+          thememode={thememode}
+          apptheme={apptheme}
         >
           {roomtext2}
         </RoomDescription>
