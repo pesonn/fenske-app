@@ -23,6 +23,7 @@
 .env.production.local
 .env.production
 .env
+.env.newfenskeapp-production
 
 npm-debug.log*
 yarn-debug.log*
