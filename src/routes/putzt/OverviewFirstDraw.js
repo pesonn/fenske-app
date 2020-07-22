@@ -92,9 +92,7 @@ export default function OverviewFirstDraw(props) {
         />
         <ListOfNames>
           {putzplanung.map((item) => (
-            <>
-              <OverviewName item={item} showindicator={false} />
-            </>
+            <OverviewName key={item.id} item={item} showindicator={false} />
           ))}
         </ListOfNames>
         <Button onClick={firstDraw}>Wir sind vollzählig!</Button>

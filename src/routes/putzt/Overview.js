@@ -65,9 +65,11 @@ export default function Overview(props) {
               />
               <ListOfNames>
                 {putzplanung.map((item) => (
-                  <>
-                    <OverviewName item={item} showindicator={true} />
-                  </>
+                  <OverviewName
+                    key={item.id}
+                    item={item}
+                    showindicator={true}
+                  />
                 ))}
               </ListOfNames>
             </OverviewList>
