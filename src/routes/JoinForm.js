@@ -8,8 +8,9 @@ import Button from "../components/Button";
 
 export default function JoinForm(props) {
   const cloudfunction = firebase
-    .functions()
-    .httpsCallable("createNewPutzgroup");
+    .app()
+    .functions("europe-west3")
+    .httpsCallable("createPutzgroup");
   const createNewPutzgroup = () => {
     cloudfunction();
   };
@@ -44,7 +45,7 @@ export default function JoinForm(props) {
             className={props.className}
             onClick={createNewPutzgroup}
           >
-            Spiel aufmachen
+            Putzgruppe erstellen
           </StyledButton>
         </>
       )}

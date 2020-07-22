@@ -16,7 +16,10 @@ export default function InputField(props) {
     setInvite({ ...invite, code: event.target.value });
   };
 
-  let sendCode = firebase.functions().httpsCallable(props.cloudFunction);
+  let sendCode = firebase
+    .app()
+    .functions("europe-west3")
+    .httpsCallable(props.cloudFunction);
   const sendInviteCode = () => {
     sendCode({ code: invite.code });
   };
