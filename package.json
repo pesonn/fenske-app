@@ -1,6 +1,6 @@
 {
-  "name": "wg-schrubbt",
-  "version": "0.4.1",
+  "name": "fenske.app",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
     "@giphy/js-fetch-api": "^1.5.6",
