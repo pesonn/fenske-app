@@ -35,45 +35,51 @@ export default function OverviewFirstDraw(props) {
   }, []);
 
   let firstDraw = () => {
-    let newmbs = mbs;
-    let everyroom = [];
-    everyroom.push(
-      ...putzplandata.rooms.bathrooms,
-      ...putzplandata.rooms.otherrooms,
-    );
+    if (
+      window.confirm(
+        "Sind wirklich alle Teilnehmer dabei?\nDu kannst diesen Schritt nicht Rückgängig machen!",
+      )
+    ) {
+      let newmbs = mbs;
+      let everyroom = [];
+      everyroom.push(
+        ...putzplandata.rooms.bathrooms,
+        ...putzplandata.rooms.otherrooms,
+      );
 
-    let usedNumbers = [];
-    //TODO: Hier provisorisch auf die maximale Anzahl an Teilnehmern begrenzt
-    while (usedNumbers.length < mbs.length) {
-      var n = Math.floor(Math.random() * Math.floor(everyroom.length));
-      if (usedNumbers.indexOf(n) === -1) {
-        usedNumbers.push(n);
+      let usedNumbers = [];
+      //TODO: Hier provisorisch auf die maximale Anzahl an Teilnehmern begrenzt
+      while (usedNumbers.length < mbs.length) {
+        var n = Math.floor(Math.random() * Math.floor(everyroom.length));
+        if (usedNumbers.indexOf(n) === -1) {
+          usedNumbers.push(n);
+        }
       }
+      console.log(usedNumbers);
+
+      for (let i = 0; i < mbs.length; i++) {
+        //TODO: Hier wirft er einen Fehler aus "cannot set property room of undefined"
+        newmbs[i].room = everyroom[usedNumbers[i]];
+      }
+      console.log(newmbs);
+
+      newmbs.forEach((item) => {
+        getFirebaseCollectionFrom("putzt-app")
+          .doc(user.putztID)
+          .collection("putzplan")
+          .doc(item.dbid)
+          .update({
+            room: item.room,
+            geputzt: false,
+          });
+      });
+
+      getFirebaseCollectionFrom("putzt-app").doc(user.putztID).update({
+        lastupdate: new Date(),
+        weeknumber: WeekNumber().thisweek,
+        firstDrawDone: true,
+      });
     }
-    console.log(usedNumbers);
-
-    for (let i = 0; i < mbs.length; i++) {
-      //TODO: Hier wirft er einen Fehler aus "cannot set property room of undefined"
-      newmbs[i].room = everyroom[usedNumbers[i]];
-    }
-    console.log(newmbs);
-
-    newmbs.forEach((item) => {
-      getFirebaseCollectionFrom("putzt-app")
-        .doc(user.putztID)
-        .collection("putzplan")
-        .doc(item.dbid)
-        .update({
-          room: item.room,
-          geputzt: false,
-        });
-    });
-
-    getFirebaseCollectionFrom("putzt-app").doc(user.putztID).update({
-      lastupdate: new Date(),
-      weeknumber: WeekNumber().thisweek,
-      firstDrawDone: true,
-    });
   };
 
   // getFirebaseCollectionFrom("putzt-app")

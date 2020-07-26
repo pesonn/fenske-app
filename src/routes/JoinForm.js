@@ -1,18 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import firebase from "../firebase";
 import functions from "firebase/functions";
 import styled from "styled-components";
 import AppTitle from "../components/AppTitle";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
+import { UserData } from "../App";
 
 export default function JoinForm(props) {
+  const user = useContext(UserData);
   const cloudfunction = firebase
     .app()
     .functions("europe-west3")
     .httpsCallable("createPutzgroup");
   const createNewPutzgroup = () => {
-    cloudfunction();
+    cloudfunction({ name: user.name });
   };
   return (
     <MenuWrapper>
