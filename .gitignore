@@ -39,3 +39,4 @@ yarn-error.log*
 
 #Security Keys
 *.p8
+.env.production-old
