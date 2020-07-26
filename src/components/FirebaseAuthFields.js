@@ -5,7 +5,8 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 export default function FirebaseAuthFields() {
   const uiConfig = {
-    signInFlow: "popup",
+    credentialHelper: firebaseui.auth.CredentialHelper.NONE,
+    signInFlow: "redirect",
     signInSuccessUrl: "/checklogin",
     signInOptions: [
       {
@@ -15,15 +16,15 @@ export default function FirebaseAuthFields() {
         },
         requireDisplayName: true,
       },
-      {
+      /* {
         provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         scopes: ["https://www.googleapis.com/auth/plus.login"],
         requireDisplayName: true,
-      },
+      }, */
       {
         provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
         // display Name wird zu spät übergeben Name muss irgendwie händisch eingegeben werden.
-        requireDisplayName: false,
+        requireDisplayName: true,
       },
     ],
   };

@@ -3,11 +3,12 @@ import firebase from "../firebase";
 import functions from "firebase/functions";
 import styled from "styled-components";
 import Button from "./Button";
-import { ThemeMode, AppTheme } from "../App";
+import { ThemeMode, AppTheme, UserData } from "../App";
 
 export default function InputField(props) {
   const thememode = useContext(ThemeMode);
   const apptheme = useContext(AppTheme);
+  const user = useContext(UserData);
   const [invite, setInvite] = useState({
     code: "",
   });
@@ -16,9 +17,12 @@ export default function InputField(props) {
     setInvite({ ...invite, code: event.target.value });
   };
 
-  let sendCode = firebase.functions().httpsCallable(props.cloudFunction);
+  let sendCode = firebase
+    .app()
+    .functions("europe-west3")
+    .httpsCallable(props.cloudFunction);
   const sendInviteCode = () => {
-    sendCode({ code: invite.code });
+    sendCode({ code: invite.code, name: user.name });
   };
 
   return (

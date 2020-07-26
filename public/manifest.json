@@ -1,24 +1,26 @@
 {
-  "short_name": "Fenske putzt",
-  "name": "Fenske putzt! - Die App für die WG im EG",
+  "short_name": "fenske.app",
+  "name": "Fenske App - Die App für dich und deine Freunde",
+  "description": "Mit der Fenske App ganz einfach den Putzplan in deiner WG auf dem Handy oder zusammen den nächsten Film bei eurem Filmabend ausspielen!",
   "icons": [
     {
-      "src": "018-broom-64.png",
+      "src": "appicon_64.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/png"
     },
     {
-      "src": "018-broom-192.png",
+      "src": "appicon_192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "018-broom-512.png",
+      "src": "app_icon512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#e5e5e5"
+  "theme_color": "#e5e5e5",
+  "orientation": "portrait-primary"
 }
