@@ -6,7 +6,7 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 export default function FirebaseAuthFields() {
   const uiConfig = {
     credentialHelper: firebaseui.auth.CredentialHelper.NONE,
-    signInFlow: "popup",
+    signInFlow: "redirect",
     signInSuccessUrl: "/checklogin",
     signInOptions: [
       {
@@ -24,7 +24,7 @@ export default function FirebaseAuthFields() {
       {
         provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
         // display Name wird zu spät übergeben Name muss irgendwie händisch eingegeben werden.
-        requireDisplayName: false,
+        requireDisplayName: true,
       },
     ],
   };
