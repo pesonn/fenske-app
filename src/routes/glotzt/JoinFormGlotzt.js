@@ -26,10 +26,28 @@ export default function JoinFormGlotzt(props) {
             "Eröffne ein neues Spiel oder gib den Code zum laufenden Spiel ein!",
         }}
       />
-      <StyledButton type={"button"} className={props.className}>
-        Spiel aufmachen
-          </StyledButton>
-      <InputField />
+      <AppTitle
+        appdetails={{
+          name: "",
+          description:
+            "Gib hier den Invitecode um einem Spiel beizutreten",
+        }}
+      />
+      <InputField cloudFunction={""} />
+      <AppTitle
+        appdetails={{
+          name: "",
+          description:
+            "Oder eröffne eine neue Runde Rausvoten für dich und deine Freunde.",
+        }}
+      />
+      <StyledButton
+        type={"button"}
+        className={props.className}
+        onClick={""}
+      >
+        neues Spiel erstellen
+       </StyledButton>
     </MenuWrapper>
   );
 }
