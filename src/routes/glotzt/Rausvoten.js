@@ -12,7 +12,6 @@ import Div100vh from "react-div-100vh";
 
 export default function Rausvoten(props) {
 
-  const [currentGame, setCurrentGame] = useState({})
   const [activeGame, setActiveGame] = useState({
     dbid: props.user.rausvotenActiveID,
     showtogglebuttons: false,
@@ -39,9 +38,6 @@ export default function Rausvoten(props) {
     });
   };
 
-  useEffect(() => {
-    // getFirebaseCollectionFrom("")
-  })
   return (
     <>
       {activeGame.dbid === "" && (
