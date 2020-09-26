@@ -40,13 +40,15 @@ export default function Rausvoten(props) {
 
   return (
     <>
+      {/* 
+      Wird glaube ich nicht mehr gebraucht!
       {activeGame.dbid === "" && (
         <StartGame
           gamename="Rausvoten"
           database="rausvoten-game"
           setGameId={setGameId}
         ></StartGame>
-      )}
+      )} */}
       {activeGame.dbid !== "" && !activeGame.isVoting && (
         <FullvhMenuWrapper>
           <StyledAppTitle
