@@ -11,8 +11,10 @@ import AddToMovielist from "../../components/AddToMovielist";
 import Div100vh from "react-div-100vh";
 
 export default function Rausvoten(props) {
+
+  const [currentGame, setCurrentGame] = useState({})
   const [activeGame, setActiveGame] = useState({
-    dbid: "",
+    dbid: props.user.rausvotenActiveID,
     showtogglebuttons: false,
     showdeletebutton: true,
     isVoting: false,
@@ -36,6 +38,10 @@ export default function Rausvoten(props) {
       active: false,
     });
   };
+
+  useEffect(() => {
+    // getFirebaseCollectionFrom("")
+  })
   return (
     <>
       {activeGame.dbid === "" && (
@@ -60,7 +66,7 @@ export default function Rausvoten(props) {
 
           <GenerateMovieList
             gamename="Rausvoten"
-            database="rausvoten"
+            database="rausvoten-game"
             activegameid={activeGame.dbid}
             showtogglebuttons={activeGame.showtogglebuttons}
             showdeletebutton={activeGame.showdeletebutton}
@@ -89,7 +95,7 @@ export default function Rausvoten(props) {
           </PositionedButton>
           <GenerateMovieList
             gamename="Rausvoten"
-            database="rausvoten"
+            database="rausvoten-game"
             activegameid={activeGame.dbid}
             showtogglebuttons={activeGame.showtogglebuttons}
             showdeletebutton={activeGame.showdeletebutton}

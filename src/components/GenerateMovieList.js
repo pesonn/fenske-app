@@ -9,7 +9,7 @@ export default function GenerateMovieList(props) {
     <FullvhMenuWrapper style={{ height: props.listheight }}>
       <Movielist
         gamename="Rausvoten"
-        database="rausvoten"
+        database={props.database}
         activegameid={props.activegameid}
         showtogglebuttons={props.showtogglebuttons}
         showdeletebutton={props.showdeletebutton}
