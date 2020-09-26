@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom";
 import { getFirebaseCollectionFrom } from "../../firebase";
 import styled from "styled-components";
@@ -9,9 +9,10 @@ import StartGame from "../../components/StartGame";
 import GenerateMovieList from "../../components/GenerateMovieList";
 import AddToMovielist from "../../components/AddToMovielist";
 import Div100vh from "react-div-100vh";
+import { UserData } from "../../App";
 
 export default function Rausvoten(props) {
-
+  const user = useContext(UserData);
   const [activeGame, setActiveGame] = useState({
     dbid: props.user.rausvotenActiveID,
     showtogglebuttons: false,
@@ -36,6 +37,10 @@ export default function Rausvoten(props) {
     getFirebaseCollectionFrom("rausvoten-game").doc(activeGame.dbid).update({
       active: false,
     });
+    getFirebaseCollectionFrom("users").doc(user.userid).update({
+      rausvotenOldID: [...user.rausvotenOldID, user.rausvotenActiveID],
+      rausvotenActiveID: ""
+    })
   };
 
   return (
