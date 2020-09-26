@@ -47,7 +47,7 @@ export default function Rausvoten(props) {
       {activeGame.dbid === "" && (
         <StartGame
           gamename="Rausvoten"
-          database="rausvoten"
+          database="rausvoten-game"
           setGameId={setGameId}
         ></StartGame>
       )}
