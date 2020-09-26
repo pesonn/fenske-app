@@ -10,7 +10,8 @@ import Top100 from "./routes/glotzt/Top100";
 import Overview from "./routes/putzt/Overview";
 import MBView from "./routes/putzt/MBView";
 import Admin from "./routes/Admin";
-import JoinForm from "./routes/JoinForm";
+import JoinFormPutzt from "./routes/putzt/JoinFormPutzt";
+import JoinFormGlotzt from "./routes/glotzt/JoinFormGlotzt";
 import Legals from "./routes/Legals";
 import SetAccountSettings from "./routes/SetAccountSettings";
 import CheckAfterLogin from "./routes/CheckAfterLogin";
@@ -122,8 +123,8 @@ function App(props) {
                       user.putztID ? (
                         <Overview {...props} user={user} />
                       ) : (
-                        <JoinForm {...props} user={user} app={"putzt"} />
-                      )
+                          <JoinFormPutzt {...props} user={user} app={"putzt"} />
+                        )
                     }
                   />
 
@@ -142,7 +143,14 @@ function App(props) {
                   <Route
                     path="/glotzt/rausvoten"
                     exact
-                    render={(props) => <Rausvoten {...props} />}
+                    // old: render={(props) => <Rausvoten {...props} />}
+                    render={(props) =>
+                      user.rausvotenActiveID ? (
+                        <Rausvoten {...props} user={user} />
+                      ) : (
+                          <JoinFormGlotzt {...props} user={user} app={"glotzt"} />
+                        )
+                    }
                   />
 
                   <Route
@@ -174,10 +182,10 @@ function App(props) {
                 </AppTheme.Provider>
               </UserData.Provider>
             ) : (
-              <AppTheme.Provider value="mainmenu">
-                <Welcome {...props} />
-              </AppTheme.Provider>
-            )}
+                <AppTheme.Provider value="mainmenu">
+                  <Welcome {...props} />
+                </AppTheme.Provider>
+              )}
             <Route path="/Legals" exact component={Legals} />
           </ThemeMode.Provider>
         </Switch>
