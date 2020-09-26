@@ -74,7 +74,7 @@ export default function Rausvoten(props) {
           />
           <AddToMovielist
             gamename="Rausvoten"
-            database="rausvoten"
+            database="rausvoten-game"
             activegameid={activeGame.dbid}
           />
         </FullvhMenuWrapper>
