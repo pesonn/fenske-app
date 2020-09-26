@@ -32,7 +32,7 @@ export default function Rausvoten(props) {
   };
 
   const closeGame = () => {
-    getFirebaseCollectionFrom("rausvoten").doc(activeGame.dbid).update({
+    getFirebaseCollectionFrom("rausvoten-game").doc(activeGame.dbid).update({
       active: false,
     });
   };
