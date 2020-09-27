@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactDOM from "react-dom";
 import { getFirebaseCollectionFrom } from "../../firebase";
 import styled from "styled-components";
@@ -9,10 +9,12 @@ import StartGame from "../../components/StartGame";
 import GenerateMovieList from "../../components/GenerateMovieList";
 import AddToMovielist from "../../components/AddToMovielist";
 import Div100vh from "react-div-100vh";
+import { UserData } from "../../App";
 
 export default function Rausvoten(props) {
+  const user = useContext(UserData);
   const [activeGame, setActiveGame] = useState({
-    dbid: "",
+    dbid: props.user.rausvotenActiveID,
     showtogglebuttons: false,
     showdeletebutton: true,
     isVoting: false,
@@ -32,19 +34,25 @@ export default function Rausvoten(props) {
   };
 
   const closeGame = () => {
-    getFirebaseCollectionFrom("rausvoten").doc(activeGame.dbid).update({
+    getFirebaseCollectionFrom("rausvoten-game").doc(activeGame.dbid).update({
       active: false,
     });
+    getFirebaseCollectionFrom("users").doc(user.userid).update({
+      rausvotenActiveID: ""
+    })
   };
+
   return (
     <>
+      {/* 
+      Wird glaube ich nicht mehr gebraucht!
       {activeGame.dbid === "" && (
         <StartGame
           gamename="Rausvoten"
-          database="rausvoten"
+          database="rausvoten-game"
           setGameId={setGameId}
         ></StartGame>
-      )}
+      )} */}
       {activeGame.dbid !== "" && !activeGame.isVoting && (
         <FullvhMenuWrapper>
           <StyledAppTitle
@@ -60,7 +68,7 @@ export default function Rausvoten(props) {
 
           <GenerateMovieList
             gamename="Rausvoten"
-            database="rausvoten"
+            database="rausvoten-game"
             activegameid={activeGame.dbid}
             showtogglebuttons={activeGame.showtogglebuttons}
             showdeletebutton={activeGame.showdeletebutton}
@@ -68,7 +76,7 @@ export default function Rausvoten(props) {
           />
           <AddToMovielist
             gamename="Rausvoten"
-            database="rausvoten"
+            database="rausvoten-game"
             activegameid={activeGame.dbid}
           />
         </FullvhMenuWrapper>
@@ -89,7 +97,7 @@ export default function Rausvoten(props) {
           </PositionedButton>
           <GenerateMovieList
             gamename="Rausvoten"
-            database="rausvoten"
+            database="rausvoten-game"
             activegameid={activeGame.dbid}
             showtogglebuttons={activeGame.showtogglebuttons}
             showdeletebutton={activeGame.showdeletebutton}
