@@ -26,20 +26,27 @@ export const getFirebaseCollectionFrom = (collectionname) =>
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-  	
+
     match /users/{userID}  {
-    allow read, write: if true
-    //allow read: if request.auth != null && request.auth.uid == userID
+    allow read, write: if request.auth != null && request.auth.uid == userID
     }
-    
+
     match /putzt-app/{putztID} {
-    allow read, write: if true
-    //allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.putztID == resource.id;
+    allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.putztID == resource.id;
     }
-    
+
     match /putzt-app/{putztID}/{documentID}/{subcollection=**} {
     allow read, write: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.putztID == putztID;
-    
     }
+
+    match /rausvoten-game/{rausvotenID} {
+    allow read, write: if request.auth != null && resource.id in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.rausvotenOldID;
+    }
+
+    match /rausvoten-game/{rausvotenID}/{documentID}/{subcollection=**} {
+    allow read, write: if request.auth != null && rausvotenID in get(/databases/$(database)/documents/users/$(request.auth.uid)).data.rausvotenOldID;
+    }
+
   }
+}
 }*/
