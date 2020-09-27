@@ -12,8 +12,8 @@ export default function JoinFormGlotzt(props) {
   const cloudfunction = firebase
     .app()
     .functions("europe-west3")
-    .httpsCallable("create---");
-  const createNew = () => {
+    .httpsCallable("createRausvotengame");
+  const createNewRausvotengame = () => {
     cloudfunction({ name: user.name });
   };
   return (
@@ -33,7 +33,7 @@ export default function JoinFormGlotzt(props) {
             "Gib hier den Invitecode um einem Spiel beizutreten",
         }}
       />
-      <InputField cloudFunction={""} />
+      <InputField cloudFunction={"setRausvotenIDForUser"} />
       <AppTitle
         appdetails={{
           name: "",
@@ -44,7 +44,7 @@ export default function JoinFormGlotzt(props) {
       <StyledButton
         type={"button"}
         className={props.className}
-        onClick={""}
+        onClick={createNewRausvotengame}
       >
         neues Spiel erstellen
        </StyledButton>
