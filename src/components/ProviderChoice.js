@@ -4,11 +4,12 @@ import styled from "styled-components";
 import CircleIcon from "./CircleIcon";
 import AppTitle from "./AppTitle";
 import Button from "./Button";
-import { ThemeMode, AppTheme } from "../App";
+import { ThemeMode, AppTheme, UserData } from "../App";
 
 export default function ProviderChoice(props) {
   const thememode = useContext(ThemeMode);
   const apptheme = useContext(AppTheme);
+  const user = useContext(UserData);
 
   const movieToDatabase = (moviename, provider) => {
     getFirebaseCollectionFrom(props.database)
@@ -19,6 +20,7 @@ export default function ProviderChoice(props) {
         name: moviename,
         active: true,
         provider: provider,
+        username: user.name,
       });
     props.resetmoviedata();
   };
