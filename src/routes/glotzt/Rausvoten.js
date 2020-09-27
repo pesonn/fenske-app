@@ -38,7 +38,6 @@ export default function Rausvoten(props) {
       active: false,
     });
     getFirebaseCollectionFrom("users").doc(user.userid).update({
-      rausvotenOldID: [...user.rausvotenOldID, user.rausvotenActiveID],
       rausvotenActiveID: ""
     })
   };
