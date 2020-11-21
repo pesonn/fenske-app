@@ -10,8 +10,14 @@ import GenerateMovieList from "../../components/GenerateMovieList";
 import AddToMovielist from "../../components/AddToMovielist";
 import Div100vh from "react-div-100vh";
 import { UserData } from "../../App";
+import { Share } from "react-bootstrap-icons"
+import { ThemeMode, AppTheme } from "../../App";
+import Alert from "react-bootstrap/Alert"
 
 export default function Rausvoten(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
+
   const user = useContext(UserData);
   const [activeGame, setActiveGame] = useState({
     dbid: props.user.rausvotenActiveID,
@@ -19,10 +25,7 @@ export default function Rausvoten(props) {
     showdeletebutton: true,
     isVoting: false,
   });
-
-  const setGameId = (id) => {
-    setActiveGame({ ...activeGame, dbid: id });
-  };
+  const [gamedata, setGamedata] = useState({})
 
   const goToVoting = () => {
     setActiveGame({
@@ -41,6 +44,35 @@ export default function Rausvoten(props) {
       rausvotenActiveID: ""
     })
   };
+
+  const getGameData = () => {
+    getFirebaseCollectionFrom("rausvoten-game").doc(activeGame.dbid)
+      .onSnapshot((snapshot) => {
+        setGamedata({
+          ...snapshot.data(),
+        });
+      });
+  }
+
+  useEffect(() => {
+    getGameData()
+  }, [])
+
+  const shareInvite = () => {
+    let website = window.location.hostname
+    if (navigator.canShare) {
+      navigator.share({
+        text: "Tritt meinem Rausvoten Spiel in der fenske.app bei",
+        url: `https://${window.location.hostname}/invite/rausvoten/${gamedata.invitecode}`,
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+        .catch(console.error);
+    } else {
+      alert(`Teile diesen Link um Freunde einzuladen: https://${window.location.hostname}/invite/rausvoten/${gamedata.invitecode}`)
+    }
+  }
+
 
   return (
     <>
@@ -61,11 +93,15 @@ export default function Rausvoten(props) {
               name: "Rausvoten",
               description: "Welche Filme möchtest du heute sehen?",
             }}
-          />
+          >
+          </StyledAppTitle>
+          <a href="#/" onClick={shareInvite}>
+            <StyledShare thememode={thememode} apptheme={apptheme} size={20} />
+          </a>
           <PositionedButton className={props.className} onClick={goToVoting}>
             Ok hab alle
           </PositionedButton>
-
+            
           <GenerateMovieList
             gamename="Rausvoten"
             database="rausvoten-game"
@@ -138,3 +174,10 @@ const PositionedButton = styled(Button)`
   height: 3vh;
   font-size: ${(props) => props.theme.general.fontSizes.paragraph};
 `;
+
+const StyledShare = styled(Share)`
+  color: ${(props) => props.theme[props.thememode][props.apptheme].colors.button};
+  position: absolute;
+  top: 4%;
+  left: 0%;
+`

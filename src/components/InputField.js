@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import firebase from "../firebase";
 import functions from "firebase/functions";
 import styled from "styled-components";
@@ -15,15 +15,25 @@ export default function InputField(props) {
 
   const handleChange = (event) => {
     setInvite({ ...invite, code: event.target.value });
+    console.log(event.target.value)
   };
 
   let sendCode = firebase
     .app()
     .functions("europe-west3")
     .httpsCallable(props.cloudFunction);
+
   const sendInviteCode = () => {
     sendCode({ code: invite.code, name: user.name });
   };
+
+  const checkForInvitecode = () => {
+    props.invitecode && setInvite({code: props.invitecode.toString()});
+  }
+
+  useEffect(() => {
+    checkForInvitecode()
+  }, [])
 
   return (
     <>

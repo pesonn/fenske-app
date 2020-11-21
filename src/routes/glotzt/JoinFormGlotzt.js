@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useParams } from "react-router-dom";
 import firebase from "../../firebase";
 import functions from "firebase/functions";
 import styled from "styled-components";
@@ -8,6 +9,7 @@ import Button from "../../components/Button";
 import { UserData } from "../../App";
 
 export default function JoinFormGlotzt(props) {
+  const { invitecode } = useParams();
   const user = useContext(UserData);
   const cloudfunction = firebase
     .app()
@@ -33,7 +35,7 @@ export default function JoinFormGlotzt(props) {
             "Gib hier den Invitecode um einem Spiel beizutreten",
         }}
       />
-      <InputField cloudFunction={"setRausvotenIDForUser"} />
+      <InputField cloudFunction={"setRausvotenIDForUser"} invitecode={invitecode}/>
       <AppTitle
         appdetails={{
           name: "",
