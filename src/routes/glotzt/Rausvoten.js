@@ -59,17 +59,17 @@ export default function Rausvoten(props) {
   }, [])
 
   const shareInvite = () => {
-    if (navigator.share) {
+    let website = window.location.hostname
+    if (navigator.canShare) {
       navigator.share({
-        title: 'Weitere Mitspieler einladen',
-        url: 'https://fenske.app',
-        text: "voll coool"
+        text: "Tritt meinem Rausvoten Spiel in der fenske.app bei",
+        url: `https://${window.location.hostname}/invite/rausvoten/${gamedata.invitecode}`,
       }).then(() => {
         console.log('Thanks for sharing!');
       })
         .catch(console.error);
     } else {
-      alert(`Teile diesen Link um Freunde einzuladen: https://fenske.app/invite/rausvoten/${gamedata.invitecode}`)
+      alert(`Teile diesen Link um Freunde einzuladen: https://${window.location.hostname}/invite/rausvoten/${gamedata.invitecode}`)
     }
   }
 
