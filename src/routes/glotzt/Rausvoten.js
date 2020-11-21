@@ -19,10 +19,7 @@ export default function Rausvoten(props) {
     showdeletebutton: true,
     isVoting: false,
   });
-
-  const setGameId = (id) => {
-    setActiveGame({ ...activeGame, dbid: id });
-  };
+  const [gamedata, setGamedata] = useState({})
 
   const goToVoting = () => {
     setActiveGame({
@@ -41,6 +38,35 @@ export default function Rausvoten(props) {
       rausvotenActiveID: ""
     })
   };
+
+  const getGameData = () => {
+    getFirebaseCollectionFrom("rausvoten-game").doc(activeGame.dbid)
+      .onSnapshot((snapshot) => {
+        setGamedata({
+          ...snapshot.data(),
+        });
+      });
+  }
+
+  useEffect(() => {
+    getGameData()
+  }, [])
+
+  const shareInvite = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Weitere Mitspieler einladen',
+        url: 'https://fenske.app',
+        text: "voll coool"
+      }).then(() => {
+        console.log('Thanks for sharing!');
+      })
+        .catch(console.error);
+    } else {
+      alert("Teile diesen Link um Freunde einzuladen: https://fenske.app")
+    }
+  }
+
 
   return (
     <>
@@ -61,7 +87,9 @@ export default function Rausvoten(props) {
               name: "Rausvoten",
               description: "Welche Filme möchtest du heute sehen?",
             }}
-          />
+          >
+          </StyledAppTitle>
+          <a href="#/" onClick={shareInvite}>Spieler einladen</a>
           <PositionedButton className={props.className} onClick={goToVoting}>
             Ok hab alle
           </PositionedButton>
