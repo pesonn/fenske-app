@@ -10,8 +10,14 @@ import GenerateMovieList from "../../components/GenerateMovieList";
 import AddToMovielist from "../../components/AddToMovielist";
 import Div100vh from "react-div-100vh";
 import { UserData } from "../../App";
+import { Share } from "react-bootstrap-icons"
+import { ThemeMode, AppTheme } from "../../App";
+import Alert from "react-bootstrap/Alert"
 
 export default function Rausvoten(props) {
+  const thememode = useContext(ThemeMode);
+  const apptheme = useContext(AppTheme);
+
   const user = useContext(UserData);
   const [activeGame, setActiveGame] = useState({
     dbid: props.user.rausvotenActiveID,
@@ -63,7 +69,7 @@ export default function Rausvoten(props) {
       })
         .catch(console.error);
     } else {
-      alert("Teile diesen Link um Freunde einzuladen: https://fenske.app")
+      alert(`Teile diesen Link um Freunde einzuladen: https://fenske.app/invite/rausvoten/${gamedata.invitecode}`)
     }
   }
 
@@ -89,11 +95,13 @@ export default function Rausvoten(props) {
             }}
           >
           </StyledAppTitle>
-          <a href="#/" onClick={shareInvite}>Spieler einladen</a>
+          <a href="#/" onClick={shareInvite}>
+            <StyledShare thememode={thememode} apptheme={apptheme} size={20} />
+          </a>
           <PositionedButton className={props.className} onClick={goToVoting}>
             Ok hab alle
           </PositionedButton>
-
+            
           <GenerateMovieList
             gamename="Rausvoten"
             database="rausvoten-game"
@@ -166,3 +174,10 @@ const PositionedButton = styled(Button)`
   height: 3vh;
   font-size: ${(props) => props.theme.general.fontSizes.paragraph};
 `;
+
+const StyledShare = styled(Share)`
+  color: ${(props) => props.theme[props.thememode][props.apptheme].colors.button};
+  position: absolute;
+  top: 4%;
+  left: 0%;
+`
