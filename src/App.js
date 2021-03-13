@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import firebase, { getFirebaseCollectionFrom } from "./firebase";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import Mainmenu from "./routes/Mainmenu";
 import Welcome from "./routes/Welcome";
 import GlotztMenu from "./routes/glotzt/GlotztMenu";
@@ -152,6 +152,17 @@ function App(props) {
                     render={(props) =>
                       user.rausvotenActiveID ? (
                         <Rausvoten {...props} user={user} />
+                      ) : (
+                          <JoinFormGlotzt {...props} user={user} app={"glotzt"} />
+                        )
+                    }
+                  />
+                  <Route
+                    path="/invite/rausvoten/:invitecode"
+                    exact
+                    render={(props) =>
+                      user.rausvotenActiveID ? (
+                        <Redirect exact to="/glotzt/rausvoten" />
                       ) : (
                           <JoinFormGlotzt {...props} user={user} app={"glotzt"} />
                         )
