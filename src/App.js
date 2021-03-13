@@ -22,7 +22,7 @@ import { lightTheme, darkTheme } from "./style/theme";
 import { GlobalFonts } from "./fonts/GlobalFonts";
 import { createGlobalStyle } from "styled-components";
 import LogoutButton from "./components/LogoutButton";
-import { StylesProvider } from "@material-ui/core/styles";
+import { StylesProvider } from "material-ui/styles";
 
 let theme = lightTheme;
 let thememode = "light";
