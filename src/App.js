@@ -84,31 +84,26 @@ function App(props) {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalFonts />
-      <BrowserRouter>
-        <Switch>
-          <ThemeMode.Provider value={thememode}>
-            <Background />
-            {
-              //Damit eine leere Seite gezeigt wird, wenn der User noch nicht komplett übergeben wurde
-              // user = undefindet: nutzer ist angemeldet, aber die component hat den User noch nicht erhalten
-              // user = null: es ist kein User angemeldet
-            }
-            {user === undefined ? null : user ? (
-              <UserData.Provider value={user}>
-                <AppTheme.Provider value="mainmenu">
-                  <LogoutButton>Ausloggen</LogoutButton>
-                </AppTheme.Provider>
-                <AppTheme.Provider value="mainmenu">
-                  {
-                    //TODO: Falls DisplayName im auth() nicht vorhanden ist muss eine Abfrage zur manuellen Eingabe des Namens erstellt werden
-                  }
-                  <Route
-                    path="/"
-                    exact
-                    render={(props) =>
-                      user ? <Mainmenu {...props} /> : <Welcome {...props} />
+    <StylesProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <GlobalFonts />
+        <BrowserRouter>
+          <Switch>
+            <ThemeMode.Provider value={thememode}>
+              <Background />
+              {
+                //Damit eine leere Seite gezeigt wird, wenn der User noch nicht komplett übergeben wurde
+                // user = undefindet: nutzer ist angemeldet, aber die component hat den User noch nicht erhalten
+                // user = null: es ist kein User angemeldet
+              }
+              {user === undefined ? null : user ? (
+                <UserData.Provider value={user}>
+                  <AppTheme.Provider value="mainmenu">
+                    <LogoutButton>Ausloggen</LogoutButton>
+                  </AppTheme.Provider>
+                  <AppTheme.Provider value="mainmenu">
+                    {
+                      //TODO: Falls DisplayName im auth() nicht vorhanden ist muss eine Abfrage zur manuellen Eingabe des Namens erstellt werden
                     }
                   />
                 </AppTheme.Provider>
@@ -126,19 +121,29 @@ function App(props) {
                           <JoinFormPutzt {...props} user={user} app={"putzt"} />
                         )
                     }
-                  />
+                    <Route
+                      path="/putzt"
+                      exact
+                      render={(props) =>
+                        user.putztID ? (
+                          <Overview {...props} user={user} />
+                        ) : (
+                          <JoinFormPutzt {...props} user={user} app={"putzt"} />
+                        )
+                      }
+                    />
 
-                  <Route
-                    path="/putzt/:name"
-                    render={(props) => <MBView {...props} />}
-                  />
-                </AppTheme.Provider>
-                <AppTheme.Provider value="glotzt">
-                  <Route
-                    path="/glotzt"
-                    exact
-                    render={(props) => <GlotztMenu {...props} />}
-                  />
+                    <Route
+                      path="/putzt/:name"
+                      render={(props) => <MBView {...props} />}
+                    />
+                  </AppTheme.Provider>
+                  <AppTheme.Provider value="glotzt">
+                    <Route
+                      path="/glotzt"
+                      exact
+                      render={(props) => <GlotztMenu {...props} />}
+                    />
 
                   <Route
                     path="/glotzt/rausvoten"
@@ -153,11 +158,11 @@ function App(props) {
                     }
                   />
 
-                  <Route
-                    path="/glotzt/bepunktet"
-                    exact
-                    render={(props) => <Bepunktet {...props} />}
-                  />
+                    <Route
+                      path="/glotzt/bepunktet"
+                      exact
+                      render={(props) => <Bepunktet {...props} />}
+                    />
 
                   <Route
                     path="/glotzt/top100"
@@ -191,7 +196,9 @@ function App(props) {
         </Switch>
       </BrowserRouter>
     </ThemeProvider>
+    </StylesProvider>
   );
 }
+
 
 export default App;
