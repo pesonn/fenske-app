@@ -22,6 +22,7 @@ import { lightTheme, darkTheme } from "./style/theme";
 import { GlobalFonts } from "./fonts/GlobalFonts";
 import { createGlobalStyle } from "styled-components";
 import LogoutButton from "./components/LogoutButton";
+import { StylesProvider } from "@material-ui/core/styles";
 
 let theme = lightTheme;
 let thememode = "light";
@@ -105,22 +106,24 @@ function App(props) {
                     {
                       //TODO: Falls DisplayName im auth() nicht vorhanden ist muss eine Abfrage zur manuellen Eingabe des Namens erstellt werden
                     }
-                  />
-                </AppTheme.Provider>
-                <AppTheme.Provider value="putzt">
-                  {
-                    //TODO: Falls es die Gruppe in der Putzt-app nicht mehr gibt muss erneut auf JoinForm verwiesen werden
-                  }
-                  <Route
-                    path="/putzt"
-                    exact
-                    render={(props) =>
-                      user.putztID ? (
-                        <Overview {...props} user={user} />
-                      ) : (
+                    />
+                  </AppTheme.Provider>
+                  <AppTheme.Provider value="putzt">
+                    {
+                      //TODO: Falls es die Gruppe in der Putzt-app nicht mehr gibt muss erneut auf JoinForm verwiesen werden
+                    }
+                    <Route
+                      path="/putzt"
+                      exact
+                      render={(props) =>
+                        user.putztID ? (
+                          <Overview {...props} user={user} />
+                        ) : (
                           <JoinFormPutzt {...props} user={user} app={"putzt"} />
                         )
-                    }
+                      }
+                    />
+
                     <Route
                       path="/putzt"
                       exact
@@ -145,29 +148,37 @@ function App(props) {
                       render={(props) => <GlotztMenu {...props} />}
                     />
 
-                  <Route
-                    path="/glotzt/rausvoten"
-                    exact
-                    // old: render={(props) => <Rausvoten {...props} />}
-                    render={(props) =>
-                      user.rausvotenActiveID ? (
-                        <Rausvoten {...props} user={user} />
-                      ) : (
-                          <JoinFormGlotzt {...props} user={user} app={"glotzt"} />
+                    <Route
+                      path="/glotzt/rausvoten"
+                      exact
+                      // old: render={(props) => <Rausvoten {...props} />}
+                      render={(props) =>
+                        user.rausvotenActiveID ? (
+                          <Rausvoten {...props} user={user} />
+                        ) : (
+                          <JoinFormGlotzt
+                            {...props}
+                            user={user}
+                            app={"glotzt"}
+                          />
                         )
-                    }
-                  />
-                  <Route
-                    path="/invite/rausvoten/:invitecode"
-                    exact
-                    render={(props) =>
-                      user.rausvotenActiveID ? (
-                        <Redirect exact to="/glotzt/rausvoten" />
-                      ) : (
-                          <JoinFormGlotzt {...props} user={user} app={"glotzt"} />
+                      }
+                    />
+                    <Route
+                      path="/invite/rausvoten/:invitecode"
+                      exact
+                      render={(props) =>
+                        user.rausvotenActiveID ? (
+                          <Redirect exact to="/glotzt/rausvoten" />
+                        ) : (
+                          <JoinFormGlotzt
+                            {...props}
+                            user={user}
+                            app={"glotzt"}
+                          />
                         )
-                    }
-                  />
+                      }
+                    />
 
                     <Route
                       path="/glotzt/bepunktet"
@@ -175,41 +186,44 @@ function App(props) {
                       render={(props) => <Bepunktet {...props} />}
                     />
 
-                  <Route
-                    path="/glotzt/top100"
-                    exact
-                    render={(props) => <Top100 {...props} />}
-                  />
-                  <Route
-                    path="/Admin"
-                    exact
-                    render={(props) => (
-                      <Admin {...props} thememode="light" apptheme="glotzt" />
-                    )}
-                  />
-                </AppTheme.Provider>
-                <AppTheme.Provider value="mainmenu">
-                  <Route
-                    path="/Account-Settings"
-                    exact
-                    component={SetAccountSettings}
-                  />
-                  <Route path="/checklogin" exact component={CheckAfterLogin} />
-                </AppTheme.Provider>
-              </UserData.Provider>
-            ) : (
+                    <Route
+                      path="/glotzt/top100"
+                      exact
+                      render={(props) => <Top100 {...props} />}
+                    />
+                    <Route
+                      path="/Admin"
+                      exact
+                      render={(props) => (
+                        <Admin {...props} thememode="light" apptheme="glotzt" />
+                      )}
+                    />
+                  </AppTheme.Provider>
+                  <AppTheme.Provider value="mainmenu">
+                    <Route
+                      path="/Account-Settings"
+                      exact
+                      component={SetAccountSettings}
+                    />
+                    <Route
+                      path="/checklogin"
+                      exact
+                      component={CheckAfterLogin}
+                    />
+                  </AppTheme.Provider>
+                </UserData.Provider>
+              ) : (
                 <AppTheme.Provider value="mainmenu">
                   <Welcome {...props} />
                 </AppTheme.Provider>
               )}
-            <Route path="/Legals" exact component={Legals} />
-          </ThemeMode.Provider>
-        </Switch>
-      </BrowserRouter>
-    </ThemeProvider>
+              <Route path="/Legals" exact component={Legals} />
+            </ThemeMode.Provider>
+          </Switch>
+        </BrowserRouter>
+      </ThemeProvider>
     </StylesProvider>
   );
 }
-
 
 export default App;
