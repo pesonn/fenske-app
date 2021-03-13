@@ -5,7 +5,7 @@ import styled from "styled-components";
 import WelcomeName from "../../components/WelcomeName";
 import DisplayTask from "../../components/DisplayTask";
 import CompleteTask from "../../components/CompleteTask";
-import ShowGifOverlay from "../../components/ShowGifOverlay";
+//import ShowGifOverlay from "../../components/ShowGifOverlay";
 import { UserData } from "../../App";
 
 export default function MBViewNew(props) {
