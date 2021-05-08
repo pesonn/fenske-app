@@ -97,7 +97,6 @@ function App(props) {
                 // user = undefindet: nutzer ist angemeldet, aber die component hat den User noch nicht erhalten
                 // user = null: es ist kein User angemeldet
               }
-
               {user === undefined ? null : user ? (
                 <UserData.Provider value={user}>
                   <AppTheme.Provider value="mainmenu">
