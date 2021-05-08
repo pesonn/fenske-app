@@ -22,7 +22,7 @@ import { lightTheme, darkTheme } from "./style/theme";
 import { GlobalFonts } from "./fonts/GlobalFonts";
 import { createGlobalStyle } from "styled-components";
 import LogoutButton from "./components/LogoutButton";
-import { StylesProvider } from "material-ui/styles";
+import { StylesProvider } from "@material-ui/core/styles";
 
 let theme = lightTheme;
 let thememode = "light";
@@ -105,8 +105,8 @@ function App(props) {
                   <AppTheme.Provider value="mainmenu">
                     {
                       //TODO: Falls DisplayName im auth() nicht vorhanden ist muss eine Abfrage zur manuellen Eingabe des Namens erstellt werden
+                      <Mainmenu />
                     }
-                    />
                   </AppTheme.Provider>
                   <AppTheme.Provider value="putzt">
                     {
