@@ -106,25 +106,13 @@ function App(props) {
                   <AppTheme.Provider value="mainmenu">
                     {
                       //TODO: Falls DisplayName im auth() nicht vorhanden ist muss eine Abfrage zur manuellen Eingabe des Namens erstellt werden
-                      <Mainmenu />
+                      <Route path="/" exact render={<Mainmenu />} />
                     }
                   </AppTheme.Provider>
                   <AppTheme.Provider value="putzt">
                     {
                       //TODO: Falls es die Gruppe in der Putzt-app nicht mehr gibt muss erneut auf JoinForm verwiesen werden
                     }
-                    <Route
-                      path="/putzt"
-                      exact
-                      render={(props) =>
-                        user.putztID ? (
-                          <Overview {...props} user={user} />
-                        ) : (
-                          <JoinFormPutzt {...props} user={user} app={"putzt"} />
-                        )
-                      }
-                    />
-
                     <Route
                       path="/putzt"
                       exact
