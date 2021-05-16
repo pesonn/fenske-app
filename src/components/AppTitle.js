@@ -7,23 +7,23 @@ export default function AppTitle(props) {
   const apptheme = useContext(AppTheme);
 
   return (
-    <AppWrapper className={props.className}>
-      <AppName thememode={thememode} apptheme={apptheme}>
+    <TitleWrapper className={props.className}>
+      <TitleHeadline thememode={thememode} apptheme={apptheme}>
         {props.appdetails.name}
-      </AppName>
-      <AppDescription thememode={thememode} apptheme={apptheme}>
+      </TitleHeadline>
+      <TitleDescription thememode={thememode} apptheme={apptheme}>
         {props.appdetails.description}
-      </AppDescription>
-    </AppWrapper>
+      </TitleDescription>
+    </TitleWrapper>
   );
 }
-const AppWrapper = styled.div`
+const TitleWrapper = styled.div`
   width: 100%;
   text-align: left;
   margin-bottom: 8vh;
 `;
 
-const AppName = styled.h1`
+const TitleHeadline = styled.h1`
   font-family: ${(props) => props.theme.general.fontFamily.headline};
   font-size: ${(props) => props.theme.general.fontSizes.headline};
 
@@ -32,7 +32,7 @@ const AppName = styled.h1`
   width: 100%;
   margin-left: -3px;
 `;
-const AppDescription = styled.h2`
+const TitleDescription = styled.h2`
   font-family: ${(props) => props.theme.general.fontFamily.subline};
   font-size: ${(props) => props.theme.general.fontSizes.subline};
   color: ${(props) => props.theme[props.thememode].maincolors.text};
