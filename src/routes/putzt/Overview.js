@@ -85,8 +85,6 @@ export default function Overview(props) {
 const OverviewList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  width: 80vw;
-  margin-left: 10vw;
   padding: 8vh 0 0 0;
   min-height: 350px;
 `;

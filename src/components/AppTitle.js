@@ -21,6 +21,7 @@ const TitleWrapper = styled.div`
   width: 100%;
   text-align: left;
   margin-bottom: 8vh;
+  padding: 0 3%;
 `;
 
 const TitleHeadline = styled.h1`
