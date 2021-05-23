@@ -10,94 +10,67 @@ import {
   Menu,
   MenuItem,
 } from "@material-ui/core";
-import { HomeIcon, MenuIcon } from "@material-ui/icons";
+import { Home as HomeIcon, Menu as MenuIcon } from "@material-ui/icons";
+import MenuOverlay from "./MenuOverlay";
 
 NavBarMui.propTypes = {
-  list: PropTypes.arrayOf(
-    PropTypes.exact({ title: PropTypes.string, link: PropTypes.string }),
-  ).isRequired,
+  additionalMenuItems: PropTypes.arrayOf(
+    PropTypes.shape(MenuOverlay.propTypes),
+  ),
 };
 
 export default function NavBarMui(props) {
   const thememode = useContext(ThemeMode);
   const apptheme = useContext(AppTheme);
-  const height = use100vh();
-  const navHeight = height ? (height / 100) * 7 + "px" : "7vh";
-  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const [showMenuOverlay, setShowMenuOverlay] = useState(false);
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogOut = () => {
-    handleClose();
-    firebase.auth().signOut();
+  const toggleMenuOverlay = () => {
+    showMenuOverlay ? setShowMenuOverlay(false) : setShowMenuOverlay(true);
   };
 
   return (
-    <footer>
-      <StyledBottomNavigation showLabels component="nav" height={navHeight}>
-        <StyledBottomNavigationAction
-          label="Home"
-          icon={<HomeIcon />}
-          thememode={thememode}
-          apptheme={apptheme}
-        />
-        <StyledBottomNavigationAction
-          aria-controls="menu-overlay"
-          aria-haspopup="true"
-          label="Menu"
-          onClick={handleClick}
-          icon={<MenuIcon />}
-          thememode={thememode}
-          apptheme={apptheme}
-        />
-      </StyledBottomNavigation>
-      <StyledMenu
-        id="menu-overlay"
-        anchorEl={anchorEl}
-        onClick={handleClose}
-        open={Boolean(anchorEl)}>
-        {props.list.map((item) => (
-          <a href={item.link}>
-            <StyledMenuItem onClick={handleClose}>{item.title}</StyledMenuItem>
-          </a>
-        ))}
-        <StyledMenuItem onClick={handleLogOut}>Ausloggen</StyledMenuItem>
-      </StyledMenu>
-    </footer>
+    <>
+      {showMenuOverlay && (
+        <MenuOverlay additionalMenuItems={props.additionalMenuItems} />
+      )}
+      <StyledFooter>
+        <StyledBottomNavigation showLabels component="nav">
+          <StyledBottomNavigationAction
+            label="Home"
+            icon={<HomeIcon />}
+            thememode={thememode}
+            apptheme={apptheme}
+          />
+          <StyledBottomNavigationAction
+            aria-haspopup="true"
+            label="Menu"
+            onClick={toggleMenuOverlay}
+            icon={<MenuIcon />}
+            thememode={thememode}
+            apptheme={apptheme}
+          />
+        </StyledBottomNavigation>
+      </StyledFooter>
+    </>
   );
 }
 
+const StyledFooter = styled.footer`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+`;
+
 const StyledBottomNavigation = styled(BottomNavigation)`
-  width: 100vw;
-  height: ${(props) => props.height};
+  width: 100%;
+  height: 50px;
   justify-content: space-around;
 `;
 
 const StyledBottomNavigationAction = styled(BottomNavigationAction)`
   color: ${(props) =>
     props.theme[props.thememode][props.apptheme].colors.button};
-  &:focus {
-    outline: none;
-  }
-`;
-
-const StyledMenu = styled(Menu)`
-  &:focus {
-    outline: none;
-  }
-  & a {
-    color: inherit;
-    text-decoration: none;
-    font-size: inherit;
-  }
-`;
-const StyledMenuItem = styled(MenuItem)`
   &:focus {
     outline: none;
   }
