@@ -17,7 +17,7 @@ export default function MenuOverlay(props) {
           <StyledA href="/">Hauptmenü</StyledA>
         </StyledLI>
         <StyledLI>
-          <StyledA href="/Account-Settings">Account Einstellungen</StyledA>
+          <StyledA href="/settings/account">Account Einstellungen</StyledA>
         </StyledLI>
         {props.additionalMenuItems &&
           props.additionalMenuItems.map((item, index) => (

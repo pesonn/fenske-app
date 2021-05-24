@@ -23,6 +23,7 @@ import { GlobalFonts } from "./fonts/GlobalFonts";
 import { createGlobalStyle } from "styled-components";
 import LogoutButton from "./components/LogoutButton";
 import { StylesProvider } from "@material-ui/core/styles";
+import PutztSettings from "./routes/putzt/PutztSettings";
 
 let theme = lightTheme;
 let thememode = "light";
@@ -136,6 +137,12 @@ function App(props) {
                       path="/putzt/:name"
                       render={(props) => <MBView {...props} />}
                     />
+
+                    <Route
+                      path="/settings/putzt"
+                      exact
+                      render={(props) => <PutztSettings {...props} />}
+                    />
                   </AppTheme.Provider>
                   <AppTheme.Provider value="glotzt">
                     <Route
@@ -197,7 +204,7 @@ function App(props) {
                   </AppTheme.Provider>
                   <AppTheme.Provider value="mainmenu">
                     <Route
-                      path="/Account-Settings"
+                      path="/settings/account"
                       exact
                       component={SetAccountSettings}
                     />
