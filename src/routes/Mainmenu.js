@@ -4,12 +4,11 @@ import styled from "styled-components";
 import Button from "../components/Button";
 import AppTitle from "../components/AppTitle";
 import { ThemeMode, AppTheme } from "../App";
-import { Redirect } from "react-router-dom";
 
 export default function Mainmenu(props) {
+  const thememode = useContext(ThemeMode);
   const user = firebase.auth().currentUser;
 
-  const thememode = useContext(ThemeMode);
   return (
     <MenuWrapper>
       <StyledAppTitle
@@ -17,19 +16,18 @@ export default function Mainmenu(props) {
         appdetails={{
           name: "Fenske.app",
           description: "Was möchtest du machen?",
-        }}
-      ></StyledAppTitle>
+        }}></StyledAppTitle>
       <AppTheme.Provider value="putzt">
-        <a href="/putzt">
+        <StyledATag href="/putzt">
           <MenuButton thememode={thememode} user={user}>
             Putzt
           </MenuButton>
-        </a>
+        </StyledATag>
       </AppTheme.Provider>
       <AppTheme.Provider value="glotzt">
-        <a href="/glotzt">
+        <StyledATag href="/glotzt">
           <MenuButton thememode={thememode}>Glotzt</MenuButton>
-        </a>
+        </StyledATag>
       </AppTheme.Provider>
     </MenuWrapper>
   );
@@ -45,14 +43,17 @@ const MenuWrapper = styled.div`
   align-items: center;
   justify-content: space-around;
   height: 65vh;
-  width: 80vw;
-  margin-left: 10vw;
   padding: 5vh 0 0 0;
   min-height: 350px;
 `;
 
-const MenuButton = styled(Button)`
-  width: 45vh;
+const StyledATag = styled.a`
+  width: 80vw;
   height: 10vh;
+`;
+
+const MenuButton = styled(Button)`
+  width: 100%;
+  height: 100%;
   font-size: 2.8vh;
 `;
