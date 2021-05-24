@@ -10,8 +10,7 @@ export default function OverlayField(props) {
     <Wrapper
       thememode={thememode}
       apptheme={apptheme}
-      className={props.className}
-    >
+      className={props.className}>
       <SquareIcon>
         <ProviderWrapper>{props.children}</ProviderWrapper>
       </SquareIcon>
@@ -26,7 +25,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   padding-top: 0;
   background-color: ${(props) =>

@@ -41,8 +41,7 @@ export default function ProviderChoice(props) {
             database={props.database}
             activegameid={props.activegameid}
             moviename={props.moviename}
-            onClick={() => movieToDatabase(props.moviename, "Netflix")}
-          >
+            onClick={() => movieToDatabase(props.moviename, "Netflix")}>
             Netflix
           </NetflixButton>
           <AmazonButton
@@ -50,8 +49,7 @@ export default function ProviderChoice(props) {
             database={props.database}
             activegameid={props.activegameid}
             moviename={props.moviename}
-            onClick={() => movieToDatabase(props.moviename, "Amazon Prime")}
-          >
+            onClick={() => movieToDatabase(props.moviename, "Amazon Prime")}>
             Amazon Prime
           </AmazonButton>
           <DisneyButton
@@ -59,8 +57,7 @@ export default function ProviderChoice(props) {
             database={props.database}
             activegameid={props.activegameid}
             moviename={props.moviename}
-            onClick={() => movieToDatabase(props.moviename, "Disney+")}
-          >
+            onClick={() => movieToDatabase(props.moviename, "Disney+")}>
             Disney+
           </DisneyButton>
           <SkyGoButton
@@ -68,8 +65,7 @@ export default function ProviderChoice(props) {
             database={props.database}
             activegameid={props.activegameid}
             moviename={props.moviename}
-            onClick={() => movieToDatabase(props.moviename, "Sky Go")}
-          >
+            onClick={() => movieToDatabase(props.moviename, "Sky Go")}>
             Sky Go
           </SkyGoButton>
           <RegalButton
@@ -77,8 +73,7 @@ export default function ProviderChoice(props) {
             database={props.database}
             activegameid={props.activegameid}
             moviename={props.moviename}
-            onClick={() => movieToDatabase(props.moviename, "DVD Regal")}
-          >
+            onClick={() => movieToDatabase(props.moviename, "DVD Regal")}>
             DVD Regal
           </RegalButton>
         </ProviderWrapper>
@@ -94,7 +89,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   padding-top: 0;
   background-color: ${(props) =>
