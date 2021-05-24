@@ -51,9 +51,12 @@ const Background = createGlobalStyle`
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
-  
-  width: 100vw;
-  ${"" /* background: #f7f7f7; */}
+  width: 100%;
+  max-width: 768px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: ${(props) => props.theme[thememode].maincolors.background};
 }
 `;
@@ -106,7 +109,11 @@ function App(props) {
                   <AppTheme.Provider value="mainmenu">
                     {
                       //TODO: Falls DisplayName im auth() nicht vorhanden ist muss eine Abfrage zur manuellen Eingabe des Namens erstellt werden
-                      <Route path="/" exact render={<Mainmenu />} />
+                      <Route
+                        path="/"
+                        exact
+                        render={(props) => <Mainmenu {...props} />}
+                      />
                     }
                   </AppTheme.Provider>
                   <AppTheme.Provider value="putzt">
