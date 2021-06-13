@@ -31,7 +31,7 @@ export default function NavBarMui(props) {
       <StyledFooter>
         <StyledBottomNavigation showLabels component="nav">
           <StyledBottomNavigationAction
-            label="Home"
+            // label="Home"
             icon={<HomeIcon />}
             thememode={thememode}
             apptheme={apptheme}
@@ -39,7 +39,7 @@ export default function NavBarMui(props) {
           {props.children}
           <StyledBottomNavigationAction
             aria-haspopup="true"
-            label="Menu"
+            // label="Menu"
             onClick={toggleMenuOverlay}
             icon={<MenuIcon />}
             thememode={thememode}
