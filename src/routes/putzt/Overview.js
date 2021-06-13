@@ -6,6 +6,7 @@ import OverviewName from "../../components/OverviewName";
 import OverviewFirstDraw from "./OverviewFirstDraw";
 import AppTitle from "../../components/AppTitle";
 import { UserData } from "../../App";
+import Navbar from "../../core/Navbar";
 
 export const PutzplanGroupData = createContext();
 export const Putzplanung = createContext();
@@ -14,6 +15,13 @@ export default function Overview(props) {
   const [putzplanung, setPutzplanung] = useState([]);
   const [putzdata, setPutzdata] = useState({});
   const user = useContext(UserData);
+
+  const componentsMenuItems = [
+    {
+      title: "Putzplan Einstellungen",
+      link: "/settings/putzt",
+    },
+  ];
 
   const getPutztGroupData = () => {
     if (user) {
@@ -78,6 +86,7 @@ export default function Overview(props) {
           )}
         </Putzplanung.Provider>
       </PutzplanGroupData.Provider>
+      <Navbar additionalMenuItems={componentsMenuItems} />
     </>
   );
 }
