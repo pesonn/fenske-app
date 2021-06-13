@@ -23,7 +23,7 @@ import { GlobalFonts } from "./fonts/GlobalFonts";
 import { createGlobalStyle } from "styled-components";
 import LogoutButton from "./components/LogoutButton";
 import { StylesProvider } from "@material-ui/core/styles";
-import PutztSettings from "./routes/putzt/PutztSettings";
+import PutztSettings from "./routes/settings/putzt";
 
 let theme = lightTheme;
 let thememode = "light";
