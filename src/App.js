@@ -106,7 +106,11 @@ function App(props) {
                   <AppTheme.Provider value="mainmenu">
                     {
                       //TODO: Falls DisplayName im auth() nicht vorhanden ist muss eine Abfrage zur manuellen Eingabe des Namens erstellt werden
-                      <Mainmenu />
+                      <Route
+                        path="/"
+                        exact
+                        render={(props) => <Mainmenu {...props} />}
+                      />
                     }
                   </AppTheme.Provider>
                   <AppTheme.Provider value="putzt">
@@ -124,19 +128,6 @@ function App(props) {
                         )
                       }
                     />
-
-                    <Route
-                      path="/putzt"
-                      exact
-                      render={(props) =>
-                        user.putztID ? (
-                          <Overview {...props} user={user} />
-                        ) : (
-                          <JoinFormPutzt {...props} user={user} app={"putzt"} />
-                        )
-                      }
-                    />
-
                     <Route
                       path="/putzt/:name"
                       render={(props) => <MBView {...props} />}
