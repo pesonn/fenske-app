@@ -1,6 +1,14 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { ThemeMode, AppTheme } from "../App";
+
+AppTitle.propTypes = {
+  appdetails: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string,
+  }).isRequired,
+};
 
 export default function AppTitle(props) {
   const thememode = useContext(ThemeMode);
