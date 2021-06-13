@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as CheckedIcon } from "../svg-icons/checked.svg";
 
@@ -8,8 +8,7 @@ export default function Indicator(props) {
       return (
         <StyledCheckedIcon
           thememode={props.thememode}
-          apptheme={props.apptheme}
-        ></StyledCheckedIcon>
+          apptheme={props.apptheme}></StyledCheckedIcon>
       );
     } else {
       switch (room) {
@@ -17,6 +16,8 @@ export default function Indicator(props) {
           return "Bad";
         case "Bad 2":
           return "Bad";
+        case "Wohnen":
+          return room;
         default:
           return room;
       }
@@ -26,9 +27,13 @@ export default function Indicator(props) {
     <ButtonIndicator
       thememode={props.thememode}
       apptheme={props.apptheme}
-      mb={props.mb}
-    >
+      mb={props.mb}>
       {switchRoomNames(props.mb.room)}
+      {props.mb.room === "Wohnen" && (
+        <StyledSmallHint thememode={props.thememode} apptheme={props.apptheme}>
+          + Müll
+        </StyledSmallHint>
+      )}
     </ButtonIndicator>
   );
 }
@@ -57,4 +62,9 @@ const StyledCheckedIcon = styled(CheckedIcon)`
   margin-top: 0.5vh;
   width: 5.5vh;
   color: ${(props) => props.theme[props.thememode].maincolors.white};
+`;
+
+const StyledSmallHint = styled.small`
+  display: block;
+  font-size: ${(props) => props.theme.general.fontSizes.smallButton};
 `;
