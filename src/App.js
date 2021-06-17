@@ -68,7 +68,6 @@ function App(props) {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((u) => {
-      console.log(u);
       if (u) {
         getFirebaseCollectionFrom("users")
           .doc(u.uid)
