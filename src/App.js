@@ -20,7 +20,7 @@ import "./App.css";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./style/theme";
 import { GlobalFonts } from "./fonts/GlobalFonts";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import LogoutButton from "./components/LogoutButton";
 import { StylesProvider } from "@material-ui/core/styles";
 import PutztSettings from "./routes/settings/putzt";
@@ -68,7 +68,7 @@ export const AppTheme = createContext();
 export const UserData = createContext();
 
 //TODO: Seite für falschgeschriebene URL
-function App(props) {
+export default function App(props) {
   const [user, setUser] = useState();
 
   useEffect(() => {
@@ -91,147 +91,169 @@ function App(props) {
 
   return (
     <StylesProvider injectFirst>
-      <ThemeProvider theme={theme}>
-        <GlobalFonts />
-        <BrowserRouter>
-          <Switch>
-            <ThemeMode.Provider value={thememode}>
-              <Background />
-              {
-                //Damit eine leere Seite gezeigt wird, wenn der User noch nicht komplett übergeben wurde
-                // user = undefindet: nutzer ist angemeldet, aber die component hat den User noch nicht erhalten
-                // user = null: es ist kein User angemeldet
-              }
+      <GridLayout>
+        <ThemeProvider theme={theme}>
+          <GlobalFonts />
+          <StyledMain gridposition="main">
+            <BrowserRouter>
+              <Switch>
+                <ThemeMode.Provider value={thememode}>
+                  <Background />
+                  {
+                    //Damit eine leere Seite gezeigt wird, wenn der User noch nicht komplett übergeben wurde
+                    // user = undefindet: nutzer ist angemeldet, aber die component hat den User noch nicht erhalten
+                    // user = null: es ist kein User angemeldet
+                  }
 
-              {user === undefined ? null : user ? (
-                <UserData.Provider value={user}>
-                  <AppTheme.Provider value="mainmenu">
-                    <LogoutButton>Ausloggen</LogoutButton>
-                  </AppTheme.Provider>
-                  <AppTheme.Provider value="mainmenu">
-                    {
-                      //TODO: Falls DisplayName im auth() nicht vorhanden ist muss eine Abfrage zur manuellen Eingabe des Namens erstellt werden
-                      <Route
-                        path="/"
-                        exact
-                        render={(props) => <Mainmenu {...props} />}
-                      />
-                    }
-                  </AppTheme.Provider>
-                  <AppTheme.Provider value="putzt">
-                    {
-                      //TODO: Falls es die Gruppe in der Putzt-app nicht mehr gibt muss erneut auf JoinForm verwiesen werden
-                    }
-                    <Route
-                      path="/putzt"
-                      exact
-                      render={(props) =>
-                        user.putztID ? (
-                          <Overview {...props} user={user} />
-                        ) : (
-                          <JoinFormPutzt {...props} user={user} app={"putzt"} />
-                        )
-                      }
-                    />
-
-                    <Route
-                      path="/putzt/:name"
-                      render={(props) => <MBView {...props} />}
-                    />
-
-                    <Route
-                      path="/settings/putzt"
-                      exact
-                      render={(props) => <PutztSettings {...props} />}
-                    />
-                  </AppTheme.Provider>
-                  <AppTheme.Provider value="glotzt">
-                    <Route
-                      path="/glotzt"
-                      exact
-                      render={(props) => <GlotztMenu {...props} />}
-                    />
-
-                    <Route
-                      path="/glotzt/rausvoten"
-                      exact
-                      // old: render={(props) => <Rausvoten {...props} />}
-                      render={(props) =>
-                        user.rausvotenActiveID ? (
-                          <Rausvoten {...props} user={user} />
-                        ) : (
-                          <JoinFormGlotzt
-                            {...props}
-                            user={user}
-                            app={"glotzt"}
+                  {user === undefined ? null : user ? (
+                    <UserData.Provider value={user}>
+                      <AppTheme.Provider value="mainmenu">
+                        <LogoutButton>Ausloggen</LogoutButton>
+                      </AppTheme.Provider>
+                      <AppTheme.Provider value="mainmenu">
+                        {
+                          //TODO: Falls DisplayName im auth() nicht vorhanden ist muss eine Abfrage zur manuellen Eingabe des Namens erstellt werden
+                          <Route
+                            path="/"
+                            exact
+                            render={(props) => <Mainmenu {...props} />}
                           />
-                        )
-                      }
-                    />
-                    <Route
-                      path="/glotzt/invite/rausvoten/:invitecode"
-                      exact
-                      render={(props) =>
-                        user.rausvotenActiveID ? (
-                          <Redirect exact to="/glotzt/rausvoten" />
-                        ) : (
-                          <JoinFormGlotzt
-                            {...props}
-                            user={user}
-                            app={"glotzt"}
-                          />
-                        )
-                      }
-                    />
+                        }
+                      </AppTheme.Provider>
+                      <AppTheme.Provider value="putzt">
+                        {
+                          //TODO: Falls es die Gruppe in der Putzt-app nicht mehr gibt muss erneut auf JoinForm verwiesen werden
+                        }
+                        <Route
+                          path="/putzt"
+                          exact
+                          render={(props) =>
+                            user.putztID ? (
+                              <Overview {...props} user={user} />
+                            ) : (
+                              <JoinFormPutzt
+                                {...props}
+                                user={user}
+                                app={"putzt"}
+                              />
+                            )
+                          }
+                        />
 
-                    <Route
-                      path="/glotzt/bepunktet"
-                      exact
-                      render={(props) => <Bepunktet {...props} />}
-                    />
+                        <Route
+                          path="/putzt/:name"
+                          render={(props) => <MBView {...props} />}
+                        />
 
-                    <Route
-                      path="/glotzt/top100"
-                      exact
-                      render={(props) => <Top100 {...props} />}
-                    />
-                    <Route
-                      path="/Admin"
-                      exact
-                      render={(props) => (
-                        <Admin {...props} thememode="light" apptheme="glotzt" />
-                      )}
-                    />
-                  </AppTheme.Provider>
-                  <AppTheme.Provider value="mainmenu">
-                    <Route
-                      path="/settings/account"
-                      exact
-                      component={SetAccountSettings}
-                    />
-                    <Route
-                      path="/checklogin"
-                      exact
-                      component={CheckAfterLogin}
-                    />
-                  </AppTheme.Provider>
-                </UserData.Provider>
-              ) : (
-                <AppTheme.Provider value="mainmenu">
-                  <Welcome {...props} />
-                </AppTheme.Provider>
-              )}
-              <Route path="/Legals" exact component={Legals} />
-            </ThemeMode.Provider>
-          </Switch>
-        </BrowserRouter>
+                        <Route
+                          path="/settings/putzt"
+                          exact
+                          render={(props) => <PutztSettings {...props} />}
+                        />
+                      </AppTheme.Provider>
+                      <AppTheme.Provider value="glotzt">
+                        <Route
+                          path="/glotzt"
+                          exact
+                          render={(props) => <GlotztMenu {...props} />}
+                        />
 
-        <ThemeMode.Provider value={thememode}>
-          <Navbar thememode={thememode} />
-        </ThemeMode.Provider>
-      </ThemeProvider>
+                        <Route
+                          path="/glotzt/rausvoten"
+                          exact
+                          // old: render={(props) => <Rausvoten {...props} />}
+                          render={(props) =>
+                            user.rausvotenActiveID ? (
+                              <Rausvoten {...props} user={user} />
+                            ) : (
+                              <JoinFormGlotzt
+                                {...props}
+                                user={user}
+                                app={"glotzt"}
+                              />
+                            )
+                          }
+                        />
+                        <Route
+                          path="/glotzt/invite/rausvoten/:invitecode"
+                          exact
+                          render={(props) =>
+                            user.rausvotenActiveID ? (
+                              <Redirect exact to="/glotzt/rausvoten" />
+                            ) : (
+                              <JoinFormGlotzt
+                                {...props}
+                                user={user}
+                                app={"glotzt"}
+                              />
+                            )
+                          }
+                        />
+
+                        <Route
+                          path="/glotzt/bepunktet"
+                          exact
+                          render={(props) => <Bepunktet {...props} />}
+                        />
+
+                        <Route
+                          path="/glotzt/top100"
+                          exact
+                          render={(props) => <Top100 {...props} />}
+                        />
+                        <Route
+                          path="/Admin"
+                          exact
+                          render={(props) => (
+                            <Admin
+                              {...props}
+                              thememode="light"
+                              apptheme="glotzt"
+                            />
+                          )}
+                        />
+                      </AppTheme.Provider>
+                      <AppTheme.Provider value="mainmenu">
+                        <Route
+                          path="/settings/account"
+                          exact
+                          component={SetAccountSettings}
+                        />
+                        <Route
+                          path="/checklogin"
+                          exact
+                          component={CheckAfterLogin}
+                        />
+                      </AppTheme.Provider>
+                    </UserData.Provider>
+                  ) : (
+                    <AppTheme.Provider value="mainmenu">
+                      <Welcome {...props} />
+                    </AppTheme.Provider>
+                  )}
+                  <Route path="/Legals" exact component={Legals} />
+                </ThemeMode.Provider>
+              </Switch>
+            </BrowserRouter>
+          </StyledMain>
+          <ThemeMode.Provider value={thememode}>
+            <Navbar thememode={thememode} gridposition="navbar" />
+          </ThemeMode.Provider>
+        </ThemeProvider>
+      </GridLayout>
     </StylesProvider>
   );
 }
 
-export default App;
+const GridLayout = styled.div`
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  grid-template-areas:
+    "main"
+    "navbar";
+`;
+
+const StyledMain = styled.main`
+  grid-area: ${(props) => props.gridposition};
+`;
