@@ -117,7 +117,6 @@ const OverviewList = styled.div`
   justify-content: top;
   width: 80vw;
   height: 80vh;
-  margin-left: 10vw;
   padding: 8vh 0 0 0;
   min-height: 350px;
 `;

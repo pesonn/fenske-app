@@ -16,8 +16,7 @@ export default function GlotztMenu(props) {
         appdetails={{
           name: "Fenske glotzt!",
           description: "Wähle einen Modus aus!",
-        }}
-      ></StyledAppTitle>
+        }}></StyledAppTitle>
       <a href="/glotzt/rausvoten">
         <MenuButton thememode={thememode} apptheme={apptheme}>
           Rausvoten
@@ -30,8 +29,7 @@ export default function GlotztMenu(props) {
         appdetails={{
           name: "coming soon",
           description: "",
-        }}
-      ></StyledAppTitleCOMINGSOON>
+        }}></StyledAppTitleCOMINGSOON>
       {/* <a href="/glotzt/bepunktet"> */}
       <MenuButtonCOMINGSOON thememode={thememode} apptheme={apptheme}>
         Bepunktet
@@ -66,7 +64,6 @@ const MenuWrapper = styled.div`
   justify-content: space-around;
   height: 65vh;
   width: 80vw;
-  margin-left: 10vw;
   padding: 5vh 0 0 0;
   min-height: 350px;
 `;

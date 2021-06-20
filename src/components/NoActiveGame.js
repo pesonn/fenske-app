@@ -8,8 +8,7 @@ export default function NoActiveGame(props) {
     <MenuWrapper>
       <StyledAppTitle
         className={props.className}
-        appdetails={props.appdetails}
-      ></StyledAppTitle>
+        appdetails={props.appdetails}></StyledAppTitle>
       <Button className={props.className} onClick={props.setgameup}>
         Wir woll'n jez was GlOtZen!
       </Button>
@@ -24,7 +23,6 @@ const MenuWrapper = styled.div`
   justify-content: space-around;
   height: 8vh;
   width: 80vw;
-  margin-left: 10vw;
   padding: 0vh 0 0 0;
   min-height: 300px;
 `;

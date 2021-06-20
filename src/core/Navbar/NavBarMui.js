@@ -43,36 +43,36 @@ export default function NavBarMui(props) {
   setAppSpecificMenu();
 
   return (
-    <Layout showMenuOverlay={showMenuOverlay}>
+    <LayoutFooter
+      showMenuOverlay={showMenuOverlay}
+      gridposition={props.gridposition}>
       {showMenuOverlay && (
         <MenuOverlay additionalMenuItems={additionalMenuItems} />
       )}
-      {console.log(pathname)}
-      {console.log(thememode)}
-      <StyledFooter>
-        <StyledBottomNavigation showLabels component="nav">
-          <StyledBottomNavigationAction
-            thememode={thememode}
-            appthememode={appthememode}
-            // label="Home"
-            icon={<HomeIcon />}
-          />
-          {props.children}
-          <StyledBottomNavigationAction
-            thememode={thememode}
-            appthememode={appthememode}
-            aria-haspopup="true"
-            // label="Menu"
-            onClick={toggleMenuOverlay}
-            icon={<MenuIcon />}
-          />
-        </StyledBottomNavigation>
-      </StyledFooter>
-    </Layout>
+      <StyledBottomNavigation showLabels component="nav">
+        <StyledBottomNavigationAction
+          thememode={thememode}
+          appthememode={appthememode}
+          // label="Home"
+          icon={<HomeIcon />}
+        />
+        {props.children}
+        <StyledBottomNavigationAction
+          thememode={thememode}
+          appthememode={appthememode}
+          aria-haspopup="true"
+          // label="Menu"
+          onClick={toggleMenuOverlay}
+          icon={<MenuIcon />}
+        />
+      </StyledBottomNavigation>
+    </LayoutFooter>
   );
 }
 
-const Layout = styled.div`
+const LayoutFooter = styled.footer`
+  grid-area: ${(props) => props.gridposition};
+  align-self: end;
   display: flex;
   ${(props) =>
     props.showMenuOverlay &&
@@ -83,13 +83,10 @@ const Layout = styled.div`
     width: 100%;
   `}
 `;
-const StyledFooter = styled.footer`
-  position: fixed;
-  bottom: env(safe-area-inset-bottom);
-  width: 100%;
-`;
 
 const StyledBottomNavigation = styled(BottomNavigation)`
+  margin-bottom: env(safe-area-inset-bottom);
+  width: 100%;
   width: 100%;
   height: 50px;
   justify-content: space-around;

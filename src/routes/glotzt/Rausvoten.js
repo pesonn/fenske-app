@@ -10,9 +10,9 @@ import GenerateMovieList from "../../components/GenerateMovieList";
 import AddToMovielist from "../../components/AddToMovielist";
 import Div100vh from "react-div-100vh";
 import { UserData } from "../../App";
-import { Share } from "react-bootstrap-icons"
+import { Share } from "react-bootstrap-icons";
 import { ThemeMode, AppTheme } from "../../App";
-import Alert from "react-bootstrap/Alert"
+import Alert from "react-bootstrap/Alert";
 
 export default function Rausvoten(props) {
   const thememode = useContext(ThemeMode);
@@ -25,7 +25,7 @@ export default function Rausvoten(props) {
     showdeletebutton: true,
     isVoting: false,
   });
-  const [gamedata, setGamedata] = useState({})
+  const [gamedata, setGamedata] = useState({});
 
   const goToVoting = () => {
     setActiveGame({
@@ -41,38 +41,42 @@ export default function Rausvoten(props) {
       active: false,
     });
     getFirebaseCollectionFrom("users").doc(user.userid).update({
-      rausvotenActiveID: ""
-    })
+      rausvotenActiveID: "",
+    });
   };
 
   const getGameData = () => {
-    getFirebaseCollectionFrom("rausvoten-game").doc(activeGame.dbid)
+    getFirebaseCollectionFrom("rausvoten-game")
+      .doc(activeGame.dbid)
       .onSnapshot((snapshot) => {
         setGamedata({
           ...snapshot.data(),
         });
       });
-  }
+  };
 
   useEffect(() => {
-    getGameData()
-  }, [])
+    getGameData();
+  }, []);
 
   const shareInvite = () => {
-    let website = window.location.hostname
+    let website = window.location.hostname;
     if (navigator.canShare) {
-      navigator.share({
-        text: "Tritt meinem Rausvoten Spiel in der fenske.app bei",
-        url: `https://${window.location.hostname}/invite/rausvoten/${gamedata.invitecode}`,
-      }).then(() => {
-        console.log('Thanks for sharing!');
-      })
+      navigator
+        .share({
+          text: "Tritt meinem Rausvoten Spiel in der fenske.app bei",
+          url: `https://${window.location.hostname}/invite/rausvoten/${gamedata.invitecode}`,
+        })
+        .then(() => {
+          console.log("Thanks for sharing!");
+        })
         .catch(console.error);
     } else {
-      alert(`Teile diesen Link um Freunde einzuladen: https://${window.location.hostname}/invite/rausvoten/${gamedata.invitecode}`)
+      alert(
+        `Teile diesen Link um Freunde einzuladen: https://${window.location.hostname}/invite/rausvoten/${gamedata.invitecode}`,
+      );
     }
-  }
-
+  };
 
   return (
     <>
@@ -92,16 +96,14 @@ export default function Rausvoten(props) {
             appdetails={{
               name: "Rausvoten",
               description: "Welche Filme möchtest du heute sehen?",
-            }}
-          >
-          </StyledAppTitle>
+            }}></StyledAppTitle>
           <a href="#/" onClick={shareInvite}>
             <StyledShare thememode={thememode} apptheme={apptheme} size={20} />
           </a>
           <PositionedButton className={props.className} onClick={goToVoting}>
             Ok hab alle
           </PositionedButton>
-            
+
           <GenerateMovieList
             gamename="Rausvoten"
             database="rausvoten-game"
@@ -160,7 +162,6 @@ const FullvhMenuWrapper = styled(Div100vh)`
   align-content: flex-start;
   justify-content: center;
   width: 80vw;
-  margin-left: 10vw;
   padding: 0vh 0 0 0;
   min-height: 300px;
   overflow: hidden;
@@ -176,8 +177,9 @@ const PositionedButton = styled(Button)`
 `;
 
 const StyledShare = styled(Share)`
-  color: ${(props) => props.theme[props.thememode][props.apptheme].colors.button};
+  color: ${(props) =>
+    props.theme[props.thememode][props.apptheme].colors.button};
   position: absolute;
   top: 4%;
   left: 0%;
-`
+`;

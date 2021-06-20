@@ -27,7 +27,6 @@ const MenuWrapper = styled.div`
   justify-content: center;
   height: 65vh;
   width: 80vw;
-  margin-left: 10vw;
   padding: 0vh 0 0 0;
   min-height: 350px;
 `;

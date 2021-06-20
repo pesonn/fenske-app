@@ -111,8 +111,7 @@ export default function SetAccountSettings(props) {
               type="text"
               value={userdata.name}
               onChange={handleNameChange}
-              placeholder={userdata.name}
-            ></StyledInput>
+              placeholder={userdata.name}></StyledInput>
             <StyledLabel thememode={thememode} apptheme={apptheme}>
               E-Mail Adresse
             </StyledLabel>
@@ -127,8 +126,7 @@ export default function SetAccountSettings(props) {
                 type="text"
                 value={userdata.email}
                 onChange={handleEmailChange}
-                placeholder={userdata.email}
-              ></StyledInput>
+                placeholder={userdata.email}></StyledInput>
             )}
           </>
         ) : null}
@@ -136,8 +134,7 @@ export default function SetAccountSettings(props) {
           className={props.className}
           type={"button"}
           onClick={updateAuthenticationProfile}
-          inactive={false}
-        >
+          inactive={false}>
           Speichern
         </Button>
       </MenuWrapper>
@@ -152,7 +149,6 @@ const MenuWrapper = styled.div`
   justify-content: top;
   height: 65vh;
   width: 80vw;
-  margin-left: 10vw;
   padding: 5vh 0 0 0;
   min-height: 350px;
 `;
@@ -200,8 +196,10 @@ const StyledNoInput = styled.p`
 `;
 
 const StyledButton = styled(Button)`
-  ${"" /* width: 11vh;
-  height: 33px; */}
+  ${
+    "" /* width: 11vh;
+  height: 33px; */
+  }
   ${"" /* font-size: ${(props) => props.theme.general.fontSizes.paragraph}; */}
   ${
     "" /* color: ${(props) => props.theme[props.thememode].maincolors.black}; */

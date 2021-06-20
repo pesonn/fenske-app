@@ -31,11 +31,13 @@ export default function JoinFormGlotzt(props) {
       <AppTitle
         appdetails={{
           name: "",
-          description:
-            "Gib hier den Invitecode um einem Spiel beizutreten",
+          description: "Gib hier den Invitecode um einem Spiel beizutreten",
         }}
       />
-      <InputField cloudFunction={"setRausvotenIDForUser"} invitecode={invitecode}/>
+      <InputField
+        cloudFunction={"setRausvotenIDForUser"}
+        invitecode={invitecode}
+      />
       <AppTitle
         appdetails={{
           name: "",
@@ -46,10 +48,9 @@ export default function JoinFormGlotzt(props) {
       <StyledButton
         type={"button"}
         className={props.className}
-        onClick={createNewRausvotengame}
-      >
+        onClick={createNewRausvotengame}>
         neues Spiel erstellen
-       </StyledButton>
+      </StyledButton>
     </MenuWrapper>
   );
 }
@@ -61,7 +62,6 @@ const MenuWrapper = styled.div`
   justify-content: center;
   height: 65vh;
   width: 80vw;
-  margin-left: 10vw;
   padding: 0vh 0 0 0;
   min-height: 350px;
 `;

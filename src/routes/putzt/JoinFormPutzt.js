@@ -43,10 +43,9 @@ export default function JoinFormPutzt(props) {
       <StyledButton
         type={"button"}
         className={props.className}
-        onClick={createNewPutzgroup}
-      >
+        onClick={createNewPutzgroup}>
         Putzgruppe erstellen
-       </StyledButton>
+      </StyledButton>
     </MenuWrapper>
   );
 }
@@ -58,7 +57,6 @@ const MenuWrapper = styled.div`
   justify-content: center;
   height: 65vh;
   width: 80vw;
-  margin-left: 10vw;
   padding: 0vh 0 0 0;
   min-height: 350px;
 `;
