@@ -87,7 +87,7 @@ function App(props) {
     <StylesProvider injectFirst>
       <ThemeProvider theme={theme}>
         <GlobalFonts />
-        <BrowserRouter>
+        <BrowserRouter basename="/">
           <Switch>
             <ThemeMode.Provider value={thememode}>
               <Background />
