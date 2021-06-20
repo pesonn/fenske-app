@@ -4,20 +4,8 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import AppTitle from "../components/AppTitle";
 import Button from "../components/Button";
 import { UserData } from "../App";
-import NavBar from "../core/Navbar";
 
 export default function Admin(props) {
-  const componentsMenuItems = [
-    {
-      title: "Putzt",
-      link: "/putzt",
-    },
-    {
-      title: "Glotzt",
-      link: "/glotzt",
-    },
-  ];
-
   return (
     <>
       <AppTitle
@@ -26,7 +14,6 @@ export default function Admin(props) {
           description:
             "Dieser Bereich wird zum Testen während der Entwicklung verwendet.",
         }}></AppTitle>
-      <NavBar additionalMenuItems={componentsMenuItems} />
     </>
   );
 }
