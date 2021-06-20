@@ -39,17 +39,17 @@ const StyledAppTitle = styled(AppTitle)`
 
 const MenuWrapper = styled.div`
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   align-items: center;
   justify-content: space-around;
-  height: 65vh;
   padding: 5vh 0 0 0;
   min-height: 350px;
 `;
 
 const StyledATag = styled.a`
-  width: 80vw;
+  width: 80%;
   height: 10vh;
+  margin-bottom: 2vh;
 `;
 
 const MenuButton = styled(Button)`

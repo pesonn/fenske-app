@@ -91,7 +91,7 @@ export default function App(props) {
 
   return (
     <StylesProvider injectFirst>
-      <GridLayout>
+      <FlexLayout>
         <ThemeProvider theme={theme}>
           <GlobalFonts />
           <StyledMain gridposition="main">
@@ -240,20 +240,22 @@ export default function App(props) {
             <Navbar thememode={thememode} gridposition="navbar" />
           </ThemeMode.Provider>
         </ThemeProvider>
-      </GridLayout>
+      </FlexLayout>
     </StylesProvider>
   );
 }
 
-const GridLayout = styled.div`
+const FlexLayout = styled.div`
   height: 100vh;
-  display: grid;
-  grid-template-rows: 2fr 1fr;
-  grid-template-areas:
-    "main"
-    "navbar";
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding-bottom: env(safe-area-inset-bottom);
 `;
 
 const StyledMain = styled.main`
-  grid-area: ${(props) => props.gridposition};
+  overflow: auto;
+  flex-grow: 1;
+  flex-shrink: 1;
 `;

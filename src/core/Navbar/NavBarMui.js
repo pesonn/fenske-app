@@ -71,8 +71,6 @@ export default function NavBarMui(props) {
 }
 
 const LayoutFooter = styled.footer`
-  grid-area: ${(props) => props.gridposition};
-  align-self: end;
   display: flex;
   ${(props) =>
     props.showMenuOverlay &&
@@ -85,7 +83,6 @@ const LayoutFooter = styled.footer`
 `;
 
 const StyledBottomNavigation = styled(BottomNavigation)`
-  margin-bottom: env(safe-area-inset-bottom);
   width: 100%;
   width: 100%;
   height: 50px;
