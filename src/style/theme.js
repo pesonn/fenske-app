@@ -1,5 +1,8 @@
 export const lightTheme = {
   general: {
+    responsiveSize: {
+      small: "768px",
+    },
     fontFamily: {
       headline: "SourceSansBold",
       subline: "SourceSansSemi",
