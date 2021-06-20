@@ -256,6 +256,7 @@ const FlexLayout = styled.div`
 `;
 
 const StyledMain = styled.main`
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   flex-grow: 1;
 `;
