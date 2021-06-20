@@ -24,6 +24,7 @@ import { createGlobalStyle } from "styled-components";
 import LogoutButton from "./components/LogoutButton";
 import { StylesProvider } from "@material-ui/core/styles";
 import PutztSettings from "./routes/settings/putzt";
+import Navbar from "./core/Navbar";
 
 let theme = lightTheme;
 let thememode = "light";
@@ -168,7 +169,7 @@ function App(props) {
                       }
                     />
                     <Route
-                      path="/invite/rausvoten/:invitecode"
+                      path="/glotzt/invite/rausvoten/:invitecode"
                       exact
                       render={(props) =>
                         user.rausvotenActiveID ? (
@@ -224,6 +225,10 @@ function App(props) {
             </ThemeMode.Provider>
           </Switch>
         </BrowserRouter>
+
+        <ThemeMode.Provider value={thememode}>
+          <Navbar thememode={thememode} />
+        </ThemeMode.Provider>
       </ThemeProvider>
     </StylesProvider>
   );

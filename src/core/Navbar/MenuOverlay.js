@@ -36,11 +36,10 @@ export default function MenuOverlay(props) {
 }
 
 const StyledMenuWrapper = styled.div`
-  position: absolute;
-  top: 0;
   height: 100%;
   width: 100%;
   background: #e9e9e9;
+  overflow: scroll;
 `;
 
 const StyledUL = styled.ul``;

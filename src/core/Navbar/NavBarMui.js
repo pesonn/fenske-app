@@ -1,59 +1,91 @@
 import React, { useState, useContext } from "react";
 import styled from "styled-components";
-import { ThemeMode, AppTheme } from "../../App";
-import PropTypes from "prop-types";
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
 import { Home as HomeIcon, Menu as MenuIcon } from "@material-ui/icons";
+import { ThemeMode } from "../../App";
 import MenuOverlay from "./MenuOverlay";
 
-NavBarMui.propTypes = {
-  additionalMenuItems: PropTypes.arrayOf(
-    PropTypes.shape(MenuOverlay.propTypes),
-  ),
-  additionalNavItem: PropTypes.elementType,
-};
-
 export default function NavBarMui(props) {
-  const thememode = useContext(ThemeMode);
-  const apptheme = useContext(AppTheme);
-
   const [showMenuOverlay, setShowMenuOverlay] = useState(false);
+  const thememode = useContext(ThemeMode);
+  let appthememode = "mainmenu";
+
+  let putztMenuItems = [
+    {
+      title: "Putzplan Einstellungen",
+      link: "/putzt",
+    },
+  ];
+
+  let glotztMenuItems = [
+    {
+      title: "Glotzt Einstellungen",
+      link: "/glotzt",
+    },
+  ];
 
   const toggleMenuOverlay = () => {
     showMenuOverlay ? setShowMenuOverlay(false) : setShowMenuOverlay(true);
   };
 
+  let pathname = window.location.pathname;
+  let additionalMenuItems = [];
+  const setAppSpecificMenu = () => {
+    if (pathname.includes("/putzt")) {
+      additionalMenuItems = putztMenuItems;
+      appthememode = "putzt";
+    } else if (pathname.includes("/glotzt")) {
+      additionalMenuItems = glotztMenuItems;
+      appthememode = "glotzt";
+    }
+  };
+
+  setAppSpecificMenu();
+
   return (
-    <>
+    <Layout showMenuOverlay={showMenuOverlay}>
       {showMenuOverlay && (
-        <MenuOverlay additionalMenuItems={props.additionalMenuItems} />
+        <MenuOverlay additionalMenuItems={additionalMenuItems} />
       )}
+      {console.log(pathname)}
+      {console.log(thememode)}
       <StyledFooter>
         <StyledBottomNavigation showLabels component="nav">
           <StyledBottomNavigationAction
+            thememode={thememode}
+            appthememode={appthememode}
             // label="Home"
             icon={<HomeIcon />}
-            thememode={thememode}
-            apptheme={apptheme}
           />
           {props.children}
           <StyledBottomNavigationAction
+            thememode={thememode}
+            appthememode={appthememode}
             aria-haspopup="true"
             // label="Menu"
             onClick={toggleMenuOverlay}
             icon={<MenuIcon />}
-            thememode={thememode}
-            apptheme={apptheme}
           />
         </StyledBottomNavigation>
       </StyledFooter>
-    </>
+    </Layout>
   );
 }
 
+const Layout = styled.div`
+  display: flex;
+  ${(props) =>
+    props.showMenuOverlay &&
+    `
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+  `}
+`;
 const StyledFooter = styled.footer`
   position: fixed;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   width: 100%;
 `;
 
@@ -65,7 +97,7 @@ const StyledBottomNavigation = styled(BottomNavigation)`
 
 const StyledBottomNavigationAction = styled(BottomNavigationAction)`
   color: ${(props) =>
-    props.theme[props.thememode][props.apptheme].colors.button};
+    props.theme[props.thememode][props.appthememode].colors.button};
   &:focus {
     outline: none;
   }
