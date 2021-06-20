@@ -252,10 +252,10 @@ const FlexLayout = styled.div`
   flex-wrap: nowrap;
   justify-content: space-between;
   padding-bottom: env(safe-area-inset-bottom);
+  margin-bottom: -50px;
 `;
 
 const StyledMain = styled.main`
   overflow: auto;
   flex-grow: 1;
-  flex-shrink: 1;
 `;

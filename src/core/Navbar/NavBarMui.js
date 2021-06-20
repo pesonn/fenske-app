@@ -71,7 +71,6 @@ export default function NavBarMui(props) {
 }
 
 const LayoutFooter = styled.footer`
-  display: flex;
   ${(props) =>
     props.showMenuOverlay &&
     `
@@ -79,13 +78,18 @@ const LayoutFooter = styled.footer`
     top: 0;
     height: 100vh;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding-bottom: env(safe-area-inset-bottom);
+    margin-bottom: -50px;
   `}
 `;
 
 const StyledBottomNavigation = styled(BottomNavigation)`
   width: 100%;
-  width: 100%;
-  height: 50px;
+  height: 55px;
   justify-content: space-around;
 `;
 
